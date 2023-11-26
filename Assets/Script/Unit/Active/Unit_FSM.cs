@@ -57,30 +57,59 @@ public class Unit_FSM : MonoBehaviour
 
     private void Idle()
     {
-
+        agent.isStopped = true;
     }
     private void GoToFortress()
     {
-
+        agent.isStopped = false;
     }
     private void GoToCastle()
     {
-
+        agent.isStopped = false;
     }
     private void AttackFortress()
     {
-
+        agent.isStopped = false;
     }
     private void AttackCastle()
     {
-
+        agent.isStopped = false;
     }
     private void ChaseEnemy()
     {
+        agent.isStopped = false;
+        if (sightSensor.detectedObject == null)
+        {
+            currentState = UnitState.GoToFortress; //나중에 성,성루 확인해서 고쳐야함
+            return;
+        }
+        agent.SetDestination(sightSensor.detectedObject.transform.position);
+        float distanceToPlayer = Vector3.Distance(transform.position, sightSensor.detectedObject.transform.position);
+        if (distanceToPlayer <= playerAttackDistance)
+        {
+            currentState = UnitState.AttackEnemy;
+        }
 
+        //애니메이션 업데이트
     }
     private void AttackEnemy()
     {
-        
+        agent.isStopped = false;
+
+        if (sightSensor.detectedObject == null)
+        {
+            currentState = UnitState.GoToFortress; //나중에 성,성루 확인해서 고쳐야함
+            return;
+        }
+
+        float distanceToPlayer = Vector3.Distance(transform.position, sightSensor.detectedObject.transform.position);
+
+        if (distanceToPlayer > playerAttackDistance * 1.1f)
+        {
+            currentState = UnitState.ChaseEnemy;
+        }
+
+
+        // 애니메이션 업데이트
     }
 }
