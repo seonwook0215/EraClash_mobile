@@ -535,7 +535,7 @@ MonoBehaviour:
   radius: 0
   layer:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 0
   enemis: []
   target: {fileID: 0}
   enemy_inrange: 0
