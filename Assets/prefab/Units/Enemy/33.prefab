@@ -363,12 +363,12 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 339769e19d1a3974a93f5fcdbe9fa01f,
         type: 3}
       propertyPath: m_Name
-      value: Enemy Archer
+      value: 33
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 339769e19d1a3974a93f5fcdbe9fa01f,
         type: 3}
       propertyPath: m_Layer
-      value: 9
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 339769e19d1a3974a93f5fcdbe9fa01f,
         type: 3}
@@ -395,7 +395,8 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 1df3b9f55da40a444b9a631eec915e89, type: 2}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5866666021909216657, guid: 339769e19d1a3974a93f5fcdbe9fa01f, type: 3}
     m_RemovedGameObjects:
     - {fileID: 4936884950917866777, guid: 339769e19d1a3974a93f5fcdbe9fa01f, type: 3}
     - {fileID: -8294293509141519270, guid: 339769e19d1a3974a93f5fcdbe9fa01f, type: 3}
@@ -416,35 +417,11 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 339769e19d1a3974a93f5fcdbe9fa01f,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: -3854696405384445348}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 339769e19d1a3974a93f5fcdbe9fa01f,
-        type: 3}
-      insertIndex: -1
       addedObject: {fileID: 5737789897592283711}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 339769e19d1a3974a93f5fcdbe9fa01f,
         type: 3}
       insertIndex: -1
       addedObject: {fileID: -4891204246429375024}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 339769e19d1a3974a93f5fcdbe9fa01f,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 5052460983672520360}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 339769e19d1a3974a93f5fcdbe9fa01f,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: -1640508063803282895}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 339769e19d1a3974a93f5fcdbe9fa01f,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: -2151646566973120769}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 339769e19d1a3974a93f5fcdbe9fa01f,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2684963005736976062}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 339769e19d1a3974a93f5fcdbe9fa01f,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: -427671356017852947}
   m_SourcePrefab: {fileID: 100100000, guid: 339769e19d1a3974a93f5fcdbe9fa01f, type: 3}
 --- !u!4 &3127352220207058900 stripped
 Transform:
@@ -458,25 +435,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 6841374044040936699}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &-3854696405384445348
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5922260601617121706}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 761af402aa7c7a3408dbec539e400c7d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  distance: 15
-  damage: 30
-  atk: 1
-  attackaudioSource: {fileID: 8786220672654356898}
-  hurtaudioSource: {fileID: 4609670699551017266}
-  attack_clip: {fileID: 8300000, guid: 5327c5b1179ffab4397a2876a89291f0, type: 3}
-  hurt_clip: {fileID: 8300000, guid: a5531052b454270499c718213c3357da, type: 3}
 --- !u!135 &5737789897592283711
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -525,80 +483,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!114 &5052460983672520360
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5922260601617121706}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69458a849d4ead9498cf2ba89f904b70, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 0
-  forward: {x: 0, y: 0, z: 0}
---- !u!114 &-1640508063803282895
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5922260601617121706}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc4a9a1d77da98648aacdd3644bf90b8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  amount: 200
---- !u!114 &-2151646566973120769
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5922260601617121706}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: adc78294acbd0f9409b041f480b3a0d6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  radius: 0
-  layer:
-    serializedVersion: 2
-    m_Bits: 0
-  enemis: []
-  target: {fileID: 0}
-  enemy_inrange: 0
-  angle: 45
-  distance: 3
---- !u!114 &2684963005736976062
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5922260601617121706}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: abeed9c5be9f4a144b2de9c831c846e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  prefab: {fileID: 626424037158238295, guid: fe39b64715f8b2c4ab8c989570c6614c, type: 3}
-  shootpoint: {fileID: 3082904831402567531}
---- !u!114 &-427671356017852947
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5922260601617121706}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 393837d3d0c724a4a8c10c71da527ef9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &6447967259739446032 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 339769e19d1a3974a93f5fcdbe9fa01f,
