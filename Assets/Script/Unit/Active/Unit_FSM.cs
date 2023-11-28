@@ -10,6 +10,7 @@ public class Unit_FSM : MonoBehaviour
     public enum UnitState { Idle, GoToFortress, GoToCastle, AttackFortress, AttackCastle, ChaseEnemy, AttackEnemy }
     public UnitState currentState;
 
+
     public Transform Fortress_pos;
     public Transform Castle_pos;
 
@@ -21,6 +22,7 @@ public class Unit_FSM : MonoBehaviour
     public float lastAttackTime;
     public float attackRate;
 
+    public float damage;
     private void Awake()
     {
         sightSensor = GetComponentInParent<Sight>();
@@ -168,7 +170,7 @@ public class Unit_FSM : MonoBehaviour
             Debug.Log("attack");
             lastAttackTime = Time.time;
             _animator.SetTrigger("Attack");
-            sightSensor.detectedObject.GetComponentInParent<TestLife>()._amount -= 1.0f;
+            sightSensor.detectedObject.GetComponentInParent<Life>()._amount -= damage;
         }
     }
 

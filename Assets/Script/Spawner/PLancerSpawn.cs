@@ -5,60 +5,64 @@ using UnityEngine;
 public class PLancerSpawn : MonoBehaviour
 {
     public GameObject rangeobject;
-
-    BoxCollider rangeCollider;
     public GameObject unit;
     public int num;
-    public bool trigger;
-
+    private void Awake()
+    {
+    }
     private void Start()
     {
         //StartCoroutine(RandomRespawn_Coroutine());
     }
+
     private void Update()
     {
         if (num > 0) // 스폰 한번만
         {
-            RandomSpawn(num);
+            RandomSpawn();
             num = 0;
         }
     }
-    //IEnumerator RandomRespawn_Coroutine()
-    //{
-    //    for (int i = 0; i < num; i++)
-    //    {
-    //        yield return new WaitForSeconds(0);
 
-    //        GameObject instantUnit = Instantiate(unit, Return_RandomPosition(), Quaternion.identity);
-    //    }
-    //}
-
-    private void RandomSpawn(int n)
-    {
-        for (int i = 0; i < num; i++)
-        {
-            GameObject instantUnit = Instantiate(unit, Return_RandomPosition(), Quaternion.identity);
-        }
-    }
-
-    private void Awake()
-    {
-        rangeCollider = rangeobject.GetComponent<BoxCollider>();
-    }
-
-    Vector3 Return_RandomPosition()
+    private void RandomSpawn()
     {
         Vector3 originPosition = rangeobject.transform.position;
+        int pos_z = 0;
+        if (num > 20)
+        {
+            num = 20;
+        }
+        if (num > 10)
+        {
+            int pos_x = -2;
 
-        float range_X = rangeCollider.bounds.size.x;
-        float range_Z = rangeCollider.bounds.size.z;
+            pos_z = (20 - num) / 2;
+            Vector3 pos = new Vector3(0, 0, 0);
+            for (int i = 0; i < 10; i++)
+            {
+                GameObject instantUnit = Instantiate(unit, originPosition + pos, unit.transform.rotation);
+                //pos.x+=2;
+                pos.z += 2;
+            }
 
-        range_X = Random.Range((range_X / 2) * -1, range_X / 2);
-        range_Z = Random.Range((range_Z / 2) * -1, range_Z / 2);
-        Vector3 RandomPosition = new Vector3(range_X, 1, range_Z);
-
-        Vector3 respawnPosition = originPosition + RandomPosition;
-
-        return respawnPosition;
+            pos = new Vector3(pos_x, 0, pos_z);
+            for (int i = 0; i < num - 10; i++)
+            {
+                GameObject instantUnit = Instantiate(unit, originPosition + pos, unit.transform.rotation);
+                //pos.x+=2;
+                pos.z += 2;
+            }
+        }
+        else
+        {
+            pos_z = (10 - num) / 2;
+            Vector3 pos = new Vector3(pos_z, 0, 0);
+            for (int i = 0; i < num; i++)
+            {
+                GameObject instantUnit = Instantiate(unit, originPosition + pos, unit.transform.rotation);
+                //pos.x+=2;
+                pos.z += 2;
+            }
+        }
     }
 }
