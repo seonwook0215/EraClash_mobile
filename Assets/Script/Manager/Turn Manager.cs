@@ -14,14 +14,7 @@ public class TurnManager: MonoBehaviour
 
     public float Day;
     public float Phase;
-    
-    [SerializeField] private GameObject firstphase;
-    [SerializeField] private GameObject firstXbutton;
-    [SerializeField] private GameObject secondphase;
-    [SerializeField] private GameObject secondXbutton;
-    [SerializeField] private GameObject thirdphase;
-    [SerializeField] private GameObject thirdXbutton;
-    [SerializeField] private GameObject thirdAttackbutton;
+  
     
     public bool Onattack=false;
     public bool EnemyAttack = false;
@@ -95,7 +88,7 @@ public class TurnManager: MonoBehaviour
     }
     public void TouchBuildButton()
     {
-
+        CameraSwitch.instance.MoveToBuild();
     }
     public void TouchResearchButton()
     {
@@ -140,7 +133,7 @@ public class TurnManager: MonoBehaviour
         Day++;
     }
 
-    public void Phase1() //전날이랑 비교
+    /*public void Phase1() //전날이랑 비교
     {
         
         GameManager.instance.Phase = 1;
@@ -207,7 +200,7 @@ public class TurnManager: MonoBehaviour
         {
             TurnStart();
         }
-    }
+    }*/
 
     //BattleManager.instance.phase3 = true; //버튼 누르고 실행
     public void checkWinorLose()

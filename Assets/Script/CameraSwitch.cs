@@ -12,11 +12,33 @@ public class CameraSwitch : MonoBehaviour
     public Camera EnemyAttack2Camera;
     public Camera PlayerAttack1Camera;
     public Camera PlayerAttack2Camera;
+    Vector3 toMain;
+    Vector3 toFirst;
+    Vector3 toSecond;
+    Vector3 toBlooshed;
+    Vector3 toEnemyAttack1;
+    Vector3 toEnemyAttack2;
+    Vector3 toPlayerAttack1;
+    Vector3 toPlayerAttack2;
+    Quaternion toMainRotate;
+    Quaternion toFirstRotate;
+    Quaternion toSecondRotate;
+    Quaternion toBlooshedRotate;
+    Quaternion toEnemyAttack1Rotate;
+    Quaternion toEnemyAttack2Rotate;
+    Quaternion toPlayerAttack1Rotate;
+    Quaternion toPlayerAttack2Rotate;
     private float cnt = 0;
     private bool isTransitioning = false;
     private float transitionStartTime;
     private float dragSpeed = 150.0f;
     private float attackdragSpeed = 2500f;
+
+    public static CameraSwitch instance;
+    private void Awake()
+    {
+        instance = this;
+    }
     void Start()
     {
         // 초기 화면 설정
@@ -32,77 +54,43 @@ public class CameraSwitch : MonoBehaviour
         movingCamera.transform.position = mainCamera.transform.position;
         movingCamera.transform.rotation = mainCamera.transform.rotation;
     }
+    public void MoveToBuild() {
+        UpdateCamera();
+        mainCamera.enabled = false;
+        firstCamera.enabled = true;
+        secondCamera.enabled = false;
+        StartCoroutine(TransitionCameras(toFirst, toFirstRotate));
+    }
+    public void MoveToUpDown()
+    {
+        UpdateCamera();
+        if (firstCamera.enabled)//1 짓기 화면이 켜있다면
+        {
+            mainCamera.enabled = false;
+            firstCamera.enabled = false;
+            secondCamera.enabled = true;
+            StartCoroutine(TransitionCameras(toSecond, toSecondRotate));
+        }
+        else
+        {
+            mainCamera.enabled = false;
+            firstCamera.enabled = true;
+            secondCamera.enabled = false;
+            StartCoroutine(TransitionCameras(toFirst, toFirstRotate));
+        }
+    }
+
+    public void MoveToMain()
+    {
+        UpdateCamera();
+        mainCamera.enabled = true;
+        secondCamera.enabled = false;
+        firstCamera.enabled = false;
+        StartCoroutine(TransitionCameras(toMain, toMainRotate));
+    }
     void Update()
     {
-        Vector3 toMain = mainCamera.transform.position;
-        Vector3 toFirst = firstCamera.transform.position;
-        Vector3 toSecond = secondCamera.transform.position;
-        Vector3 toBlooshed = BlooshedCamera.transform.position;
-        Vector3 toEnemyAttack1 = EnemyAttack1Camera.transform.position;
-        Vector3 toEnemyAttack2 = EnemyAttack2Camera.transform.position;
-        Vector3 toPlayerAttack1 = PlayerAttack1Camera.transform.position;
-        Vector3 toPlayerAttack2 = PlayerAttack2Camera.transform.position;
-        Quaternion toMainRotate = mainCamera.transform.rotation;
-        Quaternion toFirstRotate = firstCamera.transform.rotation;
-        Quaternion toSecondRotate = secondCamera.transform.rotation;
-        Quaternion toBlooshedRotate = BlooshedCamera.transform.rotation;
-        Quaternion toEnemyAttack1Rotate = EnemyAttack1Camera.transform.rotation;
-        Quaternion toEnemyAttack2Rotate = EnemyAttack2Camera.transform.rotation;
-        Quaternion toPlayerAttack1Rotate = PlayerAttack1Camera.transform.rotation;
-        Quaternion toPlayerAttack2Rotate = PlayerAttack2Camera.transform.rotation;
-        if (mainCamera.enabled)
-        {
-            movingCamera.transform.position = mainCamera.transform.position;
-        }
-        else if (secondCamera.enabled)
-        {
-            movingCamera.transform.position = secondCamera.transform.position;
-        }
-        else if (firstCamera.enabled)
-        {
-            movingCamera.transform.position = firstCamera.transform.position;
-        }
-        else if (BlooshedCamera.enabled)
-        {
-            movingCamera.transform.position = BlooshedCamera.transform.position;
-        }
-        if (Input.GetKeyDown(KeyCode.Q) && !isTransitioning && cnt == 0)
-        {
-            if (firstCamera.enabled)//1 짓기 화면이 켜있다면
-            {
-                mainCamera.enabled = true;
-                secondCamera.enabled = false;
-                firstCamera.enabled = false;
-                StartCoroutine(TransitionCameras(toMain, toMainRotate));
-            }
-            else
-            {
-                secondCamera.enabled = false;
-                mainCamera.enabled = false;
-                firstCamera.enabled = true;
-                StartCoroutine(TransitionCameras(toFirst, toFirstRotate));
-
-            }
-        }
-        if (Input.GetKeyDown(KeyCode.W) && !isTransitioning && cnt == 0&&PUnitManager.instance.fortress)
-        {
-            if (secondCamera.enabled)
-            {
-                mainCamera.enabled = true;
-                secondCamera.enabled = false;
-                firstCamera.enabled = false;
-                StartCoroutine(TransitionCameras(toMain, toMainRotate));
-
-            }
-            else
-            {
-                mainCamera.enabled = false;
-                firstCamera.enabled = false;
-                secondCamera.enabled = true;
-                StartCoroutine(TransitionCameras(toSecond, toSecondRotate));
-            }
-
-        }
+        
         if (!TurnManager.instance.StartWar && cnt == 1)
         {
             BlooshedCamera.enabled = false;
@@ -154,6 +142,41 @@ public class CameraSwitch : MonoBehaviour
                 default:
                     break;
             }
+        }
+    }
+    private void UpdateCamera()
+    {
+        toMain = mainCamera.transform.position;
+        toFirst = firstCamera.transform.position;
+        toSecond = secondCamera.transform.position;
+        toBlooshed = BlooshedCamera.transform.position;
+        toEnemyAttack1 = EnemyAttack1Camera.transform.position;
+        toEnemyAttack2 = EnemyAttack2Camera.transform.position;
+        toPlayerAttack1 = PlayerAttack1Camera.transform.position;
+        toPlayerAttack2 = PlayerAttack2Camera.transform.position;
+        toMainRotate = mainCamera.transform.rotation;
+        toFirstRotate = firstCamera.transform.rotation;
+        toSecondRotate = secondCamera.transform.rotation;
+        toBlooshedRotate = BlooshedCamera.transform.rotation;
+        toEnemyAttack1Rotate = EnemyAttack1Camera.transform.rotation;
+        toEnemyAttack2Rotate = EnemyAttack2Camera.transform.rotation;
+        toPlayerAttack1Rotate = PlayerAttack1Camera.transform.rotation;
+        toPlayerAttack2Rotate = PlayerAttack2Camera.transform.rotation;
+        if (mainCamera.enabled)
+        {
+            movingCamera.transform.position = mainCamera.transform.position;
+        }
+        else if (secondCamera.enabled)
+        {
+            movingCamera.transform.position = secondCamera.transform.position;
+        }
+        else if (firstCamera.enabled)
+        {
+            movingCamera.transform.position = firstCamera.transform.position;
+        }
+        else if (BlooshedCamera.enabled)
+        {
+            movingCamera.transform.position = BlooshedCamera.transform.position;
         }
     }
     IEnumerator TransitionCameras(Vector3 targerPosition, Quaternion targetRotation)
