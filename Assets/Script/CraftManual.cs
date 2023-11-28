@@ -19,12 +19,12 @@ public class CraftManual : MonoBehaviour
     public Camera firstCamera;
     public Camera secondCamera;
     public Camera movingCamera;
-
+    private float Speed = 750.0f;
+    private Vector3 BuildingUP = new Vector3(0, 160f, 0);
+    private Vector3 BuildingDown = new Vector3(0, -150f, 0);
     public static CraftManual instance;
 
-    //camera에 맞춰서 빌딩 하면 될것같다/건물 격자 -> 건물에서 나오는 병사 스폰에다가 넣기 -> 격전의 평야 & 외곽지역 fog -> 자원량 관리 == 건물 병력 (결국에 이걸 할려면 turn 관리 manager 가 있어함)
-    //시작화면 인물 선택 화면 -> 1턴 명세서 화면 -> 승리 패배화면  -> AI 넣어주기
-    // Start is called before the first frame update
+    bool isCameraMovingA = false;
     private bool isActivated = false;
     private bool isPreviewActivated = false;
 
@@ -32,6 +32,14 @@ public class CraftManual : MonoBehaviour
     [SerializeField]
     private GameObject go_BaseUI;
     [SerializeField] private GameObject BuildingTab;
+    [SerializeField] private GameObject GetUpBuildingTab;
+    [SerializeField] private GameObject GetDownBuildingTab;
+    [SerializeField] private GameObject GetDownCamera;
+    [SerializeField] private GameObject GetUpCamera;
+    [SerializeField] private GameObject ReturnButton;
+    [SerializeField] private GameObject BuildingList;
+    private bool IsDownButtonActive = true;
+
 
     [SerializeField]
     private Craft[] craft_building;
@@ -48,7 +56,18 @@ public class CraftManual : MonoBehaviour
     {
         instance = this;
     }
-
+    public void clickGetDownButton()
+    {
+        GetDownCamera.SetActive(false);
+        GetUpCamera.SetActive(true);
+        IsDownButtonActive = false;
+    }
+    public void clickGetUpButton()
+    {
+        GetDownCamera.SetActive(true);
+        GetUpCamera.SetActive(false);
+        IsDownButtonActive = true;
+    }
 
     public void SlotClick(int _slotNumber)
     {
@@ -72,6 +91,11 @@ public class CraftManual : MonoBehaviour
         go_Prefab = craft_building[_slotNumber].go_Prefab;
         isPreviewActivated = true;
         BuildingTab.SetActive(false);
+        BuildingList.SetActive(false);
+        ReturnButton.SetActive(false);
+        GetUpCamera.SetActive(false);
+        GetDownCamera.SetActive(false);
+        TouchDownBuildingTabButton();
     }
     void Update()
     {
@@ -89,7 +113,7 @@ public class CraftManual : MonoBehaviour
         if (Input.GetButtonDown("Fire1"))
         {
             Build();
-
+            
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -98,7 +122,44 @@ public class CraftManual : MonoBehaviour
             PreviewPositionUpdate();
        
     }
+    public void TouchUpBuildingTabButton()
+    {
+        GetUpBuildingTab.SetActive(false);
+        GetDownBuildingTab.SetActive(true);
+        
+        StartCoroutine(MoveUIDownToUpForA(BuildingTab, BuildingDown, BuildingUP));
+    }    
+    public void TouchDownBuildingTabButton()
+    {
+        GetUpBuildingTab.SetActive(true);
+        GetDownBuildingTab.SetActive(false);
+        
+        StartCoroutine(MoveUIDownToUpForA(BuildingTab, BuildingUP, BuildingDown));
+    }
+    IEnumerator MoveUIDownToUpForA(GameObject obj, Vector3 Start, Vector3 End)
+    {
+        RectTransform rectTransform = obj.GetComponent<RectTransform>();
 
+        isCameraMovingA = true;
+
+        float journeyLength = Vector3.Distance(Start, End);
+        float startTime = Time.time;
+
+        while (isCameraMovingA)
+        {
+            float distanceCovered = (Time.time - startTime) * Speed * 2.08f;
+            float journeyFraction = distanceCovered / journeyLength;
+            Vector3 newPosition = Vector3.Lerp(Start, End, journeyFraction);
+            rectTransform.anchoredPosition = new Vector3(newPosition.x, newPosition.y, newPosition.z); 
+
+            if (journeyFraction >= 1.0f)
+            {
+                isCameraMovingA = false;
+            }
+
+            yield return null;
+        }
+    }
     private void PreviewPositionUpdate()
     {
         Vector3 mousePositionScreen = Input.mousePosition;
@@ -154,6 +215,14 @@ public class CraftManual : MonoBehaviour
                 go_Preview = null;
                 go_Prefab = null;
             }
+            BuildingTab.SetActive(true);
+            BuildingList.SetActive(true);
+            ReturnButton.SetActive(true);
+            if(IsDownButtonActive)
+                GetDownCamera.SetActive(true);
+            else
+                GetUpCamera.SetActive(true);
+            
         }
     }
     public void Cancel()
@@ -182,5 +251,7 @@ public class CraftManual : MonoBehaviour
     {
         isActivated = false;
         go_BaseUI.SetActive(false);
+        clickGetUpButton();
+        TouchDownBuildingTabButton();
     }
 }
