@@ -75,11 +75,13 @@ public class Life : MonoBehaviour
     {
         _amount = amount - damage;
         amount -= damage;
-        Debug.Log(damage+ " "+ _amount);
+        //Debug.Log(damage+ " "+ _amount);
     }
     void hit()
     {
-        Debug.Log("hit");
-        _animator.SetTrigger("IsHit");
+        if(gameObject.layer==LayerMask.NameToLayer("Player") || gameObject.layer == LayerMask.NameToLayer("Player"))
+        {
+            _animator.SetTrigger("IsHit");
+        }
     }
 }

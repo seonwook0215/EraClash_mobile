@@ -864,6 +864,9 @@ MonoBehaviour:
   lastAttackTime: 0
   attackRate: 1
   damage: 3
+  objectlayer:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!114 &5298271529907404127
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -7,7 +7,6 @@ public class Sight : MonoBehaviour
     public float distance;
     //public float angle;
     public LayerMask objectsLayers;
-    public LayerMask obstaclesLayers;
     public Collider detectedObject;
 
     private void Update()
