@@ -5,40 +5,54 @@ using UnityEngine;
 public class Sight : MonoBehaviour
 {
     public float distance;
-    public float angle;
+    //public float angle;
     public LayerMask objectsLayers;
     public LayerMask obstaclesLayers;
     public Collider detectedObject;
 
     private void Update()
     {
-        Collider[] colliders = Physics.OverlapSphere(transform.position, distance, (int)objectsLayers);
+        Collider[] colliders = Physics.OverlapSphere(transform.position, distance, objectsLayers);
 
-        detectedObject = null;
-        for (int i = 0; i < colliders.Length; i++)
+        if (colliders.Length != 0)
         {
-            Collider collider = colliders[i];
-
-            Vector3 directionToController = Vector3.Normalize(collider.bounds.center - transform.position);
-            float angleToCollider = Vector3.Angle(transform.forward, directionToController);
-            if (angleToCollider < angle)
+            detectedObject= colliders[0];
+            float shorttest_Dis = Vector3.Distance(transform.position, colliders[0].transform.position);
+            foreach (Collider collider in colliders)
             {
-                if (!Physics.Linecast(transform.position, collider.bounds.center, (int)obstaclesLayers))
+                float short_dis = Vector3.Distance(transform.position, collider.transform.position);
+                if (short_dis < shorttest_Dis)
                 {
+                    shorttest_Dis = short_dis;
                     detectedObject = collider;
-                    break;
                 }
             }
         }
+        else
+        {
+            detectedObject = null;
+        }
+
+
+        //Vector3 directionToController = Vector3.Normalize(collider.bounds.center - transform.position);
+        //float angleToCollider = Vector3.Angle(transform.forward, directionToController);
+        //if (angleToCollider < angle)
+        //{
+        //    if (!Physics.Linecast(transform.position, collider.bounds.center, (int)obstaclesLayers))
+        //    {
+        //        detectedObject = collider;
+        //        break;
+        //    }
+        //}
     }
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, distance);
+        //Gizmos.color = Color.red;
+        //Gizmos.DrawWireSphere(transform.position, distance);
 
-        Vector3 rightDirection = Quaternion.Euler(0, angle, 0) * transform.forward;
-        Vector3 leftDirection = Quaternion.Euler(0, -angle, 0) * transform.forward;
-        Gizmos.DrawRay(transform.position, rightDirection * distance);
-        Gizmos.DrawRay(transform.position, leftDirection * distance);
+        //Vector3 rightDirection = Quaternion.Euler(0, angle, 0) * transform.forward;
+        //Vector3 leftDirection = Quaternion.Euler(0, -angle, 0) * transform.forward;
+        //Gizmos.DrawRay(transform.position, rightDirection * distance);
+        //Gizmos.DrawRay(transform.position, leftDirection * distance);
     }
 }
