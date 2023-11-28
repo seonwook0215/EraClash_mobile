@@ -33,6 +33,6 @@ public class PResourceManager : MonoBehaviour //자원 얼마나 있는지 관리
     }
     private void TurnChangeGainMP()
     {
-        MP += (PBuildingManager.instance.R_building.Count+PBuildingManager.instance.Fortress_R_building.Count)* 50;
+        MP += (PBuildingManager.instance.R_building.Count+PBuildingManager.instance.Fortress_R_building.Count)* 50 +50;
     }
 }
