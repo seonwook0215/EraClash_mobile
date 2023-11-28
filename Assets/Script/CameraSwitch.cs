@@ -90,7 +90,7 @@ public class CameraSwitch : MonoBehaviour
     }
     void Update()
     {
-        
+        UpdateCamera();
         if (!TurnManager.instance.StartWar && cnt == 1)
         {
             BlooshedCamera.enabled = false;

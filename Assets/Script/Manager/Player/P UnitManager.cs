@@ -93,7 +93,7 @@ public class PUnitManager : MonoBehaviour // 유닛 얼마나 있는지 관리
     //    enemy_pos = EUnitManager.instance.pos;
     //}
 
-    private void TurnChangeGainArmy()
+    public void TurnChangeGainArmy()
     {
         Paladin += (PBuildingManager.instance.P_building.Count+PBuildingManager.instance.Fortress_P_building.Count)* 2;
         Lancer += (PBuildingManager.instance.L_building.Count + PBuildingManager.instance.Fortress_L_building.Count) * 2;

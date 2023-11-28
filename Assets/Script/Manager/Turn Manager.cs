@@ -175,6 +175,8 @@ public class TurnManager: MonoBehaviour
         ChangeDay();
         ChangeGold();
         ChangeGainGold();
+        PUnitManager.instance.TurnChangeGainArmy();
+        EUnitManager.instance.TurnChangeGainArmy();
     }
 
  
