@@ -724,15 +724,15 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 6ff582d2e83f63d4bb17180280c9b50a,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: -1966210017941132492}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 6ff582d2e83f63d4bb17180280c9b50a,
-        type: 3}
-      insertIndex: -1
       addedObject: {fileID: 7649680790596116981}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 6ff582d2e83f63d4bb17180280c9b50a,
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 3742427719230334017}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 6ff582d2e83f63d4bb17180280c9b50a,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1351822791973672992}
     - targetCorrespondingSourceObject: {fileID: -1283408554089789195, guid: 6ff582d2e83f63d4bb17180280c9b50a,
         type: 3}
       insertIndex: -1
@@ -859,19 +859,9 @@ MonoBehaviour:
   lastAttackTime: 0
   attackRate: 2
   damage: 2
---- !u!114 &-1966210017941132492
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3185052056048990051}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 877ff7bcd1a397245820c771dbc8e1f7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  amount: 0
+  objectlayer:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!114 &7649680790596116981
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -900,6 +890,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af507e23ad17b194e9e918ccace9a72f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1351822791973672992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3185052056048990051}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc4a9a1d77da98648aacdd3644bf90b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  amount: 0
 --- !u!1 &5675257436712698567 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -1283408554089789195, guid: 6ff582d2e83f63d4bb17180280c9b50a,

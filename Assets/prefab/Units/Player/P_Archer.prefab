@@ -778,15 +778,15 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 339769e19d1a3974a93f5fcdbe9fa01f,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: -2307378882751778659}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 339769e19d1a3974a93f5fcdbe9fa01f,
-        type: 3}
-      insertIndex: -1
       addedObject: {fileID: -1711654666637245473}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 339769e19d1a3974a93f5fcdbe9fa01f,
         type: 3}
       insertIndex: -1
       addedObject: {fileID: -3186057045534696792}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 339769e19d1a3974a93f5fcdbe9fa01f,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -8716696359627772893}
     - targetCorrespondingSourceObject: {fileID: -8703544979030634772, guid: 339769e19d1a3974a93f5fcdbe9fa01f,
         type: 3}
       insertIndex: -1
@@ -913,19 +913,6 @@ MonoBehaviour:
   lastAttackTime: 0
   attackRate: 1
   damage: 5
---- !u!114 &-2307378882751778659
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7278132786394052562}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 877ff7bcd1a397245820c771dbc8e1f7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  amount: 0
 --- !u!114 &-1711654666637245473
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -954,6 +941,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2270c3ea402cc4046848281d5b08912d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-8716696359627772893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7278132786394052562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc4a9a1d77da98648aacdd3644bf90b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  amount: 0
 --- !u!4 &7947392752169545064 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 339769e19d1a3974a93f5fcdbe9fa01f,

@@ -35,32 +35,33 @@ public class Life : MonoBehaviour
         //Debug.Log(amount);
         if (amount <= 0)
         {
-            if (this.tag != "Building")
-            {
+            Destroy(gameObject);
+            //if (this.tag != "Building")
+            //{
 
-                //Debug.Log("death");
-                this.GetComponent<Animator>().SetTrigger("IsDeath");
-                if (this.gameObject.layer == LayerMask.NameToLayer("Player"))
-                {
-                    Destroy(this.GetComponent<PUnit>());
-                }
-                else if (this.gameObject.layer == LayerMask.NameToLayer("Enemy"))
-                {
-                    Destroy(this.GetComponent<EUnit>());
-                }
-                if (this.tag == "Archer")
-                {
-                    Destroy(this.GetComponent<ShootArrow>());
-                }
-                //Destroy(this.GetComponent<SphereCollider>());
-                //Destroy(this.GetComponent<Rigidbody>());
+            //    //Debug.Log("death");
+            //    this.GetComponent<Animator>().SetTrigger("IsDeath");
+            //    if (this.gameObject.layer == LayerMask.NameToLayer("Player"))
+            //    {
+            //        Destroy(this.GetComponent<PUnit>());
+            //    }
+            //    else if (this.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+            //    {
+            //        Destroy(this.GetComponent<EUnit>());
+            //    }
+            //    if (this.tag == "Archer")
+            //    {
+            //        Destroy(this.GetComponent<ShootArrow>());
+            //    }
+            //    //Destroy(this.GetComponent<SphereCollider>());
+            //    //Destroy(this.GetComponent<Rigidbody>());
 
-                StartCoroutine(Death());
-            }
-            else
-            {
-                Destroy(gameObject);
-            }
+            //    StartCoroutine(Death());
+            //}
+            //else
+            //{
+            //    Destroy(gameObject);
+            //}
         }
     }
 
@@ -69,8 +70,16 @@ public class Life : MonoBehaviour
         yield return new WaitForSecondsRealtime(3.0f);
         Destroy(gameObject);
     }
+
+    public void HitDamage(float damage)
+    {
+        _amount = amount - damage;
+        amount -= damage;
+        Debug.Log(damage+ " "+ _amount);
+    }
     void hit()
     {
+        Debug.Log("hit");
         _animator.SetTrigger("IsHit");
     }
 }
