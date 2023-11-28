@@ -26,6 +26,8 @@ public class TurnManager: MonoBehaviour
     [SerializeField] private GameObject SoldierButton;
     [SerializeField] private GameObject EndDayButton;
     [SerializeField] private GameObject AttackButton;
+    [SerializeField] private GameObject base_Canvas;
+    [SerializeField] private GameObject research_Canvas;
     public bool Onattack=false;
     public bool EnemyAttack = false;
     public bool StartWar = false;
@@ -138,7 +140,8 @@ public class TurnManager: MonoBehaviour
     }
     public void TouchResearchButton()
     {
-
+        base_Canvas.SetActive(false);
+        research_Canvas.SetActive(true);
     }
     public void TouchSoldierButton()
     {
@@ -177,6 +180,10 @@ public class TurnManager: MonoBehaviour
     public void TurnStart()
     {
         Day++;
+        if (ResearchManager.instance.researchDayLeft > 0)
+        {
+            ResearchManager.instance.researchDayLeft -= 1;
+        }
         PResourceManager.instance.MP += (PBuildingManager.instance.R_building.Count + PBuildingManager.instance.Fortress_R_building.Count) * 50 + 50;
         ChangeDay();
         ChangeGold();
