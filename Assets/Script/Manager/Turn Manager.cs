@@ -14,7 +14,7 @@ public class TurnManager: MonoBehaviour
 
     public float Day;
     public float Phase;
-    public float attackday=0;
+    
     [SerializeField] private GameObject firstphase;
     [SerializeField] private GameObject firstXbutton;
     [SerializeField] private GameObject secondphase;
@@ -93,31 +93,56 @@ public class TurnManager: MonoBehaviour
         isDisplayingMessage = true;
         
     }
+    public void TouchBuildButton()
+    {
 
+    }
+    public void TouchResearchButton()
+    {
+
+    }
+    public void TouchSoldierButton()
+    {
+
+    }
+    public void TouchEndDayButton()
+    {
+        if (EnemyAttack)
+        {
+            StartWar = true;
+            BattleManager.instance.StartWar();
+        }
+        else
+        {
+            TurnStart();
+        }
+    }
+    public void TouchAttackButton()
+    {
+        if (PUnitManager.instance.Archer + PUnitManager.instance.Lancer + PUnitManager.instance.Paladin <= 0)
+        {
+            messageCanvas.SetActive(true);
+            ShowMessageCannotAttack0Army();
+        }
+        else
+        {
+            if (EnemyAttack)
+            {
+                StartWar = true;
+            }
+            Onattack = true;
+            BattleManager.instance.StartWar();
+        }
+
+    }
     public void TurnStart()
     {
-
         Day++;
-        if (Day == 20)
-        {
-            SceneManager.LoadScene("Lose");
-            Debug.Log("패배");
-        }
-        PResourceManager.instance.MP += 50;
-        Phase1();
-        
     }
-    public void TurnEnd()
-    {
-        //턴 끝나면 자원 보충
-        //PResourceManager.instance.MP += 50 + PBuildingManager.instance.R_building.Count * 50;
-        //EResourceManager.instance.MP += 50 + EBuildingManager.instance.R_building.Count * 50;
-        //유닛 보충
-        
-    }
+
     public void Phase1() //전날이랑 비교
     {
-        attackday -= 1;
+        
         GameManager.instance.Phase = 1;
         if (Day == 1) //첫날은 안보여줘도됨  
         {
@@ -154,14 +179,7 @@ public class TurnManager: MonoBehaviour
     }
     public void Attack()
     {
-        if (attackday > 0) //can't attack 
-        {
-            
-            messageCanvas.SetActive(true);
-            ShowMessageCannotAttackDay();
-            Phase3();
-        }
-        else if (PUnitManager.instance.Archer + PUnitManager.instance.Lancer + PUnitManager.instance.Paladin <= 0)
+         if (PUnitManager.instance.Archer + PUnitManager.instance.Lancer + PUnitManager.instance.Paladin <= 0)
         {
             messageCanvas.SetActive(true);
             ShowMessageCannotAttack0Army();
@@ -172,7 +190,7 @@ public class TurnManager: MonoBehaviour
         {
             
             Onattack = true;
-            attackday = 3;
+            
             checkAttacked();
         }
         //BattleManager.instance.phase3 = true; //버튼 누르고 실행

@@ -22,26 +22,13 @@ public class BattleManager : MonoBehaviour
             Debug.LogWarning("배틀 매니저가 두개이상!");
         }
     }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+    public void StartWar()
     {
-        if (TurnManager.instance.StartWar &&cnt==0)
-        {
-            cnt = 1;
-            Debug.Log("BMstart");
-            selectPlace();
-            audioSource.Stop();
-            audioSource.clip=war_begin;
-            audioSource.Play();
-        }
-       
-     
+        selectPlace();
+        audioSource.Stop();
+        audioSource.clip = war_begin;
+        audioSource.Play();
     }
     private void LateUpdate()
     {
