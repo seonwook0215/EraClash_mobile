@@ -638,6 +638,11 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 8eeab938da3b76444983e5792f356622, type: 2}
+    - target: {fileID: 5866666021909216657, guid: 9d87951d064ffaa4c8ffe7e2408a0343,
+        type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6240733294840144465, guid: 9d87951d064ffaa4c8ffe7e2408a0343,
         type: 3}
       propertyPath: m_Layer
@@ -781,9 +786,6 @@ MonoBehaviour:
   objectsLayers:
     serializedVersion: 2
     m_Bits: 128
-  obstaclesLayers:
-    serializedVersion: 2
-    m_Bits: 0
   detectedObject: {fileID: 0}
 --- !u!114 &3706351597411837053
 MonoBehaviour:
@@ -798,12 +800,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 0
+  Fortress: {fileID: 0}
+  Castle: {fileID: 0}
   Fortress_pos: {fileID: 0}
   Castle_pos: {fileID: 0}
   playerAttackDistance: 10
   lastAttackTime: 0
   attackRate: 1.5
   damage: 4
+  objectlayer:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!195 &2624756713943447418
 NavMeshAgent:
   m_ObjectHideFlags: 0

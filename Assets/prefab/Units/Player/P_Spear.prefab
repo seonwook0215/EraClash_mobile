@@ -954,6 +954,9 @@ MonoBehaviour:
   lastAttackTime: 0
   attackRate: 1.5
   damage: 4
+  objectlayer:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!95 &7615624991272849792
 Animator:
   serializedVersion: 5

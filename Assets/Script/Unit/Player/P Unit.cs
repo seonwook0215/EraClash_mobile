@@ -25,55 +25,6 @@ public class PUnit: MonoBehaviour
         PUnitManager.instance.units.Add(this);
         //this.GetComponent<overlapspere>().radius = distance;
     }
-    //private void FixedUpdate()
-    //{
-    //    if (this.tag != "Building")
-    //    {
-    //        if (this.GetComponent<Animator>().GetBool("EnemyinRange") && this.GetComponent<overlapspere>().enemy_inrange == false) //공격 중 공격할 적이 없다
-    //        {
-    //            this.GetComponent<Animator>().SetBool("EnemyinRange", false);
-    //            atk = true;
-    //            this.GetComponent<ForwardMovement>().forward = PUnitManager.instance.enemy_pos;
-    //        }
-    //        else if (this.GetComponent<Animator>().GetBool("EnemyinRange") == false && this.GetComponent<overlapspere>().enemy_inrange) //공격 중이지 않지만 공격할 적이 있다.
-    //        {
-    //            this.GetComponent<Animator>().SetBool("EnemyinRange", true);
-    //            this.GetComponent<ForwardMovement>().speed = 0;
-    //            //this.GetComponent<Toward>().target = this.GetComponent<overlapspere>().target.transform;
-
-
-    //        }
-    //        else if (this.GetComponent<Animator>().GetBool("EnemyinRange") == false && this.GetComponent<overlapspere>().enemy_inrange == false) //공격중도 아니고 공격할 적도 없다.
-    //        {
-    //            this.GetComponent<ForwardMovement>().forward = PUnitManager.instance.enemy_pos;
-    //            //this.GetComponent<ForwardMovement>().speed = speed;
-    //        }
-    //        else // 공격중 공격할 적이 있다. 
-    //        {
-    //            this.GetComponent<ForwardMovement>().forward = this.GetComponent<overlapspere>().target.transform.position;
-    //            if (atk)
-    //            {
-    //                StartCoroutine(Attack());
-    //                atk = false;
-    //            }
-    //        }
-    //    }
-    //    else
-    //    {
-    //        if (this.GetComponent<overlapspere>().enemy_inrange)
-    //        {
-    //            if (atk)
-    //            {
-    //                StartCoroutine(Attack());
-    //                atk = false;
-    //            }
-    //        }
-    //        else
-    //        {
-    //            atk = true;
-    //        }
-    //    }
-    //}
     private void Update()
     {
     }
@@ -81,28 +32,4 @@ public class PUnit: MonoBehaviour
     {
         PUnitManager.instance.units.Remove(this);
     }
-
-    //IEnumerator Attack()
-    //{
-    //    bool at = true;
-    //    attackaudioSource.clip = attack_clip;
-    //    attackaudioSource.Play();
-        
-    //    yield return new WaitForSecondsRealtime(1.0f);
-    //    if (at) {
-    //        //Debug.Log("hit");
-    //        if(this.GetComponent<overlapspere>().target.tag != "Building")
-    //        {
-
-    //            hurtaudioSource.clip = hurt_clip;
-    //            hurtaudioSource.Play();
-                
-    //            this.GetComponent<overlapspere>().target.GetComponent<Animator>().SetTrigger("IsHit");
-    //        }
-
-    //        this.GetComponent<overlapspere>().target.GetComponent<Life>().amount -= damage;
-    //        StartCoroutine(Attack());
-    //        at = false;
-    //    }
-    //}
 }
