@@ -840,9 +840,6 @@ MonoBehaviour:
   objectsLayers:
     serializedVersion: 2
     m_Bits: 128
-  obstaclesLayers:
-    serializedVersion: 2
-    m_Bits: 0
   detectedObject: {fileID: 0}
 --- !u!114 &-3590696509966879756
 MonoBehaviour:
@@ -857,6 +854,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 0
+  Fortress: {fileID: 0}
+  Castle: {fileID: 0}
   Fortress_pos: {fileID: 0}
   Castle_pos: {fileID: 0}
   playerAttackDistance: 3

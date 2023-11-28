@@ -7,7 +7,7 @@ using static EnemyFSM;
 
 public class Unit_FSM : MonoBehaviour
 {
-    public enum UnitState { Idle, GoToFortress, GoToCastle, AttackFortress, AttackCastle, ChaseEnemy, AttackEnemy }
+    public enum UnitState { Wait, Idle, GoToFortress, GoToCastle, AttackFortress, AttackCastle, ChaseEnemy, AttackEnemy }
     public UnitState currentState;
 
     public GameObject Fortress;
@@ -25,7 +25,6 @@ public class Unit_FSM : MonoBehaviour
     public float attackRate;
 
     public float damage;
-    public LayerMask objectlayer;
     private bool isStart;
     private void Awake()
     {
@@ -59,7 +58,11 @@ public class Unit_FSM : MonoBehaviour
     }
     private void Update()
     {
-        if (currentState == UnitState.Idle)
+        if(currentState == UnitState.Wait)
+        {
+            Wait();
+        }
+        else if (currentState == UnitState.Idle)
         {
             Idle();
         }
@@ -89,13 +92,14 @@ public class Unit_FSM : MonoBehaviour
         }
     }
 
+    private void Wait()
+    {
+        agent.isStopped = true;
+        StartCoroutine(MovetoAttack());
+    }
     private void Idle()
     {
         agent.isStopped = true;
-        if (isStart)
-        {
-            StartCoroutine(MovetoAttack());
-        }
         if (sightSensor.detectedObject != null)
         {
             _animator.SetBool("MovetoAttack", true);
@@ -190,7 +194,6 @@ public class Unit_FSM : MonoBehaviour
         agent.isStopped = false;
         if (sightSensor.detectedObject == null)
         {
-            Debug.Log("no enemy");
             //평야에서 싸우는지 확인
             if (BattleManager.instance.inField)
             {

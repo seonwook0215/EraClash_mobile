@@ -28,6 +28,7 @@ public class Life : MonoBehaviour
     private void Start()
     {
         amount = 100f;
+        _animator.SetBool("Alive", true);
     }
 
     private void Update()
@@ -35,38 +36,31 @@ public class Life : MonoBehaviour
         //Debug.Log(amount);
         if (amount <= 0)
         {
-            Destroy(gameObject);
-            //if (this.tag != "Building")
-            //{
-
-            //    //Debug.Log("death");
-            //    this.GetComponent<Animator>().SetTrigger("IsDeath");
-            //    if (this.gameObject.layer == LayerMask.NameToLayer("Player"))
-            //    {
-            //        Destroy(this.GetComponent<PUnit>());
-            //    }
-            //    else if (this.gameObject.layer == LayerMask.NameToLayer("Enemy"))
-            //    {
-            //        Destroy(this.GetComponent<EUnit>());
-            //    }
-            //    if (this.tag == "Archer")
-            //    {
-            //        Destroy(this.GetComponent<ShootArrow>());
-            //    }
-            //    //Destroy(this.GetComponent<SphereCollider>());
-            //    //Destroy(this.GetComponent<Rigidbody>());
-
-            //    StartCoroutine(Death());
-            //}
-            //else
-            //{
-            //    Destroy(gameObject);
-            //}
+            if (gameObject.layer==LayerMask.NameToLayer("Player"))
+            {
+                StartCoroutine(Death());
+            }
+            else if(gameObject.layer == LayerMask.NameToLayer("Enemy"))
+            {
+                StartCoroutine(Death());
+            }
+            else if(gameObject.layer == 10)
+            {
+                
+            }
+            else
+            {
+                Debug.Log("123");
+                Destroy(gameObject);
+            }
         }
     }
 
     IEnumerator Death()
     {
+        gameObject.layer = 10;
+        _animator.SetTrigger("IsDeath");
+        _animator.SetBool("Alive", false);
         yield return new WaitForSecondsRealtime(3.0f);
         Destroy(gameObject);
     }
