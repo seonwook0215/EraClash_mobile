@@ -36,25 +36,25 @@ public class Spawndirect : MonoBehaviour
             int pos_z = 0;
             if (unit.layer == LayerMask.NameToLayer("Player"))
             {
-                pos_z = -1;
+                pos_z = -2;
             }
             else if (unit.layer == LayerMask.NameToLayer("Enemy"))
             {
-                pos_z = 1;
+                pos_z = 2;
             }
             pos_x = (20 - num) / 2;
             Vector3 pos = new Vector3(0, 0, 0);
             for (int i = 0; i < 10; i++)
             {
                 GameObject instantUnit = Instantiate(unit, originPosition + pos, Quaternion.identity);
-                pos.x++;
+                pos.x+=2;
             }
 
             pos = new Vector3(pos_x, 0, pos_z);
             for (int i = 0; i < num - 10; i++)
             {
                 GameObject instantUnit = Instantiate(unit, originPosition + pos, Quaternion.identity);
-                pos.x++;
+                pos.x+=2;
             }
         }
         else
@@ -64,7 +64,7 @@ public class Spawndirect : MonoBehaviour
             for (int i = 0; i < num; i++)
             {
                 GameObject instantUnit = Instantiate(unit, originPosition + pos, Quaternion.identity);
-                pos.x++;
+                pos.x+=2;
             }
         }
     }

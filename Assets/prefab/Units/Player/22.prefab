@@ -406,7 +406,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 9d87951d064ffaa4c8ffe7e2408a0343,
         type: 3}
       propertyPath: m_Name
-      value: 33
+      value: 22
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 9d87951d064ffaa4c8ffe7e2408a0343,
         type: 3}
@@ -443,6 +443,22 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: -7616221468951392677}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9d87951d064ffaa4c8ffe7e2408a0343,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -5308290274957642237}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9d87951d064ffaa4c8ffe7e2408a0343,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 460534091693274313}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9d87951d064ffaa4c8ffe7e2408a0343,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 27487441594684476}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9d87951d064ffaa4c8ffe7e2408a0343,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7615624991272849792}
   m_SourcePrefab: {fileID: 100100000, guid: 9d87951d064ffaa4c8ffe7e2408a0343, type: 3}
 --- !u!4 &928239690689331655 stripped
 Transform:
@@ -510,3 +526,83 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!195 &-5308290274957642237
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6493284746521176405}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!114 &460534091693274313
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6493284746521176405}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76343ff7a7ad3744d9a1a4bc3988163d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  distance: 100
+  angle: 180
+  objectsLayers:
+    serializedVersion: 2
+    m_Bits: 64
+  obstaclesLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  detectedObject: {fileID: 0}
+--- !u!114 &27487441594684476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6493284746521176405}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f554ca45a8c6b7a44a28646e0cf37abd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentState: 5
+  Fortress_pos: {fileID: 0}
+  Castle_pos: {fileID: 0}
+  playerAttackDistance: 5
+--- !u!95 &7615624991272849792
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6493284746521176405}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 9d87951d064ffaa4c8ffe7e2408a0343, type: 3}
+  m_Controller: {fileID: 9100000, guid: 8eeab938da3b76444983e5792f356622, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
