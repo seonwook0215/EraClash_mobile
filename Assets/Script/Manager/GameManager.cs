@@ -44,8 +44,8 @@ public class GameManager : MonoBehaviour
         else if (person == 1)
         {
             //성, 성루 공격력 50%추가
-            GameObject.Find("Player Castle Unit").GetComponent<PUnit>().damage = GameObject.Find("Player Castle Unit").GetComponent<PUnit>().damage * 3 / 2;
-            GameObject.Find("Player Fortress Unit").GetComponent<PUnit>().damage = GameObject.Find("Player Fortress Unit").GetComponent<PUnit>().damage * 3 / 2;
+            //GameObject.Find("Player Castle Unit").GetComponent<PUnit>().damage = GameObject.Find("Player Castle Unit").GetComponent<PUnit>().damage * 3 / 2;
+            //GameObject.Find("Player Fortress Unit").GetComponent<PUnit>().damage = GameObject.Find("Player Fortress Unit").GetComponent<PUnit>().damage * 3 / 2;
             Debug.Log("이순신");
         }
         else if (person == 2)
@@ -66,8 +66,8 @@ public class GameManager : MonoBehaviour
         else if (AI_choose == 1)
         {
             //성, 성루 공격력 50%추가
-            GameObject.Find("Enemy Castle Unit").GetComponent<EUnit>().damage = GameObject.Find("Enemy Castle Unit").GetComponent<EUnit>().damage * 3 / 2;
-            GameObject.Find("Enemy Fortress Unit").GetComponent<EUnit>().damage = GameObject.Find("Enemy Fortress Unit").GetComponent<EUnit>().damage * 3 / 2;
+            //GameObject.Find("Enemy Castle Unit").GetComponent<EUnit>().damage = GameObject.Find("Enemy Castle Unit").GetComponent<EUnit>().damage * 3 / 2;
+            //GameObject.Find("Enemy Fortress Unit").GetComponent<EUnit>().damage = GameObject.Find("Enemy Fortress Unit").GetComponent<EUnit>().damage * 3 / 2;
             Debug.Log("이순신");
         }
         else if (AI_choose == 2)

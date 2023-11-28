@@ -10,9 +10,10 @@ public class BattleManager : MonoBehaviour
     [Space(10)] [SerializeField] AudioSource audioSource;
     [SerializeField] AudioClip war_begin;
     [SerializeField] AudioClip war_end;
-    private float cnt = 0;
+    private float cnt;
     private void Awake()
     {
+        cnt = 0;
         if (instance == null)
         {
             instance = this;
@@ -41,8 +42,8 @@ public class BattleManager : MonoBehaviour
 
     private void EndFight()
     {
-        int player_unit = PUnitManager.instance.P_units.Count + PUnitManager.instance.L_units.Count + PUnitManager.instance.A_units.Count;
-        int enemy_unit = EUnitManager.instance.P_units.Count + EUnitManager.instance.L_units.Count + EUnitManager.instance.A_units.Count;
+        int player_unit = PUnitManager.instance.P_units.Count + PUnitManager.instance.L_units.Count + PUnitManager.instance.A_units.Count + PUnitManager.instance.S_units.Count;
+        int enemy_unit = EUnitManager.instance.P_units.Count + EUnitManager.instance.L_units.Count + EUnitManager.instance.A_units.Count + EUnitManager.instance.S_units.Count;
         
         switch (cameranum)
         {
@@ -202,7 +203,12 @@ public class BattleManager : MonoBehaviour
             Destroy(EBuildingManager.instance.Fortress_P_building[i].gameObject);
             EBuildingManager.instance.Fortress_P_building.RemoveAt(i);
         }
-        if(EUnitManager.instance.fortress)
+        for (int i = EBuildingManager.instance.Fortress_S_building.Count - 1; i >= 0; i--)
+        {
+            Destroy(EBuildingManager.instance.Fortress_S_building[i].gameObject);
+            EBuildingManager.instance.Fortress_S_building.RemoveAt(i);
+        }
+        if (EUnitManager.instance.fortress)
             EUnitManager.instance.units.Remove(GameObject.Find("Enemy Fortress Unit").GetComponent<EUnit>());
     }
     private void destroyPlayerfortress()
@@ -227,6 +233,11 @@ public class BattleManager : MonoBehaviour
             Destroy(PBuildingManager.instance.Fortress_P_building[i].gameObject);
             PBuildingManager.instance.Fortress_P_building.RemoveAt(i);
         }
+        for (int i = PBuildingManager.instance.Fortress_S_building.Count - 1; i >= 0; i--)
+        {
+            Destroy(PBuildingManager.instance.Fortress_S_building[i].gameObject);
+            PBuildingManager.instance.Fortress_S_building.RemoveAt(i);
+        }
         if (PUnitManager.instance.fortress)
             PUnitManager.instance.units.Remove(GameObject.Find("Player Fortress Unit").GetComponent<PUnit>());
     }
@@ -235,24 +246,87 @@ public class BattleManager : MonoBehaviour
         EUnitManager.instance.Archer = EUnitManager.instance.A_units.Count;
         EUnitManager.instance.Lancer = EUnitManager.instance.L_units.Count;
         EUnitManager.instance.Paladin = EUnitManager.instance.P_units.Count;
+        EUnitManager.instance.Shield = EUnitManager.instance.S_units.Count;
+        
         PUnitManager.instance.Archer = PUnitManager.instance.A_units.Count;
         PUnitManager.instance.Lancer = PUnitManager.instance.L_units.Count;
         PUnitManager.instance.Paladin = PUnitManager.instance.P_units.Count;
-   
-}
+        PUnitManager.instance.Shield = PUnitManager.instance.S_units.Count;
+
+    }
     private void makeArmyzero()
     {
-        EUnitManager.instance.Archer = 0;
-        EUnitManager.instance.Lancer = 0;
-        EUnitManager.instance.Paladin = 0;
-        PUnitManager.instance.Archer = 0;
-        PUnitManager.instance.Lancer = 0;
-        PUnitManager.instance.Paladin = 0;
+        if(EUnitManager.instance.Archer > 20)
+        {
+            EUnitManager.instance.Archer -= 20;
+        }
+        else
+        {
+            EUnitManager.instance.Archer = 0;
+        }
+        if (EUnitManager.instance.Lancer > 20)
+        {
+            EUnitManager.instance.Lancer -= 20;
+        }
+        else
+        {
+            EUnitManager.instance.Lancer = 0;
+        }
+        if (EUnitManager.instance.Paladin > 20)
+        {
+            EUnitManager.instance.Paladin -= 20;
+        }
+        else
+        {
+            EUnitManager.instance.Paladin = 0;
+        }
+        if (EUnitManager.instance.Shield > 20)
+        {
+            EUnitManager.instance.Shield -= 20;
+        }
+        else
+        {
+            EUnitManager.instance.Shield = 0;
+        }
+
+
+        if (EUnitManager.instance.Archer > 20)
+        {
+            EUnitManager.instance.Archer -= 20;
+        }
+        else
+        {
+            PUnitManager.instance.Archer = 0;
+        }
+        if (EUnitManager.instance.Lancer > 20)
+        {
+            EUnitManager.instance.Lancer -= 20;
+        }
+        else
+        {
+            PUnitManager.instance.Lancer = 0;
+        }
+        if (EUnitManager.instance.Paladin > 20)
+        {
+            EUnitManager.instance.Paladin -= 20;
+        }
+        else
+        {
+            PUnitManager.instance.Paladin = 0;
+        }
+        if (EUnitManager.instance.Shield > 20)
+        {
+            EUnitManager.instance.Shield -= 20;
+        }
+        else
+        {
+            PUnitManager.instance.Shield = 0;
+        }
     }
     private void makefieldArmyzero()
     { 
-            for (int i = PUnitManager.instance.P_units.Count - 1; i >= 0; i--)
-            {
+        for (int i = PUnitManager.instance.P_units.Count - 1; i >= 0; i--)
+        {
             //Debug.Log("角青");
             Destroy(PUnitManager.instance.P_units[i].gameObject);
             //Destroy(PUnitManager.instance.P_units[i]);
@@ -267,6 +341,12 @@ public class BattleManager : MonoBehaviour
         {
             //   Debug.Log("角青");
             Destroy(PUnitManager.instance.L_units[i].gameObject);
+            //Destroy(PUnitManager.instance.P_units[i]);
+        }
+        for (int i = PUnitManager.instance.S_units.Count - 1; i >= 0; i--)
+        {
+            //   Debug.Log("角青");
+            Destroy(PUnitManager.instance.S_units[i].gameObject);
             //Destroy(PUnitManager.instance.P_units[i]);
         }
 
@@ -287,6 +367,12 @@ public class BattleManager : MonoBehaviour
         {
             // Debug.Log("角青");
             Destroy(EUnitManager.instance.L_units[i].gameObject);
+            //Destroy(PUnitManager.instance.P_units[i]);
+        }
+        for (int i = EUnitManager.instance.S_units.Count - 1; i >= 0; i--)
+        {
+            // Debug.Log("角青");
+            Destroy(EUnitManager.instance.S_units[i].gameObject);
             //Destroy(PUnitManager.instance.P_units[i]);
         }
     }
@@ -313,9 +399,12 @@ public class BattleManager : MonoBehaviour
             GameObject.Find("BattleFieldSpawner").GetComponent<EArcherSpawn>().num = EUnitManager.instance.Archer;
             GameObject.Find("BattleFieldSpawner").GetComponent<ELancerSpawn>().num = EUnitManager.instance.Lancer;
             GameObject.Find("BattleFieldSpawner").GetComponent<EPaladinSpawn>().num = EUnitManager.instance.Paladin;
+            GameObject.Find("BattleFieldSpawner").GetComponent<EShieldSpawn>().num = EUnitManager.instance.Shield;
+
             GameObject.Find("BattleFieldSpawner").GetComponent<PArcherSpawn>().num = PUnitManager.instance.Archer;
             GameObject.Find("BattleFieldSpawner").GetComponent<PLancerSpawn>().num = PUnitManager.instance.Lancer;
             GameObject.Find("BattleFieldSpawner").GetComponent<PPaladinSpawn>().num = PUnitManager.instance.Paladin;
+            GameObject.Find("BattleFieldSpawner").GetComponent<PShieldSpawn>().num = PUnitManager.instance.Shield;
         }
         else if (TurnManager.instance.Onattack) // player attack, enemy don't 
         {
@@ -331,9 +420,12 @@ public class BattleManager : MonoBehaviour
                 GameObject.Find("1st Enemy Site Spawner").GetComponent<EArcherSpawn>().num = EUnitManager.instance.Archer;
                 GameObject.Find("1st Enemy Site Spawner").GetComponent<ELancerSpawn>().num = EUnitManager.instance.Lancer;
                 GameObject.Find("1st Enemy Site Spawner").GetComponent<EPaladinSpawn>().num = EUnitManager.instance.Paladin;
+                GameObject.Find("1st Enemy Site Spawner").GetComponent<EShieldSpawn>().num = EUnitManager.instance.Shield;
+
                 GameObject.Find("1st Enemy Site Spawner").GetComponent<PArcherSpawn>().num = PUnitManager.instance.Archer;
                 GameObject.Find("1st Enemy Site Spawner").GetComponent<PLancerSpawn>().num = PUnitManager.instance.Lancer;
                 GameObject.Find("1st Enemy Site Spawner").GetComponent<PPaladinSpawn>().num = PUnitManager.instance.Paladin;
+                GameObject.Find("1st Enemy Site Spawner").GetComponent<PShieldSpawn>().num = PUnitManager.instance.Shield;
             }
             else
             { //2瞒己风 何辑咙
@@ -347,9 +439,12 @@ public class BattleManager : MonoBehaviour
                 GameObject.Find("2nd Enemy Site Spawner").GetComponent<EArcherSpawn>().num = EUnitManager.instance.Archer;
                 GameObject.Find("2nd Enemy Site Spawner").GetComponent<ELancerSpawn>().num = EUnitManager.instance.Lancer;
                 GameObject.Find("2nd Enemy Site Spawner").GetComponent<EPaladinSpawn>().num = EUnitManager.instance.Paladin;
+                GameObject.Find("2nd Enemy Site Spawner").GetComponent<EShieldSpawn>().num = EUnitManager.instance.Shield;
+
                 GameObject.Find("2nd Enemy Site Spawner").GetComponent<PArcherSpawn>().num = PUnitManager.instance.Archer;
                 GameObject.Find("2nd Enemy Site Spawner").GetComponent<PLancerSpawn>().num = PUnitManager.instance.Lancer;
                 GameObject.Find("2nd Enemy Site Spawner").GetComponent<PPaladinSpawn>().num = PUnitManager.instance.Paladin;
+                GameObject.Find("2nd Enemy Site Spawner").GetComponent<PShieldSpawn>().num = PUnitManager.instance.Shield;
             }
         }
         else if (TurnManager.instance.EnemyAttack) //enemy attack, player don't
@@ -367,9 +462,12 @@ public class BattleManager : MonoBehaviour
                 GameObject.Find("1st Player Site Spawner").GetComponent<EArcherSpawn>().num = EUnitManager.instance.Archer;
                 GameObject.Find("1st Player Site Spawner").GetComponent<ELancerSpawn>().num = EUnitManager.instance.Lancer;
                 GameObject.Find("1st Player Site Spawner").GetComponent<EPaladinSpawn>().num = EUnitManager.instance.Paladin;
+                GameObject.Find("1st Player Site Spawner").GetComponent<EShieldSpawn>().num = EUnitManager.instance.Shield;
+
                 GameObject.Find("1st Player Site Spawner").GetComponent<PArcherSpawn>().num = PUnitManager.instance.Archer;
                 GameObject.Find("1st Player Site Spawner").GetComponent<PLancerSpawn>().num = PUnitManager.instance.Lancer;
                 GameObject.Find("1st Player Site Spawner").GetComponent<PPaladinSpawn>().num = PUnitManager.instance.Paladin;
+                GameObject.Find("1st Player Site Spawner").GetComponent<PShieldSpawn>().num = PUnitManager.instance.Shield;
             }
             else
             { //2瞒己风 何辑咙
@@ -383,9 +481,12 @@ public class BattleManager : MonoBehaviour
                 GameObject.Find("2nd Player Site Spawner").GetComponent<EArcherSpawn>().num = EUnitManager.instance.Archer;
                 GameObject.Find("2nd Player Site Spawner").GetComponent<ELancerSpawn>().num = EUnitManager.instance.Lancer;
                 GameObject.Find("2nd Player Site Spawner").GetComponent<EPaladinSpawn>().num = EUnitManager.instance.Paladin;
+                GameObject.Find("2nd Player Site Spawner").GetComponent<EShieldSpawn>().num = EUnitManager.instance.Shield;
+
                 GameObject.Find("2nd Player Site Spawner").GetComponent<PArcherSpawn>().num = PUnitManager.instance.Archer;
                 GameObject.Find("2nd Player Site Spawner").GetComponent<PLancerSpawn>().num = PUnitManager.instance.Lancer;
                 GameObject.Find("2nd Player Site Spawner").GetComponent<PPaladinSpawn>().num = PUnitManager.instance.Paladin;
+                GameObject.Find("2nd Player Site Spawner").GetComponent<PShieldSpawn>().num = PUnitManager.instance.Shield;
             }
         }
         else //don't attack both

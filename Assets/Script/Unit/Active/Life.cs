@@ -7,7 +7,28 @@ public class Life : MonoBehaviour
 {
     //public static Life instance;
     public float amount;
-    //public UnityEvent onDeath;
+    private Animator _animator;
+    public float _amount
+    {
+        set
+        {
+            amount = _amount;
+            hit();
+        }
+        get
+        {
+            return amount;
+        }
+
+    }
+    private void Awake()
+    {
+        _animator = GetComponent<Animator>();
+    }
+    private void Start()
+    {
+        amount = 100f;
+    }
 
     private void Update()
     {
@@ -31,8 +52,9 @@ public class Life : MonoBehaviour
                 {
                     Destroy(this.GetComponent<ShootArrow>());
                 }
-                Destroy(this.GetComponent<SphereCollider>());
-                Destroy(this.GetComponent<Rigidbody>());
+                //Destroy(this.GetComponent<SphereCollider>());
+                //Destroy(this.GetComponent<Rigidbody>());
+
                 StartCoroutine(Death());
             }
             else
@@ -44,9 +66,11 @@ public class Life : MonoBehaviour
 
     IEnumerator Death()
     {
-
-        //Debug.Log("death");
         yield return new WaitForSecondsRealtime(3.0f);
         Destroy(gameObject);
+    }
+    void hit()
+    {
+        _animator.SetTrigger("IsHit");
     }
 }
