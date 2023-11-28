@@ -14,15 +14,25 @@ public class TurnManager: MonoBehaviour
 
     public float Day;
     public float Phase;
-  
-    
+
+    [SerializeField] private TextMeshProUGUI DayText;
+    [SerializeField] private TextMeshProUGUI GoldText;
+    [SerializeField] private TextMeshProUGUI GainGoldText;
+    [SerializeField] private TextMeshProUGUI ResearchText;
+    [SerializeField] private TextMeshProUGUI BuildingText;
+    [SerializeField] private GameObject ResearchTab;
+    [SerializeField] private GameObject BuildButton;
+    [SerializeField] private GameObject ResearchButton;
+    [SerializeField] private GameObject SoldierButton;
+    [SerializeField] private GameObject EndDayButton;
+    [SerializeField] private GameObject AttackButton;
     public bool Onattack=false;
     public bool EnemyAttack = false;
     public bool StartWar = false;
     private float Paladin;
     private float Lancer;
     private float Archer;
-    private float MP;
+    
     private float R_building;
     private float P_building;
     private float L_building;
@@ -68,6 +78,18 @@ public class TurnManager: MonoBehaviour
         }
         
     }
+    public void ChangeDay()
+    {
+        DayText.text = Day+" Day";
+    }
+    public void ChangeGold()
+    {
+        GoldText.text = PResourceManager.instance.MP.ToString() + "G";
+    }
+    public void ChangeGainGold()
+    {
+        GainGoldText.text = "1D + "+ ((PBuildingManager.instance.R_building.Count + PBuildingManager.instance.Fortress_R_building.Count) * 50 + 50).ToString() + "G";
+    }
     public void DoNotHaveMoney()
     {
         messageCanvas.SetActive(true);
@@ -89,6 +111,24 @@ public class TurnManager: MonoBehaviour
     public void TouchBuildButton()
     {
         CameraSwitch.instance.MoveToBuild();
+        CraftManual.instance.OpenWindow();
+        ResearchTab.SetActive(false);
+        BuildButton.SetActive(false);
+        ResearchButton.SetActive(false);
+        SoldierButton.SetActive(false);
+        EndDayButton.SetActive(false);
+        AttackButton.SetActive(false);
+    }
+    public void TouchReturnButton()
+    {
+        CameraSwitch.instance.MoveToMain();
+        CraftManual.instance.CloseWindow();
+        ResearchTab.SetActive(true);
+        BuildButton.SetActive(true);
+        ResearchButton.SetActive(true);
+        SoldierButton.SetActive(true);
+        EndDayButton.SetActive(true);
+        AttackButton.SetActive(true);
     }
     public void TouchResearchButton()
     {
@@ -131,78 +171,13 @@ public class TurnManager: MonoBehaviour
     public void TurnStart()
     {
         Day++;
+        PResourceManager.instance.MP += (PBuildingManager.instance.R_building.Count + PBuildingManager.instance.Fortress_R_building.Count) * 50 + 50;
+        ChangeDay();
+        ChangeGold();
+        ChangeGainGold();
     }
 
-    /*public void Phase1() //전날이랑 비교
-    {
-        
-        GameManager.instance.Phase = 1;
-        if (Day == 1) //첫날은 안보여줘도됨  
-        {
-            Debug.Log(Day);
-            Phase2();
-        }
-        else
-        {
-            Time.timeScale = 1;
-            Debug.Log("Phase1 start");
-            Debug.Log(Day);
-            Turn_phase1.instance.phase1 = true;
-            thirdphase.SetActive(false);
-            firstphase.SetActive(true);
-            Time.timeScale=0;
-            
-        }
-    }
-    public void Phase2() // 건물 짓기
-    {
-        Time.timeScale = 1;
-        firstphase.SetActive(false);
-        secondphase.SetActive(true);
-        Turn_phase1.instance.phase1 = false;
-        GameManager.instance.Phase = 2;
-        Debug.Log("Phase2 start");
-    }
-    public void Phase3() // 공격여부 결정
-    {
-        GameManager.instance.Phase = 3;
-        Time.timeScale = 0;
-        secondphase.SetActive(false);
-        thirdphase.SetActive(true);
-    }
-    public void Attack()
-    {
-         if (PUnitManager.instance.Archer + PUnitManager.instance.Lancer + PUnitManager.instance.Paladin <= 0)
-        {
-            messageCanvas.SetActive(true);
-            ShowMessageCannotAttack0Army();
-            
-            Phase3();
-        }
-        else
-        {
-            
-            Onattack = true;
-            
-            checkAttacked();
-        }
-        //BattleManager.instance.phase3 = true; //버튼 누르고 실행
-    }
-    public void checkAttacked()
-    {
-        if (EnemyAttack||Onattack)
-        {
-            thirdphase.SetActive(false);
-            Time.timeScale = 1;
-            StartWar = true;
-        }
-        else
-        {
-            TurnStart();
-        }
-    }*/
-
-    //BattleManager.instance.phase3 = true; //버튼 누르고 실행
+ 
     public void checkWinorLose()
     {
         if (!EUnitManager.instance.castle)

@@ -19,20 +19,4 @@ public class PResourceManager : MonoBehaviour //자원 얼마나 있는지 관리
         }
         MP = 150;
     }
-    private void Start()
-    {
-        TurnChange = TurnManager.instance.Day;
-    }
-    private void Update()
-    {
-        if (TurnChange != TurnManager.instance.Day)
-        {
-            TurnChangeGainMP();
-            TurnChange = TurnManager.instance.Day;
-        }
-    }
-    private void TurnChangeGainMP()
-    {
-        MP += (PBuildingManager.instance.R_building.Count+PBuildingManager.instance.Fortress_R_building.Count)* 50 +50;
-    }
 }

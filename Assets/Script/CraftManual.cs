@@ -20,6 +20,7 @@ public class CraftManual : MonoBehaviour
     public Camera secondCamera;
     public Camera movingCamera;
 
+    public static CraftManual instance;
 
     //camera에 맞춰서 빌딩 하면 될것같다/건물 격자 -> 건물에서 나오는 병사 스폰에다가 넣기 -> 격전의 평야 & 외곽지역 fog -> 자원량 관리 == 건물 병력 (결국에 이걸 할려면 turn 관리 manager 가 있어함)
     //시작화면 인물 선택 화면 -> 1턴 명세서 화면 -> 승리 패배화면  -> AI 넣어주기
@@ -30,7 +31,7 @@ public class CraftManual : MonoBehaviour
     private int selectedSlotNumber;
     [SerializeField]
     private GameObject go_BaseUI;
-
+    [SerializeField] private GameObject BuildingTab;
 
     [SerializeField]
     private Craft[] craft_building;
@@ -43,10 +44,9 @@ public class CraftManual : MonoBehaviour
      [SerializeField]
      private LayerMask layerMask;
     //private int layerMask;
-
-    void Start()
+    private void Awake()
     {
-        
+        instance = this;
     }
 
 
@@ -71,25 +71,26 @@ public class CraftManual : MonoBehaviour
         
         go_Prefab = craft_building[_slotNumber].go_Prefab;
         isPreviewActivated = true;
-        go_BaseUI.SetActive(false);
+        BuildingTab.SetActive(false);
     }
     void Update()
     {
-      
+        TurnManager.instance.ChangeGold();
+        TurnManager.instance.ChangeGainGold();
         //GetMouseCursorpos();
-        if (movingCamera.enabled||TurnManager.instance.StartWar)
+      /*  if (movingCamera.enabled||TurnManager.instance.StartWar)
         {
             Cancel();
         }
         else
         {
-            if (Input.GetKeyDown(KeyCode.Tab)&&!isPreviewActivated)
-            {
-                Window();
-            }
-        }
+            Window();
+        }*/
         if (Input.GetButtonDown("Fire1"))
+        {
             Build();
+
+        }
 
         if (Input.GetKeyDown(KeyCode.Escape))
             Cancel();
@@ -131,11 +132,13 @@ public class CraftManual : MonoBehaviour
         {
             if (PResourceManager.instance.MP - craft_building[selectedSlotNumber].craftNeedMP[0] >= 0)
             {
+
                 PResourceManager.instance.MP = PResourceManager.instance.MP - craft_building[selectedSlotNumber].craftNeedMP[0];
+
                 Instantiate(go_Prefab, hitInfo.point, Quaternion.identity);
                 Destroy(go_Preview);
                 audioSource.PlayOneShot(build_success);
-                
+
                 isActivated = false;
                 isPreviewActivated = false;
                 go_Preview = null;
@@ -170,12 +173,12 @@ public class CraftManual : MonoBehaviour
         else
             CloseWindow();
     }
-    private void OpenWindow()
+    public void OpenWindow()
     {
         isActivated = true;
         go_BaseUI.SetActive(true);
     }
-    private void CloseWindow()
+    public void CloseWindow()
     {
         isActivated = false;
         go_BaseUI.SetActive(false);
