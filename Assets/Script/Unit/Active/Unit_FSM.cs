@@ -17,7 +17,9 @@ public class Unit_FSM : MonoBehaviour
     public float playerAttackDistance;
     private NavMeshAgent agent;
     private Animator _animator;
-    private int i=0;
+    
+    public float lastAttackTime;
+    public float attackRate;
 
     private void Awake()
     {
@@ -26,6 +28,10 @@ public class Unit_FSM : MonoBehaviour
         _animator = GetComponentInParent<Animator>(); // 적에게 할당된 Animator를 가져옴
     }
 
+    private void Start()
+    {
+        StartCoroutine(MovetoAttack());
+    }
     private void Update()
     {
         if (currentState == UnitState.Idle)
@@ -61,7 +67,12 @@ public class Unit_FSM : MonoBehaviour
     private void Idle()
     {
         agent.isStopped = true;
-        StartCoroutine(MovetoAttack());
+        if (sightSensor.detectedObject != null)
+        {
+            _animator.SetBool("MovetoAttack", true);
+            currentState = UnitState.ChaseEnemy; //나중에 성,성루 확인해서 고쳐야함
+            return;
+        }
     }
     private void GoToFortress()
     {
@@ -82,6 +93,13 @@ public class Unit_FSM : MonoBehaviour
     private void ChaseEnemy()
     {
         agent.isStopped = false;
+        if (sightSensor.detectedObject == null)
+        {
+            _animator.SetBool("MovetoAttack", false);
+            _animator.SetBool("EnemyinRange", false);
+            currentState = UnitState.Idle; //나중에 성,성루 확인해서 고쳐야함
+            return;
+        }
         //if (sightSensor.detectedObject == null)
         //{
         //    currentState = UnitState.GoToFortress; //나중에 성,성루 확인해서 고쳐야함
@@ -92,6 +110,7 @@ public class Unit_FSM : MonoBehaviour
 
         if (distanceToPlayer <= playerAttackDistance)
         {
+            _animator.SetBool("EnemyinRange", true);
             currentState = UnitState.AttackEnemy;
             return;
         }
@@ -101,22 +120,24 @@ public class Unit_FSM : MonoBehaviour
     private void AttackEnemy()
     {
         agent.isStopped = true;
-        //if (sightSensor.detectedObject == null)
-        //{
-        //    currentState = UnitState.GoToFortress; //나중에 성,성루 확인해서 고쳐야함
-        //    return;
-        //}
+        if (sightSensor.detectedObject == null)
+        {
+            _animator.SetBool("MovetoAttack", false);
+            _animator.SetBool("EnemyinRange", false);
+            currentState = UnitState.Idle; //나중에 성,성루 확인해서 고쳐야함
+            return;
+        }
 
         float distanceToPlayer = Vector3.Distance(transform.position, sightSensor.detectedObject.transform.position);
-
         if (distanceToPlayer > playerAttackDistance * 1.1f)
         {
+            _animator.SetBool("EnemyinRange", false);
             currentState = UnitState.ChaseEnemy;
         }
 
 
         // 애니메이션 업데이트
-        _animator.SetBool("EnemyinRange", true);
+        Attack();
     }
 
     private void UpdateAnimatorMovement()
@@ -128,14 +149,27 @@ public class Unit_FSM : MonoBehaviour
 
     IEnumerator MovetoAttack()
     {
-        yield return new WaitForSecondsRealtime(0.0f);
+        yield return new WaitForSecondsRealtime(5.0f);
         _animator.SetBool("MovetoAttack", true);
         currentState = UnitState.ChaseEnemy;
     }
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, playerAttackDistance);
+        //Gizmos.color = Color.yellow;
+        //Gizmos.DrawWireSphere(transform.position, playerAttackDistance);
     }
+
+    void Attack()
+    {
+        var timeSinceLastAttack = Time.time - lastAttackTime;
+        if(timeSinceLastAttack > attackRate)
+        {
+            Debug.Log("attack");
+            lastAttackTime = Time.time;
+            _animator.SetTrigger("Attack");
+            sightSensor.detectedObject.GetComponentInParent<TestLife>()._amount -= 1.0f;
+        }
+    }
+
 }
