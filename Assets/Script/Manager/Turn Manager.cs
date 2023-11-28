@@ -78,6 +78,12 @@ public class TurnManager: MonoBehaviour
         }
         
     }
+    public void ChangeBuildingText()
+    {
+        BuildingText.text = "Granary: " + (PBuildingManager.instance.R_building.Count + PBuildingManager.instance.Fortress_R_building.Count).ToString() + "\nSword: " + (PBuildingManager.instance.P_building.Count + PBuildingManager.instance.Fortress_P_building.Count).ToString() +
+            "\nLancer: " + (PBuildingManager.instance.L_building.Count + PBuildingManager.instance.Fortress_L_building.Count).ToString() + "\nArcher: " + (PBuildingManager.instance.A_building.Count + PBuildingManager.instance.Fortress_A_building.Count).ToString() +
+            "\nShieldBearer: " + (PBuildingManager.instance.S_building.Count + PBuildingManager.instance.Fortress_S_building.Count).ToString();
+    }
     public void ChangeDay()
     {
         DayText.text = Day+" Day";

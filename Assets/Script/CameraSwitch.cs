@@ -90,9 +90,10 @@ public class CameraSwitch : MonoBehaviour
     }
     void Update()
     {
-        UpdateCamera();
+        
         if (!TurnManager.instance.StartWar && cnt == 1)
         {
+            UpdateCamera();
             BlooshedCamera.enabled = false;
             EnemyAttack1Camera.enabled = false;
             EnemyAttack2Camera.enabled = false;
@@ -105,6 +106,7 @@ public class CameraSwitch : MonoBehaviour
         if (TurnManager.instance.StartWar && cnt == 0)
 
         {
+            UpdateCamera();
             cnt = 1;
             Debug.Log("change");
             mainCamera.enabled = false;

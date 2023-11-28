@@ -101,6 +101,7 @@ public class CraftManual : MonoBehaviour
     {
         TurnManager.instance.ChangeGold();
         TurnManager.instance.ChangeGainGold();
+        TurnManager.instance.ChangeBuildingText();
         //GetMouseCursorpos();
       /*  if (movingCamera.enabled||TurnManager.instance.StartWar)
         {

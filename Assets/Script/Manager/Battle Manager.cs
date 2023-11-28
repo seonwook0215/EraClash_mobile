@@ -30,6 +30,7 @@ public class BattleManager : MonoBehaviour
         audioSource.Stop();
         audioSource.clip = war_begin;
         audioSource.Play();
+        
     }
     private void LateUpdate()
     {
@@ -70,6 +71,7 @@ public class BattleManager : MonoBehaviour
                     audioSource.clip = war_end;
                     audioSource.loop = true;
                     audioSource.Play();
+                    
                     TurnManager.instance.checkWinorLose();
                 }
                 break;
@@ -96,6 +98,7 @@ public class BattleManager : MonoBehaviour
                     audioSource.clip = war_end;
                     audioSource.loop = true;
                     audioSource.Play();
+                    
                     TurnManager.instance.checkWinorLose();
                 }
                 break;
@@ -118,6 +121,7 @@ public class BattleManager : MonoBehaviour
                     audioSource.clip = war_end;
                     audioSource.loop = true;
                     audioSource.Play();
+                    
                     TurnManager.instance.checkWinorLose();
                 }
                 break;
@@ -151,6 +155,7 @@ public class BattleManager : MonoBehaviour
                     audioSource.clip = war_end;
                     audioSource.loop = true;
                     audioSource.Play();
+                    
                     TurnManager.instance.checkWinorLose();
                 }
                 break;
@@ -172,6 +177,7 @@ public class BattleManager : MonoBehaviour
                     audioSource.clip = war_end;
                     audioSource.loop = true;
                     audioSource.Play();
+                    
                     TurnManager.instance.checkWinorLose();
                 }
                 break;
@@ -493,6 +499,7 @@ public class BattleManager : MonoBehaviour
         {
 
         }
+        
         makeArmyzero();
     }
 
