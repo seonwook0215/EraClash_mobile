@@ -188,6 +188,7 @@ public class TurnManager: MonoBehaviour
         ChangeDay();
         ChangeGold();
         ChangeGainGold();
+        ResearchManager.instance.updateResearchTab();
         PUnitManager.instance.TurnChangeGainArmy();
         EUnitManager.instance.TurnChangeGainArmy();
     }

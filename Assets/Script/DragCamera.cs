@@ -24,7 +24,7 @@ public class DragCamera : MonoBehaviour
             isCameraMoving = false;
         }
 
-        if (Input.GetMouseButton(0)&&main.enabled)
+        if (Input.GetMouseButton(0)&&main.enabled&&!ResearchManager.instance.base_Canvas.activeSelf)
         {
             Vector3 position = Camera.main.ScreenToViewportPoint((Vector2)Input.mousePosition - clickPoint);
             position.z = position.y;

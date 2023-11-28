@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using TMPro;
 public class ResearchManager : MonoBehaviour
 {
     public static ResearchManager instance;
@@ -25,12 +25,14 @@ public class ResearchManager : MonoBehaviour
     private bool userChoice = false;
     [SerializeField] private GameObject canNotTouch;
     [SerializeField] private GameObject dialogueTab;
-    [SerializeField] private GameObject base_Canvas;
+    public GameObject base_Canvas;
     [SerializeField] private GameObject goto_Canvas;
     [SerializeField] private GameObject skillScrollView;
     [SerializeField] private GameObject soldierScrollView;
     [SerializeField] private GameObject skillClickButton;
     [SerializeField] private GameObject soldierClickButton;
+    [SerializeField] private GameObject textResearchNothingTab;
+    [SerializeField] private GameObject textResearchGoingTab;
     private void Awake()
     {
         instance = this;
@@ -69,7 +71,46 @@ public class ResearchManager : MonoBehaviour
             }
         }
     }
-
+    public void updateResearchTab()
+    {
+        if (researchDayLeft <= 0)
+        {
+            textResearchNothingTab.SetActive(true);
+            textResearchGoingTab.SetActive(false);
+        }
+        else
+        {
+            textResearchNothingTab.SetActive(false);
+            textResearchGoingTab.SetActive(true);
+            switch (whatResearchIs)
+            {
+                case 1:
+                    textResearchGoingTab.GetComponent<TextMeshProUGUI>().text = "To Complete Archer Research : "+researchDayLeft.ToString()+"Day left";
+                    break;
+                case 2:
+                    textResearchGoingTab.GetComponent<TextMeshProUGUI>().text = "To Complete Lancer Research : " + researchDayLeft.ToString() + "Day left";
+                    break;
+                case 3:
+                    textResearchGoingTab.GetComponent<TextMeshProUGUI>().text = "To Complete Shield Research : " + researchDayLeft.ToString() + "Day left";
+                    break;
+                case 4:
+                    textResearchGoingTab.GetComponent<TextMeshProUGUI>().text = "To Complete Heal Research : " + researchDayLeft.ToString() + "Day left";
+                    break;
+                case 5:
+                    textResearchGoingTab.GetComponent<TextMeshProUGUI>().text = "To Complete Rage Research : " + researchDayLeft.ToString() + "Day left";
+                    break;
+                case 6:
+                    textResearchGoingTab.GetComponent<TextMeshProUGUI>().text = "To Complete Ardrenaline Research : " + researchDayLeft.ToString() + "Day left";
+                    break;
+                case 7:
+                    textResearchGoingTab.GetComponent<TextMeshProUGUI>().text = "To Complete Mercenary Research : " + researchDayLeft.ToString() + "Day left";
+                    break;
+                default:
+                    break;
+            }
+            
+        }
+    }
     private void makeCanNotTouch()
     {
         
@@ -79,7 +120,7 @@ public class ResearchManager : MonoBehaviour
     }
     private void makeCanTouch()
     {
-        
+        updateResearchTab();
         canNotTouch.SetActive(false);
         dialogueTab.SetActive(false);
     }
@@ -122,7 +163,6 @@ public class ResearchManager : MonoBehaviour
     }
     public void clickNoButton()
     {
-        whatResearchIs = 0;
         makeCanTouch();
     }
     public void clickXButton()

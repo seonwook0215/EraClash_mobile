@@ -38,6 +38,10 @@ public class CraftManual : MonoBehaviour
     [SerializeField] private GameObject GetUpCamera;
     [SerializeField] private GameObject ReturnButton;
     [SerializeField] private GameObject BuildingList;
+    [SerializeField] private GameObject bannedArcher;
+    [SerializeField] private GameObject bannedLancer;
+    [SerializeField] private GameObject bannedShield;
+    public GameObject canNotTouchTab;
     private bool IsDownButtonActive = true;
 
 
@@ -55,6 +59,21 @@ public class CraftManual : MonoBehaviour
     private void Awake()
     {
         instance = this;
+    }
+    private void checkBanResearch()
+    {
+        if (ResearchManager.instance.isAbleArcher)
+        {
+            bannedArcher.SetActive(false);
+        }
+        if (ResearchManager.instance.isAbleLancer)
+        {
+            bannedLancer.SetActive(false);
+        }
+        if (ResearchManager.instance.isAbleShield)
+        {
+            bannedShield.SetActive(false);
+        }
     }
     public void clickGetDownButton()
     {
@@ -90,6 +109,7 @@ public class CraftManual : MonoBehaviour
         
         go_Prefab = craft_building[_slotNumber].go_Prefab;
         isPreviewActivated = true;
+        canNotTouchTab.SetActive(false);
         BuildingTab.SetActive(false);
         BuildingList.SetActive(false);
         ReturnButton.SetActive(false);
@@ -125,16 +145,17 @@ public class CraftManual : MonoBehaviour
     }
     public void TouchUpBuildingTabButton()
     {
+        checkBanResearch();
         GetUpBuildingTab.SetActive(false);
         GetDownBuildingTab.SetActive(true);
-        
+        canNotTouchTab.SetActive(true);
         StartCoroutine(MoveUIDownToUpForA(BuildingTab, BuildingDown, BuildingUP));
     }    
     public void TouchDownBuildingTabButton()
     {
         GetUpBuildingTab.SetActive(true);
         GetDownBuildingTab.SetActive(false);
-        
+        canNotTouchTab.SetActive(false);
         StartCoroutine(MoveUIDownToUpForA(BuildingTab, BuildingUP, BuildingDown));
     }
     IEnumerator MoveUIDownToUpForA(GameObject obj, Vector3 Start, Vector3 End)
