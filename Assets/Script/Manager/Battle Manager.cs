@@ -10,9 +10,12 @@ public class BattleManager : MonoBehaviour
     [Space(10)] [SerializeField] AudioSource audioSource;
     [SerializeField] AudioClip war_begin;
     [SerializeField] AudioClip war_end;
+
+    public bool inField;
     private float cnt;
     private void Awake()
     {
+        inField = false;
         cnt = 0;
         if (instance == null)
         {
@@ -389,6 +392,7 @@ public class BattleManager : MonoBehaviour
     {
         if (TurnManager.instance.Onattack && TurnManager.instance.EnemyAttack) //attack both 평야
         {
+            inField = true;
             cameranum = 0;
             //카메라 옮기기
             //평야에 있는 스포너에 유닛 할당
@@ -501,6 +505,7 @@ public class BattleManager : MonoBehaviour
         }
         
         makeArmyzero();
+        inField = false;
     }
 
     

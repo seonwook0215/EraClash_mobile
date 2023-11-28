@@ -23,6 +23,8 @@ public class Unit_FSM : MonoBehaviour
     public float attackRate;
 
     public float damage;
+    public LayerMask objectlayer;
+    private bool isStart;
     private void Awake()
     {
         sightSensor = GetComponentInParent<Sight>();
@@ -32,7 +34,7 @@ public class Unit_FSM : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(MovetoAttack());
+        isStart = true;
     }
     private void Update()
     {
@@ -69,6 +71,10 @@ public class Unit_FSM : MonoBehaviour
     private void Idle()
     {
         agent.isStopped = true;
+        if (isStart)
+        {
+            StartCoroutine(MovetoAttack());
+        }
         if (sightSensor.detectedObject != null)
         {
             _animator.SetBool("MovetoAttack", true);
@@ -79,34 +85,122 @@ public class Unit_FSM : MonoBehaviour
     private void GoToFortress()
     {
         agent.isStopped = false;
+        if (sightSensor.detectedObject != null)
+        {
+            _animator.SetBool("MovetoAttack", true);
+            _animator.SetBool("EnemyinRange", true);
+            currentState = UnitState.ChaseEnemy;
+            return;
+        }
+        agent.SetDestination(Fortress_pos.position);
+        float distanceToPlayer = Vector3.Distance(transform.position, Fortress_pos.position);
+
+        if (distanceToPlayer <= playerAttackDistance)
+        {
+            _animator.SetBool("MovetoAttack", false);
+            _animator.SetBool("EnemyinRange", true);
+            currentState = UnitState.AttackFortress;
+            return;
+        }
     }
     private void GoToCastle()
     {
         agent.isStopped = false;
+        if (sightSensor.detectedObject != null)
+        {
+            _animator.SetBool("MovetoAttack", true);
+            _animator.SetBool("EnemyinRange", true);
+            currentState = UnitState.ChaseEnemy;
+            return;
+        }
+        agent.SetDestination(Castle_pos.position);
+        float distanceToPlayer = Vector3.Distance(transform.position, Castle_pos.position);
+
+        if (distanceToPlayer <= playerAttackDistance)
+        {
+            _animator.SetBool("MovetoAttack", false);
+            _animator.SetBool("EnemyinRange", true);
+            currentState = UnitState.AttackCastle;
+            return;
+        }
     }
     private void AttackFortress()
     {
         agent.isStopped = false;
+        if (sightSensor.detectedObject != null)
+        {
+            _animator.SetBool("MovetoAttack", true);
+            _animator.SetBool("EnemyinRange", true);
+            currentState = UnitState.ChaseEnemy;
+            return;
+        }
+        float distanceToPlayer = Vector3.Distance(transform.position, Fortress_pos.position);
+
+        if (distanceToPlayer > playerAttackDistance * 1.1f)
+        {
+            _animator.SetBool("MovetoAttack", true);
+            _animator.SetBool("EnemyinRange", false);
+            currentState = UnitState.GoToFortress;
+        }
     }
     private void AttackCastle()
     {
         agent.isStopped = false;
+        if (sightSensor.detectedObject != null)
+        {
+            _animator.SetBool("MovetoAttack", true);
+            _animator.SetBool("EnemyinRange", true);
+            currentState = UnitState.ChaseEnemy;
+            return;
+        }
+        float distanceToPlayer = Vector3.Distance(transform.position, Castle_pos.position);
+
+        if (distanceToPlayer > playerAttackDistance * 1.1f)
+        {
+            _animator.SetBool("MovetoAttack", true);
+            _animator.SetBool("EnemyinRange", false);
+            currentState = UnitState.GoToCastle;
+        }
     }
     private void ChaseEnemy()
     {
         agent.isStopped = false;
         if (sightSensor.detectedObject == null)
         {
-            _animator.SetBool("MovetoAttack", false);
-            _animator.SetBool("EnemyinRange", false);
-            currentState = UnitState.Idle; //나중에 성,성루 확인해서 고쳐야함
-            return;
+            //평야에서 싸우는지 확인
+            if (BattleManager.instance.inField)
+            {
+                _animator.SetBool("MovetoAttack", false);
+                _animator.SetBool("EnemyinRange", false);
+                currentState = UnitState.Idle;
+                return;
+            }
+            //기지 공격
+            if (objectlayer == LayerMask.NameToLayer("Player") && PUnitManager.instance.fortress)
+            {
+                _animator.SetBool("EnemyinRange", false);
+                currentState = UnitState.GoToFortress;
+                return;
+            }
+            else if(objectlayer == LayerMask.NameToLayer("Player") && !PUnitManager.instance.fortress)
+            {
+                _animator.SetBool("EnemyinRange", false);
+                currentState = UnitState.GoToCastle;
+                return;
+            }
+            else if (objectlayer == LayerMask.NameToLayer("Enemy") && EUnitManager.instance.fortress)
+            {
+                _animator.SetBool("EnemyinRange", false);
+                currentState = UnitState.GoToFortress;
+                return;
+            }
+            else if (objectlayer == LayerMask.NameToLayer("Enemy") && !EUnitManager.instance.fortress)
+            {
+                _animator.SetBool("EnemyinRange", false);
+                currentState = UnitState.GoToCastle;
+                return;
+            }
         }
-        //if (sightSensor.detectedObject == null)
-        //{
-        //    currentState = UnitState.GoToFortress; //나중에 성,성루 확인해서 고쳐야함
-        //    return;
-        //}
         agent.SetDestination(sightSensor.detectedObject.transform.position);
         float distanceToPlayer = Vector3.Distance(transform.position, sightSensor.detectedObject.transform.position);
 
@@ -124,15 +218,46 @@ public class Unit_FSM : MonoBehaviour
         agent.isStopped = true;
         if (sightSensor.detectedObject == null)
         {
-            _animator.SetBool("MovetoAttack", false);
-            _animator.SetBool("EnemyinRange", false);
-            currentState = UnitState.Idle; //나중에 성,성루 확인해서 고쳐야함
-            return;
+            //평야에서 싸우는지 확인
+            if (BattleManager.instance.inField)
+            {
+                _animator.SetBool("MovetoAttack", false);
+                _animator.SetBool("EnemyinRange", false);
+                currentState = UnitState.Idle;
+                return;
+            }
+            //기지 공격
+            if (objectlayer == LayerMask.NameToLayer("Player") && PUnitManager.instance.fortress)
+            {
+                _animator.SetBool("EnemyinRange", false);
+                currentState = UnitState.GoToFortress;
+                return;
+            }
+            else if (objectlayer == LayerMask.NameToLayer("Player") && !PUnitManager.instance.fortress)
+            {
+                _animator.SetBool("EnemyinRange", false);
+                currentState = UnitState.GoToCastle;
+                return;
+            }
+            else if (objectlayer == LayerMask.NameToLayer("Enemy") && EUnitManager.instance.fortress)
+            {
+                _animator.SetBool("EnemyinRange", false);
+                currentState = UnitState.GoToFortress;
+                return;
+            }
+            else if (objectlayer == LayerMask.NameToLayer("Enemy") && !EUnitManager.instance.fortress)
+            {
+                _animator.SetBool("EnemyinRange", false);
+                currentState = UnitState.GoToCastle;
+                return;
+            }
         }
+
 
         float distanceToPlayer = Vector3.Distance(transform.position, sightSensor.detectedObject.transform.position);
         if (distanceToPlayer > playerAttackDistance * 1.1f)
         {
+            _animator.SetBool("MovetoAttack", true);
             _animator.SetBool("EnemyinRange", false);
             currentState = UnitState.ChaseEnemy;
         }
@@ -167,10 +292,9 @@ public class Unit_FSM : MonoBehaviour
         var timeSinceLastAttack = Time.time - lastAttackTime;
         if(timeSinceLastAttack > attackRate)
         {
-            Debug.Log("attack");
             lastAttackTime = Time.time;
             _animator.SetTrigger("Attack");
-            sightSensor.detectedObject.GetComponentInParent<Life>()._amount -= damage;
+            sightSensor.detectedObject.GetComponentInParent<Life>().HitDamage(damage);
         }
     }
 
