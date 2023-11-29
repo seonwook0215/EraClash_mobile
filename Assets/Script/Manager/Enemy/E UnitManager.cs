@@ -37,10 +37,10 @@ public class EUnitManager : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        Fortress = GameObject.Find("Enemy Fortress pos");
-        Castle = GameObject.Find("Enemy Castle pos");
-        Fortress_pos = Fortress.transform;
-        Castle_pos = Castle.transform;
+        //Fortress = GameObject.Find("Enemy Fortress pos");
+        //Castle = GameObject.Find("Enemy Castle pos");
+        //Fortress_pos = Fortress.transform;
+        //Castle_pos = Castle.transform;
         fortress = true;
         castle = true;
         Paladin = 0;
