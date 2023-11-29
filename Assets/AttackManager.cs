@@ -12,7 +12,7 @@ public class AttackManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI enemyUnits;
     [SerializeField] private GameObject playerHPbar;
     [SerializeField] private GameObject enemyHPbar;
-
+    
     private float playerFullHp = 0f;
     private float enemyFullHp = 0f;
     private float playerCurrentHp = 0f;
