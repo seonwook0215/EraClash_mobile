@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Building
   - Archer
+  - Fortress
+  - Castle
   layers:
   - Default
   - TransparentFX
