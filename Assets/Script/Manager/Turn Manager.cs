@@ -28,6 +28,7 @@ public class TurnManager: MonoBehaviour
     [SerializeField] private GameObject AttackButton;
     [SerializeField] private GameObject base_Canvas;
     [SerializeField] private GameObject research_Canvas;
+    [SerializeField] private GameObject attack_Canvas;
     public bool Onattack=false;
     public bool EnemyAttack = false;
     public bool StartWar = false;
@@ -152,6 +153,8 @@ public class TurnManager: MonoBehaviour
         if (EnemyAttack)
         {
             StartWar = true;
+            attack_Canvas.SetActive(true);
+            base_Canvas.SetActive(false);
             BattleManager.instance.StartWar();
         }
         else
@@ -172,6 +175,8 @@ public class TurnManager: MonoBehaviour
             {
                 StartWar = true;
             }
+            attack_Canvas.SetActive(true);
+            base_Canvas.SetActive(false);
             Onattack = true;
             BattleManager.instance.StartWar();
         }
@@ -209,6 +214,8 @@ public class TurnManager: MonoBehaviour
         }
         else
         {
+            attack_Canvas.SetActive(false);
+            base_Canvas.SetActive(true);
             StartWar = false;
             Onattack = false;
             EnemyAttack = false;
