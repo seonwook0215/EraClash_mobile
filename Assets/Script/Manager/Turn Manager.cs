@@ -152,10 +152,12 @@ public class TurnManager: MonoBehaviour
     {
         if (EnemyAttack)
         {
+            AttackManager.instance.checkFullHPAmount();
             StartWar = true;
             attack_Canvas.SetActive(true);
             base_Canvas.SetActive(false);
             BattleManager.instance.StartWar();
+            
         }
         else
         {
@@ -175,6 +177,7 @@ public class TurnManager: MonoBehaviour
             {
                 StartWar = true;
             }
+            AttackManager.instance.checkFullHPAmount();
             attack_Canvas.SetActive(true);
             base_Canvas.SetActive(false);
             Onattack = true;

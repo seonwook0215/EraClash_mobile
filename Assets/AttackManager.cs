@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
+
 public class AttackManager : MonoBehaviour
 {
     [SerializeField]private GameObject bannedHeal;
@@ -18,52 +20,35 @@ public class AttackManager : MonoBehaviour
     private float playerCurrentHp = 0f;
     private float enemyCurrentHp = 0f;
     public static AttackManager instance;
+    
     private void Awake()
     {
         instance = this;
     }
     private void Update()
     {
-        
+        if (TurnManager.instance.StartWar)
+        {
+            checkCurrentHPAmount();
+            updateSoldierAmount();
+        }
+    }
+    private void updateSoldierAmount()
+    {
+        playerUnits.text= "Sword : "+PUnitManager.instance.P_units.Count.ToString()+"\nArcher: "+ PUnitManager.instance.A_units.Count.ToString() + "\nLancer: " + PUnitManager.instance.L_units.Count.ToString() + "\nShieldBearer: " + PUnitManager.instance.S_units.Count.ToString();
+        enemyUnits.text = "Sword : " + EUnitManager.instance.P_units.Count.ToString() + "\nArcher: " + EUnitManager.instance.A_units.Count.ToString() + "\nLancer: " + EUnitManager.instance.L_units.Count.ToString() + "\nShieldBearer: " + EUnitManager.instance.S_units.Count.ToString();
     }
     public void checkFullHPAmount()
     {
-        for(int i=0;i<PUnitManager.instance.P_units.Count; i++)
-        {
-            playerFullHp += PUnitManager.instance.P_units[i].GetComponent<Life>().amount;
-        }
-        for (int i = 0; i < PUnitManager.instance.A_units.Count; i++)
-        {
-            playerFullHp += PUnitManager.instance.A_units[i].GetComponent<Life>().amount;
-        }
-        for (int i = 0; i < PUnitManager.instance.L_units.Count; i++)
-        {
-            playerFullHp += PUnitManager.instance.L_units[i].GetComponent<Life>().amount;
-        }
-        for (int i = 0; i < PUnitManager.instance.S_units.Count; i++)
-        {
-            playerFullHp += PUnitManager.instance.S_units[i].GetComponent<Life>().amount;
-        }
-
-        for (int i = 0; i < EUnitManager.instance.P_units.Count; i++)
-        {
-            enemyFullHp += EUnitManager.instance.P_units[i].GetComponent<Life>().amount;
-        }
-        for (int i = 0; i < EUnitManager.instance.A_units.Count; i++)
-        {
-            enemyFullHp += EUnitManager.instance.A_units[i].GetComponent<Life>().amount;
-        }
-        for (int i = 0; i < EUnitManager.instance.L_units.Count; i++)
-        {
-            enemyFullHp += EUnitManager.instance.L_units[i].GetComponent<Life>().amount;
-        }
-        for (int i = 0; i < EUnitManager.instance.S_units.Count; i++)
-        {
-            enemyFullHp += EUnitManager.instance.S_units[i].GetComponent<Life>().amount;
-        }
+        playerFullHp = PUnitManager.instance.Paladin * 100f + PUnitManager.instance.Archer * 100f + PUnitManager.instance.Shield * 100f + PUnitManager.instance.Lancer * 100f;
+        enemyFullHp  = EUnitManager.instance.Paladin * 100f + EUnitManager.instance.Archer * 100f + EUnitManager.instance.Shield * 100f + EUnitManager.instance.Lancer * 100f;
     }
+   
     public void checkCurrentHPAmount()
     {
+        checkBanResearchSkill();
+        playerCurrentHp = 0;
+        enemyCurrentHp = 0;
         for (int i = 0; i < PUnitManager.instance.P_units.Count; i++)
         {
             playerCurrentHp += PUnitManager.instance.P_units[i].GetComponent<Life>().amount;
@@ -97,6 +82,9 @@ public class AttackManager : MonoBehaviour
         {
             enemyCurrentHp += EUnitManager.instance.S_units[i].GetComponent<Life>().amount;
         }
+        playerHPbar.GetComponent<Image>().fillAmount = playerCurrentHp / playerFullHp;
+        enemyHPbar.GetComponent<Image>().fillAmount = enemyCurrentHp / enemyFullHp;
+        Debug.Log(playerCurrentHp/playerFullHp);
     }
     private void checkBanResearchSkill()
     {
@@ -119,6 +107,23 @@ public class AttackManager : MonoBehaviour
     }
     public void clickHealButton()
     {
+        for (int i = 0; i < PUnitManager.instance.P_units.Count; i++)
+        {
+            PUnitManager.instance.P_units[i].GetComponent<Life>().amount+=20;
+        }
+        for (int i = 0; i < PUnitManager.instance.A_units.Count; i++)
+        {
+            PUnitManager.instance.A_units[i].GetComponent<Life>().amount += 20;
+        }
+        for (int i = 0; i < PUnitManager.instance.L_units.Count; i++)
+        {
+            PUnitManager.instance.L_units[i].GetComponent<Life>().amount += 20;
+        }
+        for (int i = 0; i < PUnitManager.instance.S_units.Count; i++)
+        {
+            PUnitManager.instance.S_units[i].GetComponent<Life>().amount += 20;
+        }
+
         bannedHeal.SetActive(true);
     }
     public void clickRageButton()
