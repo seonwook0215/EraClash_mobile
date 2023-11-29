@@ -39,16 +39,16 @@ public class Unit_FSM : MonoBehaviour
         if (gameObject.layer == LayerMask.NameToLayer("Player"))
         {
             Fortress = EUnitManager.instance.Fortress;
-            Castle= EUnitManager.Instance.Castle;
+            Castle= EUnitManager.instance.Castle;
             Fortress_pos= EUnitManager.instance.Fortress_pos;
-            Castle_pos= EUnitManager.instance.Castle_pos
+            Castle_pos = EUnitManager.instance.Castle_pos;
         }
         else if (gameObject.layer == LayerMask.NameToLayer("Enemy"))
         {
             Fortress = PUnitManager.instance.Fortress;
-            Castle = PUnitManager.Instance.Castle;
+            Castle = PUnitManager.instance.Castle;
             Fortress_pos = PUnitManager.instance.Fortress_pos;
-            Castle_pos = PUnitManager.instance.Castle_pos
+            Castle_pos = PUnitManager.instance.Castle_pos;
         }
         else
         {
