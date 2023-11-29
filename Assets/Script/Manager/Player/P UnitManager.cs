@@ -39,10 +39,10 @@ public class PUnitManager : MonoBehaviour // 유닛 얼마나 있는지 관리
     }
     private void Start()
     {
-        Fortress = GameObject.Find("Player Fortress pos");
-        Castle = GameObject.Find("Player Castle pos");
-        Fortress_pos = Fortress.transform;
-        Castle_pos = Castle.transform;
+        //Fortress = GameObject.Find("Player Fortress pos");
+        //Castle = GameObject.Find("Player Castle pos");
+        //Fortress_pos = Fortress.transform;
+        //Castle_pos = Castle.transform;
         fortress = true;
         castle = true;
         Paladin = 0;
