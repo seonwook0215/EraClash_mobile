@@ -33,6 +33,7 @@ public class ResearchManager : MonoBehaviour
     [SerializeField] private GameObject soldierClickButton;
     [SerializeField] private GameObject textResearchNothingTab;
     [SerializeField] private GameObject textResearchGoingTab;
+    [SerializeField] private TextMeshProUGUI textYesOrNo;
     private void Awake()
     {
         instance = this;
@@ -70,6 +71,36 @@ public class ResearchManager : MonoBehaviour
                     break;
             }
         }
+    }
+    private void updateYesOrNo()
+    {
+        switch (whatResearchIs)
+        {
+            case 1:
+                textYesOrNo.text = "Are You Sure To Research Archer?\n\nIt Spends 150G And 2 days";
+                break;
+            case 2:
+                textYesOrNo.text = "Are You Sure To Research Lancer?\n\nIt Spends 200G And 2 days";
+                break;
+            case 3:
+                textYesOrNo.text = "Are You Sure To Research Shield?\n\nIt Spends 200G And 2 days";
+                break;
+            case 4:
+                textYesOrNo.text = "Are You Sure To Research Heal?\n\nIt Spends 250G And 2 days";
+                break;
+            case 5:
+                textYesOrNo.text = "Are You Sure To Research Rage?\n\nIt Spends 250G And 2 days";
+                break;
+            case 6:
+                textYesOrNo.text = "Are You Sure To Research Ardrenaline?\n\nIt Spends 250G And 2 days";
+                break;
+            case 7:
+                textYesOrNo.text = "Are You Sure To Research Mercenary?\n\nIt Spends 250G And 2 days";
+                break;
+            default:
+                break;
+        }
+        
     }
     public void updateResearchTab()
     {
@@ -113,10 +144,12 @@ public class ResearchManager : MonoBehaviour
     }
     private void makeCanNotTouch()
     {
-        
+        updateYesOrNo();
         canNotTouch.SetActive(true);
         dialogueTab.SetActive(true);
         
+
+
     }
     private void makeCanTouch()
     {
@@ -218,8 +251,9 @@ public class ResearchManager : MonoBehaviour
         }
         if (isResearchAble()&&isMoneyAble(PResourceManager.instance.MP, costArcher))
         {
-            makeCanNotTouch();
             whatResearchIs = 1;
+            makeCanNotTouch();
+            
         }
     }
     public void researchLancer()
@@ -231,8 +265,9 @@ public class ResearchManager : MonoBehaviour
         }
         if (isResearchAble() && isMoneyAble(PResourceManager.instance.MP, costLancer))
         {
-            makeCanNotTouch();
             whatResearchIs = 2;
+            makeCanNotTouch();
+            
         }
     }
 
@@ -246,8 +281,9 @@ public class ResearchManager : MonoBehaviour
         if (isResearchAble() && isMoneyAble(PResourceManager.instance.MP, costShield))
         {
 
-            makeCanNotTouch();
             whatResearchIs = 3;
+            makeCanNotTouch();
+            
 
         }
     }
@@ -260,8 +296,10 @@ public class ResearchManager : MonoBehaviour
         }
         if (isResearchAble() && isMoneyAble(PResourceManager.instance.MP, costHeal))
         {
+
+            whatResearchIs = 4; 
             makeCanNotTouch();
-            whatResearchIs = 4;
+            
 
         }
     }
@@ -274,8 +312,9 @@ public class ResearchManager : MonoBehaviour
         }
         if (isResearchAble() && isMoneyAble(PResourceManager.instance.MP, costRage))
         {
-            makeCanNotTouch();
             whatResearchIs = 5;
+            makeCanNotTouch();
+            
 
         }
     }
@@ -289,8 +328,9 @@ public class ResearchManager : MonoBehaviour
         }
         if (isResearchAble() && isMoneyAble(PResourceManager.instance.MP, costArdrenaline))
         {
-            makeCanNotTouch();
             whatResearchIs = 6;
+            makeCanNotTouch();
+            
 
         }
     }
@@ -303,8 +343,9 @@ public class ResearchManager : MonoBehaviour
         }
         if (isResearchAble() && isMoneyAble(PResourceManager.instance.MP, costMercenary))
         {
-            makeCanNotTouch();
             whatResearchIs = 7;
+            makeCanNotTouch();
+            
 
         }
     }
