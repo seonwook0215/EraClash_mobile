@@ -17,6 +17,13 @@ public class PUnitManager : MonoBehaviour // 유닛 얼마나 있는지 관리
     public Vector3 pos;
     public Vector3 enemy_pos;
     private float TurnChange;
+
+    public GameObject Fortress;
+    public GameObject Castle;
+
+    public Transform Fortress_pos;
+    public Transform Castle_pos;
+
     public bool fortress;
     public bool castle;
     public void Awake()
@@ -32,6 +39,10 @@ public class PUnitManager : MonoBehaviour // 유닛 얼마나 있는지 관리
     }
     private void Start()
     {
+        Fortress = GameObject.Find("Player Fortress pos");
+        Castle = GameObject.Find("Player Castle pos");
+        Fortress_pos = Fortress.transform;
+        Castle_pos = Castle.transform;
         fortress = true;
         castle = true;
         Paladin = 0;

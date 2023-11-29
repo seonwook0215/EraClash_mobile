@@ -38,17 +38,17 @@ public class Unit_FSM : MonoBehaviour
         Debug.Log("start");
         if (gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            Fortress = GameObject.Find("Enemy Fortress pos");
-            Castle = GameObject.Find("Enemy Castle pos");
-            Fortress_pos = Fortress.transform;
-            Castle_pos = Castle.transform;
+            Fortress = EUnitManager.instance.Fortress;
+            Castle= EUnitManager.Instance.Castle;
+            Fortress_pos= EUnitManager.instance.Fortress_pos;
+            Castle_pos= EUnitManager.instance.Castle_pos
         }
         else if (gameObject.layer == LayerMask.NameToLayer("Enemy"))
         {
-            Fortress = GameObject.Find("Player Fortress pos");
-            Castle = GameObject.Find("Player Castle pos");
-            Fortress_pos = Fortress.transform;
-            Castle_pos = Castle.transform;
+            Fortress = PUnitManager.instance.Fortress;
+            Castle = PUnitManager.Instance.Castle;
+            Fortress_pos = PUnitManager.instance.Fortress_pos;
+            Castle_pos = PUnitManager.instance.Castle_pos
         }
         else
         {
