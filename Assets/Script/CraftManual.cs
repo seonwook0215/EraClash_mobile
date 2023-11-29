@@ -41,6 +41,7 @@ public class CraftManual : MonoBehaviour
     [SerializeField] private GameObject bannedArcher;
     [SerializeField] private GameObject bannedLancer;
     [SerializeField] private GameObject bannedShield;
+    [SerializeField] private GameObject yesorno;
     public GameObject canNotTouchTab;
     private bool IsDownButtonActive = true;
 
@@ -106,7 +107,7 @@ public class CraftManual : MonoBehaviour
             Vector3 mousePositionWorld = secondCamera.ScreenToWorldPoint(mousePos);
             go_Preview = Instantiate(craft_building[_slotNumber].go_PreviewPrefab, mousePositionWorld, Quaternion.identity);
         }
-        
+        yesorno.SetActive(true);
         go_Prefab = craft_building[_slotNumber].go_Prefab;
         isPreviewActivated = true;
         canNotTouchTab.SetActive(false);
@@ -131,17 +132,28 @@ public class CraftManual : MonoBehaviour
         {
             Window();
         }*/
-        if (Input.GetButtonDown("Fire1"))
-        {
-            Build();
-            
-        }
 
-        if (Input.GetKeyDown(KeyCode.Escape))
-            Cancel();
         if (isPreviewActivated)
             PreviewPositionUpdate();
        
+    }
+    public void touchYes()
+    {
+        Build();
+        yesorno.SetActive(false);
+    }
+    public void touchNo()
+    {
+        Cancel();
+        BuildingTab.SetActive(true);
+        BuildingList.SetActive(true);
+        ReturnButton.SetActive(true);
+        if (IsDownButtonActive)
+            GetDownCamera.SetActive(true);
+        else
+            GetUpCamera.SetActive(true);
+        yesorno.SetActive(false);
+
     }
     public void TouchUpBuildingTabButton()
     {
@@ -255,7 +267,6 @@ public class CraftManual : MonoBehaviour
         isPreviewActivated = false;
         go_Preview = null;
 
-        go_BaseUI.SetActive(false);
     }
     private void Window()
     {
