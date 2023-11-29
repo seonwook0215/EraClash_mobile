@@ -16,6 +16,11 @@ public class EUnitManager : MonoBehaviour
     public Vector3 pos;
     public Vector3 enemy_pos;
     private float TurnChange;
+    public GameObject Fortress;
+    public GameObject Castle;
+
+    public Transform Fortress_pos;
+    public Transform Castle_pos;
     public bool fortress;
     public bool castle;
     public void Awake()
@@ -32,6 +37,10 @@ public class EUnitManager : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
+        Fortress = GameObject.Find("Enemy Fortress pos");
+        Castle = GameObject.Find("Enemy Castle pos");
+        Fortress_pos = Fortress.transform;
+        Castle_pos = Castle.transform;
         fortress = true;
         castle = true;
         Paladin = 0;
