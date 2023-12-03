@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.Events;
 
 public class Life : MonoBehaviour
@@ -8,6 +9,7 @@ public class Life : MonoBehaviour
     //public static Life instance;
     public float amount;
     private Animator _animator;
+    private NavMeshAgent agent;
     public float _amount
     {
         set
@@ -24,10 +26,26 @@ public class Life : MonoBehaviour
     private void Awake()
     {
         _animator = GetComponent<Animator>();
+        agent = GetComponentInParent<NavMeshAgent>();
     }
     private void Start()
     {
-        amount = 100f;
+        if (this.tag == "Archer")
+        {
+            amount = 10f;
+        }
+        else if (this.tag == "Shield")
+        {
+            amount = 50f;
+        }
+        else if (this.tag == "Sword")
+        {
+            amount = 20f;
+        }
+        else if (this.tag == "Spear")
+        {
+            amount = 30f;
+        }
         _animator.SetBool("Alive", true);
     }
 
@@ -60,6 +78,8 @@ public class Life : MonoBehaviour
     {
         gameObject.layer = 10;
         _animator.SetTrigger("IsDeath");
+        _animator.SetBool("EnemyinRange", false);
+        _animator.SetBool("MovetoAttack", false);
         _animator.SetBool("Alive", false);
         yield return new WaitForSecondsRealtime(3.0f);
         Destroy(gameObject);

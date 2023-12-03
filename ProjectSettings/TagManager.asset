@@ -8,6 +8,9 @@ TagManager:
   - Archer
   - Fortress
   - Castle
+  - Spear
+  - Sword
+  - Shield
   layers:
   - Default
   - TransparentFX

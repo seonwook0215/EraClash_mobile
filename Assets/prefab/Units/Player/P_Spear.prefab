@@ -607,6 +607,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9d87951d064ffaa4c8ffe7e2408a0343,
+        type: 3}
+      propertyPath: m_TagString
+      value: Spear
+      objectReference: {fileID: 0}
     - target: {fileID: 1051571768989249988, guid: 9d87951d064ffaa4c8ffe7e2408a0343,
         type: 3}
       propertyPath: m_Layer
@@ -931,9 +936,6 @@ MonoBehaviour:
   objectsLayers:
     serializedVersion: 2
     m_Bits: 64
-  obstaclesLayers:
-    serializedVersion: 2
-    m_Bits: 0
   detectedObject: {fileID: 0}
 --- !u!114 &27487441594684476
 MonoBehaviour:
@@ -948,15 +950,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 0
+  Fortress: {fileID: 0}
+  Castle: {fileID: 0}
   Fortress_pos: {fileID: 0}
   Castle_pos: {fileID: 0}
   playerAttackDistance: 10
   lastAttackTime: 0
   attackRate: 1.5
   damage: 4
-  objectlayer:
-    serializedVersion: 2
-    m_Bits: 128
 --- !u!95 &7615624991272849792
 Animator:
   serializedVersion: 5

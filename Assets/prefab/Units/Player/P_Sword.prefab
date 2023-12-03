@@ -533,6 +533,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 6ff582d2e83f63d4bb17180280c9b50a,
+        type: 3}
+      propertyPath: m_TagString
+      value: Sword
+      objectReference: {fileID: 0}
     - target: {fileID: 1051571768989249988, guid: 6ff582d2e83f63d4bb17180280c9b50a,
         type: 3}
       propertyPath: m_Layer
@@ -841,9 +846,6 @@ MonoBehaviour:
   objectsLayers:
     serializedVersion: 2
     m_Bits: 64
-  obstaclesLayers:
-    serializedVersion: 2
-    m_Bits: 0
   detectedObject: {fileID: 0}
 --- !u!114 &-130437657686690384
 MonoBehaviour:
@@ -858,15 +860,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 0
+  Fortress: {fileID: 0}
+  Castle: {fileID: 0}
   Fortress_pos: {fileID: 0}
   Castle_pos: {fileID: 0}
   playerAttackDistance: 6
   lastAttackTime: 0
   attackRate: 1
   damage: 3
-  objectlayer:
-    serializedVersion: 2
-    m_Bits: 128
 --- !u!114 &5298271529907404127
 MonoBehaviour:
   m_ObjectHideFlags: 0

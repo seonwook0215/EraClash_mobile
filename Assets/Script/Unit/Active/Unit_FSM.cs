@@ -7,7 +7,7 @@ using static EnemyFSM;
 
 public class Unit_FSM : MonoBehaviour
 {
-    public enum UnitState { Wait, Idle, GoToFortress, GoToCastle, AttackFortress, AttackCastle, ChaseEnemy, AttackEnemy }
+    public enum UnitState { Wait, Idle, GoToFortress, GoToCastle, AttackFortress, AttackCastle, ChaseEnemy, AttackEnemy}
     public UnitState currentState;
 
     public GameObject Fortress;
@@ -35,7 +35,6 @@ public class Unit_FSM : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log("start");
         if (gameObject.layer == LayerMask.NameToLayer("Player"))
         {
             Fortress = EUnitManager.instance.Fortress;
@@ -52,7 +51,7 @@ public class Unit_FSM : MonoBehaviour
         }
         else
         {
-            Debug.Log("123");
+
         }
         isStart = true;
     }
@@ -91,7 +90,6 @@ public class Unit_FSM : MonoBehaviour
             AttackEnemy();
         }
     }
-
     private void Wait()
     {
         agent.isStopped = true;
@@ -205,25 +203,25 @@ public class Unit_FSM : MonoBehaviour
             //기지 공격
             //currentState = UnitState.GoToFortress;
             //return;
-            if (gameObject.layer == LayerMask.NameToLayer("Player") && PUnitManager.instance.fortress)
+            if (gameObject.layer == LayerMask.NameToLayer("Player") && EUnitManager.instance.fortress)
             {
                 _animator.SetBool("EnemyinRange", false);
                 currentState = UnitState.GoToFortress;
                 return;
             }
-            else if (gameObject.layer == LayerMask.NameToLayer("Player") && !PUnitManager.instance.fortress)
+            else if (gameObject.layer == LayerMask.NameToLayer("Player") && !EUnitManager.instance.fortress)
             {
                 _animator.SetBool("EnemyinRange", false);
                 currentState = UnitState.GoToCastle;
                 return;
             }
-            else if (gameObject.layer == LayerMask.NameToLayer("Enemy") && EUnitManager.instance.fortress)
+            else if (gameObject.layer == LayerMask.NameToLayer("Enemy") && PUnitManager.instance.fortress)
             {
                 _animator.SetBool("EnemyinRange", false);
                 currentState = UnitState.GoToFortress;
                 return;
             }
-            else if (gameObject.layer == LayerMask.NameToLayer("Enemy") && !EUnitManager.instance.fortress)
+            else if (gameObject.layer == LayerMask.NameToLayer("Enemy") && !PUnitManager.instance.fortress)
             {
                 _animator.SetBool("EnemyinRange", false);
                 currentState = UnitState.GoToCastle;
@@ -292,7 +290,7 @@ public class Unit_FSM : MonoBehaviour
             currentState = UnitState.ChaseEnemy;
         }
 
-
+        gameObject.transform.LookAt(sightSensor.detectedObject.transform.position);
         // 애니메이션 업데이트
         Attack();
     }
@@ -324,10 +322,24 @@ public class Unit_FSM : MonoBehaviour
         {
             lastAttackTime = Time.time;
             _animator.SetTrigger("Attack");
-            sightSensor.detectedObject.GetComponentInParent<Life>().HitDamage(damage);
+            sightSensor.detectedObject.GetComponentInParent<Life>().HitDamage(DamageCircle());
         }
     }
 
+    private float DamageCircle()
+    {
+        //spear>archer>shield>sword
+        if((this.tag=="Spear" && sightSensor.detectedObject.tag == "Archer") || (this.tag == "Archer" && sightSensor.detectedObject.tag == "Shield") 
+            || (this.tag == "Shield" && sightSensor.detectedObject.tag == "Sword") || (this.tag == "Sword" && sightSensor.detectedObject.tag == "Spear"))
+        {
+            Debug.Log("incircle");
+            return damage * 1.5f;
+        }
+        else
+        {
+            return damage;
+        }
+    }
     void FortressAttack()
     {
         var timeSinceLastAttack = Time.time - lastAttackTime;
