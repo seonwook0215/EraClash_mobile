@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
@@ -186,7 +187,11 @@ public class Unit_FSM : MonoBehaviour
             _animator.SetBool("EnemyinRange", false);
             currentState = UnitState.GoToCastle;
         }
+
+        CastleAttack();
     }
+
+
     private void ChaseEnemy()
     {
         agent.isStopped = false;
@@ -332,8 +337,14 @@ public class Unit_FSM : MonoBehaviour
         if((this.tag=="Spear" && sightSensor.detectedObject.tag == "Archer") || (this.tag == "Archer" && sightSensor.detectedObject.tag == "Shield") 
             || (this.tag == "Shield" && sightSensor.detectedObject.tag == "Sword") || (this.tag == "Sword" && sightSensor.detectedObject.tag == "Spear"))
         {
-            Debug.Log("incircle");
+            UnityEngine.Debug.Log("plus damage");
             return damage * 1.5f;
+        }
+        else if((this.tag=="Spear" && sightSensor.detectedObject.tag == "Sword") || (this.tag == "Sword" && sightSensor.detectedObject.tag == "Shield")
+            || (this.tag == "Shield" && sightSensor.detectedObject.tag == "Archer") || (this.tag == "Archer" && sightSensor.detectedObject.tag == "Spear"))
+        {
+            UnityEngine.Debug.Log("minus damage");
+            return damage * 0.8f;
         }
         else
         {
@@ -351,4 +362,14 @@ public class Unit_FSM : MonoBehaviour
         }
     }
 
+    void CastleAttack()
+    {
+        var timeSinceLastAttack = Time.time - lastAttackTime;
+        if (timeSinceLastAttack > attackRate)
+        {
+            lastAttackTime = Time.time;
+            _animator.SetTrigger("Attack");
+            Castle.GetComponentInParent<Life>().HitDamage(damage);
+        }
+    }
 }

@@ -33,20 +33,23 @@ public class Life : MonoBehaviour
         if (this.tag == "Archer")
         {
             amount = 10f;
+            _animator.SetBool("Alive", true);
         }
         else if (this.tag == "Shield")
         {
             amount = 50f;
+            _animator.SetBool("Alive", true);
         }
         else if (this.tag == "Sword")
         {
             amount = 20f;
+            _animator.SetBool("Alive", true);
         }
         else if (this.tag == "Spear")
         {
             amount = 30f;
+            _animator.SetBool("Alive", true);
         }
-        _animator.SetBool("Alive", true);
     }
 
     private void Update()
@@ -54,11 +57,7 @@ public class Life : MonoBehaviour
         //Debug.Log(amount);
         if (amount <= 0)
         {
-            if (gameObject.layer==LayerMask.NameToLayer("Player"))
-            {
-                StartCoroutine(Death());
-            }
-            else if(gameObject.layer == LayerMask.NameToLayer("Enemy"))
+            if (gameObject.layer==LayerMask.NameToLayer("Player") || gameObject.layer == LayerMask.NameToLayer("Enemy"))
             {
                 StartCoroutine(Death());
             }
@@ -68,7 +67,6 @@ public class Life : MonoBehaviour
             }
             else
             {
-                Debug.Log("123");
                 Destroy(gameObject);
             }
         }
@@ -77,6 +75,10 @@ public class Life : MonoBehaviour
     IEnumerator Death()
     {
         gameObject.layer = 10;
+        agent.velocity = Vector3.zero;
+        agent.updatePosition = false;
+        agent.updateRotation = false;
+
         _animator.SetTrigger("IsDeath");
         _animator.SetBool("EnemyinRange", false);
         _animator.SetBool("MovetoAttack", false);
@@ -93,7 +95,7 @@ public class Life : MonoBehaviour
     }
     void hit()
     {
-        if(gameObject.layer==LayerMask.NameToLayer("Player") || gameObject.layer == LayerMask.NameToLayer("Player"))
+        if(gameObject.layer==LayerMask.NameToLayer("Player") || gameObject.layer == LayerMask.NameToLayer("Enemy"))
         {
             _animator.SetTrigger("IsHit");
         }
