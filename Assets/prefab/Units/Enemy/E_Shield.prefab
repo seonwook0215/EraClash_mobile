@@ -548,6 +548,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 6ff582d2e83f63d4bb17180280c9b50a,
+        type: 3}
+      propertyPath: m_TagString
+      value: Shield
+      objectReference: {fileID: 0}
     - target: {fileID: 1051571768989249988, guid: 6ff582d2e83f63d4bb17180280c9b50a,
         type: 3}
       propertyPath: m_Layer
@@ -862,9 +867,6 @@ MonoBehaviour:
   lastAttackTime: 0
   attackRate: 2
   damage: 2
-  objectlayer:
-    serializedVersion: 2
-    m_Bits: 64
 --- !u!95 &8717327089991234090
 Animator:
   serializedVersion: 5

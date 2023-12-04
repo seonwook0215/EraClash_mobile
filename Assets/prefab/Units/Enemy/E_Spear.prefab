@@ -518,6 +518,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9d87951d064ffaa4c8ffe7e2408a0343,
+        type: 3}
+      propertyPath: m_TagString
+      value: Spear
+      objectReference: {fileID: 0}
     - target: {fileID: 1051571768989249988, guid: 9d87951d064ffaa4c8ffe7e2408a0343,
         type: 3}
       propertyPath: m_Layer
@@ -808,9 +813,6 @@ MonoBehaviour:
   lastAttackTime: 0
   attackRate: 1.5
   damage: 4
-  objectlayer:
-    serializedVersion: 2
-    m_Bits: 64
 --- !u!195 &2624756713943447418
 NavMeshAgent:
   m_ObjectHideFlags: 0
