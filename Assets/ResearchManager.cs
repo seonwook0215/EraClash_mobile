@@ -95,7 +95,7 @@ public class ResearchManager : MonoBehaviour
                 textYesOrNo.text = "Are You Sure To Research Ardrenaline?\n\nIt Spends 250G And 2 days";
                 break;
             case 7:
-                textYesOrNo.text = "Are You Sure To Research Mercenary?\n\nIt Spends 250G And 2 days";
+                textYesOrNo.text = "Are You Sure To Research Mercenary?\n\nIt Spends 250G And 3 days";
                 break;
             default:
                 break;
@@ -157,36 +157,58 @@ public class ResearchManager : MonoBehaviour
         canNotTouch.SetActive(false);
         dialogueTab.SetActive(false);
     }
-    public void clickYesButton()
+
+    IEnumerator makeSpinHide(GameObject obj)
+    {
+
+        obj.SetActive(true);
+        float elapsedTime = 0f;
+        float duration = 1f;
+
+        while (elapsedTime < duration)
+        {
+            obj.transform.Rotate(0f, 360f * Time.deltaTime, 0f);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+    }
+        public void clickYesButton()
     {
         switch (whatResearchIs)
         {
             case 1:
                 PResourceManager.instance.MP -= costArcher;
+                StartCoroutine(makeSpinHide(soldierScrollView.transform.GetChild(0).gameObject.transform.GetChild(1).gameObject));
                 researchDayLeft = 2;
                 break;
             case 2:
                 PResourceManager.instance.MP -= costLancer;
+                StartCoroutine(makeSpinHide(soldierScrollView.transform.GetChild(1).gameObject.transform.GetChild(1).gameObject));
                 researchDayLeft = 2;
                 break;
             case 3:
                 PResourceManager.instance.MP -= costShield;
+                StartCoroutine(makeSpinHide(soldierScrollView.transform.GetChild(2).gameObject.transform.GetChild(1).gameObject));
                 researchDayLeft = 2;
                 break;
             case 4:
                 PResourceManager.instance.MP -= costHeal;
+                StartCoroutine(makeSpinHide(skillScrollView.transform.GetChild(0).gameObject.transform.GetChild(1).gameObject));
                 researchDayLeft = 2;
                 break;
             case 5:
                 PResourceManager.instance.MP -= costRage;
+                StartCoroutine(makeSpinHide(skillScrollView.transform.GetChild(1).gameObject.transform.GetChild(1).gameObject));
                 researchDayLeft = 2;
                 break;
             case 6:
                 PResourceManager.instance.MP -= costArdrenaline;
+                StartCoroutine(makeSpinHide(skillScrollView.transform.GetChild(2).gameObject.transform.GetChild(1).gameObject));
                 researchDayLeft = 2;
                 break;
             case 7:
                 PResourceManager.instance.MP -= costMercenary;
+                StartCoroutine(makeSpinHide(skillScrollView.transform.GetChild(3).gameObject.transform.GetChild(1).gameObject));
                 researchDayLeft = 3;
                 break;
             default:

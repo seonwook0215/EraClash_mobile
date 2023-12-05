@@ -76,6 +76,7 @@ public class CraftManual : MonoBehaviour
             bannedShield.SetActive(false);
         }
     }
+    
     public void clickGetDownButton()
     {
         GetDownCamera.SetActive(false);
@@ -137,7 +138,7 @@ public class CraftManual : MonoBehaviour
         TurnManager.instance.ChangeGainGold();
         TurnManager.instance.ChangeBuildingText();
  
-
+        
         if (isPreviewActivated)
         {
             if (Input.GetButtonUp("Fire1"))
@@ -195,10 +196,17 @@ public class CraftManual : MonoBehaviour
         BuildingTab.SetActive(true);
         BuildingList.SetActive(true);
         ReturnButton.SetActive(true);
+        if (!PUnitManager.instance.fortress)
+        {
+            GetDownCamera.SetActive(false);
+            GetUpCamera.SetActive(false);
+        }
+        else { 
         if (IsDownButtonActive)
             GetDownCamera.SetActive(true);
         else
             GetUpCamera.SetActive(true);
+        }
         yesorno.SetActive(false);
 
     }
@@ -294,10 +302,18 @@ public class CraftManual : MonoBehaviour
             BuildingTab.SetActive(true);
             BuildingList.SetActive(true);
             ReturnButton.SetActive(true);
-            if (IsDownButtonActive)
-                GetDownCamera.SetActive(true);
+            if (!PUnitManager.instance.fortress)
+            {
+                GetDownCamera.SetActive(false);
+                GetUpCamera.SetActive(false);
+            }
             else
-                GetUpCamera.SetActive(true);
+            {
+                if (IsDownButtonActive)
+                    GetDownCamera.SetActive(true);
+                else
+                    GetUpCamera.SetActive(true);
+            }
 
         }
         else
@@ -324,6 +340,10 @@ public class CraftManual : MonoBehaviour
     public void OpenWindow()
     {
         isActivated = true;
+        if (!PUnitManager.instance.fortress)
+        {
+            GetDownCamera.SetActive(false);
+        }
         go_BaseUI.SetActive(true);
     }
     public void CloseWindow()

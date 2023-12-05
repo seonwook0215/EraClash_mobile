@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Main.unity
     guid: e4748c0f6c47c4f42afd73cd1244f913
   - enabled: 1
+    path: Assets/Scenes/PracticeMap.unity
+    guid: b60ad011d9c1f774a903023b2f6e9e0b
+  - enabled: 1
     path: Assets/Scenes/Person choose.unity
     guid: 9ef7993eca7f15e41aabef7734e9c146
   - enabled: 1

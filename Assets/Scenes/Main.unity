@@ -15207,7 +15207,7 @@ MonoBehaviour:
   alpha_particleHuge: 0.05
   manualModeIntroText: 0
   introTextContent: Hwang Jeong Presented
-  sceneToLoad: Person choose
+  sceneToLoad: PracticeMap
   delayBeforeLoading: 3
   manualModeTexts: 0
   play: Start
