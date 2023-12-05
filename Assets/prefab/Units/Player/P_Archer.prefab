@@ -890,9 +890,6 @@ MonoBehaviour:
   objectsLayers:
     serializedVersion: 2
     m_Bits: 64
-  obstaclesLayers:
-    serializedVersion: 2
-    m_Bits: 0
   detectedObject: {fileID: 0}
 --- !u!114 &-7527142616515837480
 MonoBehaviour:
@@ -907,15 +904,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 0
+  Fortress: {fileID: 0}
+  Castle: {fileID: 0}
   Fortress_pos: {fileID: 0}
   Castle_pos: {fileID: 0}
   playerAttackDistance: 15
   lastAttackTime: 0
   attackRate: 1
   damage: 5
-  objectlayer:
-    serializedVersion: 2
-    m_Bits: 128
+  attackaudioSource: {fileID: 6983268539111416845}
+  attack_clip: {fileID: 8300000, guid: 0110fb898f1725d4f912d700578a874f, type: 3}
 --- !u!114 &-1711654666637245473
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -928,10 +926,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9f2c7d194375614c8c044dc0eea419a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackaudioSource: {fileID: 0}
-  hurtaudioSource: {fileID: 0}
-  attack_clip: {fileID: 0}
-  hurt_clip: {fileID: 0}
 --- !u!114 &-3186057045534696792
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -957,6 +951,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   amount: 0
+  hurtaudioSource: {fileID: 2175612690645380136}
+  hurt_clip: {fileID: 8300000, guid: a5531052b454270499c718213c3357da, type: 3}
 --- !u!4 &7947392752169545064 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 339769e19d1a3974a93f5fcdbe9fa01f,

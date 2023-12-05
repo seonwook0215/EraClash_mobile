@@ -958,6 +958,8 @@ MonoBehaviour:
   lastAttackTime: 0
   attackRate: 1.5
   damage: 4
+  attackaudioSource: {fileID: 2120039516813402172}
+  attack_clip: {fileID: 8300000, guid: a39a98b16c4f65f4eac3ebc2eb750e21, type: 3}
 --- !u!95 &7615624991272849792
 Animator:
   serializedVersion: 5
@@ -991,10 +993,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9f2c7d194375614c8c044dc0eea419a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackaudioSource: {fileID: 0}
-  hurtaudioSource: {fileID: 0}
-  attack_clip: {fileID: 0}
-  hurt_clip: {fileID: 0}
 --- !u!114 &-6245252687858362730
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1020,3 +1018,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   amount: 0
+  hurtaudioSource: {fileID: 6733868712663369193}
+  hurt_clip: {fileID: 8300000, guid: cd8eedba1e7528b4c936798361db3a28, type: 3}

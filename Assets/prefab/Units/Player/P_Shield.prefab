@@ -863,6 +863,8 @@ MonoBehaviour:
   lastAttackTime: 0
   attackRate: 2
   damage: 2
+  attackaudioSource: {fileID: 5158355294048154738}
+  attack_clip: {fileID: 8300000, guid: ebe2ea6311c10f14a83349d0059e29a3, type: 3}
 --- !u!114 &7649680790596116981
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -875,10 +877,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9f2c7d194375614c8c044dc0eea419a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackaudioSource: {fileID: 0}
-  hurtaudioSource: {fileID: 0}
-  attack_clip: {fileID: 0}
-  hurt_clip: {fileID: 0}
 --- !u!114 &3742427719230334017
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -904,6 +902,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   amount: 0
+  hurtaudioSource: {fileID: 4337178274149633410}
+  hurt_clip: {fileID: 8300000, guid: 6be11959db6ced34b83b7f0db6baa7f0, type: 3}
 --- !u!1 &5675257436712698567 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -1283408554089789195, guid: 6ff582d2e83f63d4bb17180280c9b50a,

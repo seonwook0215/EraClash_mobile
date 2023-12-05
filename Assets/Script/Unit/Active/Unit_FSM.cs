@@ -27,6 +27,10 @@ public class Unit_FSM : MonoBehaviour
 
     public float damage;
     private bool isStart;
+
+    public AudioSource attackaudioSource;
+    public AudioClip attack_clip;
+
     private void Awake()
     {
         sightSensor = GetComponentInParent<Sight>();
@@ -325,6 +329,8 @@ public class Unit_FSM : MonoBehaviour
         var timeSinceLastAttack = Time.time - lastAttackTime;
         if(timeSinceLastAttack > attackRate)
         {
+            attackaudioSource.clip = attack_clip;
+            attackaudioSource.Play();
             lastAttackTime = Time.time;
             _animator.SetTrigger("Attack");
             sightSensor.detectedObject.GetComponentInParent<Life>().HitDamage(DamageCircle());

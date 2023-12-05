@@ -200,6 +200,7 @@ public class TurnManager: MonoBehaviour
             ResearchManager.instance.researchDayLeft -= 1;
         }
         PResourceManager.instance.MP += (PBuildingManager.instance.R_building.Count + PBuildingManager.instance.Fortress_R_building.Count) * 50 + 50;
+        EResourceManager.instance.MP += (EBuildingManager.instance.R_building.Count + EBuildingManager.instance.Fortress_R_building.Count) * 50 + 50;
         ChangeDay();
         ChangeGold();
         ChangeGainGold();
