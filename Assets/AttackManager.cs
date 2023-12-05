@@ -19,6 +19,7 @@ public class AttackManager : MonoBehaviour
     private float enemyFullHp = 0f;
     private float playerCurrentHp = 0f;
     private float enemyCurrentHp = 0f;
+    private string manyPlayerUnit;
     public static AttackManager instance;
 
     private void Awake()
@@ -44,9 +45,36 @@ public class AttackManager : MonoBehaviour
         checkBanResearchSkill();
         playerFullHp = PUnitManager.instance.Paladin * 20f + PUnitManager.instance.Archer * 10f + PUnitManager.instance.Shield * 50f + PUnitManager.instance.Lancer * 30f;
         enemyFullHp = EUnitManager.instance.Paladin * 20f + EUnitManager.instance.Archer * 10f + EUnitManager.instance.Shield * 50f + EUnitManager.instance.Lancer * 30f;
-
+        lotsofUnit();
+        Debug.Log(manyPlayerUnit);
+         
     }
-
+    private void lotsofUnit()
+    {
+        
+        if (PUnitManager.instance.Paladin >= PUnitManager.instance.Archer && PUnitManager.instance.Paladin >= PUnitManager.instance.Lancer && PUnitManager.instance.Paladin >= PUnitManager.instance.Shield)
+        {
+            EnemyAI.Instance.PlayermainUnit = "Sword";
+            
+        }
+        else if (PUnitManager.instance.Archer >= PUnitManager.instance.Paladin && PUnitManager.instance.Archer >= PUnitManager.instance.Lancer && PUnitManager.instance.Archer >= PUnitManager.instance.Shield)
+        {
+            EnemyAI.Instance.PlayermainUnit = "Archer";
+            
+        }
+        else if (PUnitManager.instance.Lancer >= PUnitManager.instance.Archer && PUnitManager.instance.Lancer >= PUnitManager.instance.Paladin && PUnitManager.instance.Lancer >= PUnitManager.instance.Shield)
+        {
+            EnemyAI.Instance.PlayermainUnit = "Spear";
+        }
+        else if (PUnitManager.instance.Shield >= PUnitManager.instance.Archer && PUnitManager.instance.Shield >= PUnitManager.instance.Lancer && PUnitManager.instance.Shield >= PUnitManager.instance.Paladin)
+        {
+            EnemyAI.Instance.PlayermainUnit = "Shield";
+        }
+        else
+        {
+            EnemyAI.Instance.PlayermainUnit = "None";
+        }
+    }
     public void checkCurrentHPAmount()
     {
 
@@ -143,9 +171,8 @@ public class AttackManager : MonoBehaviour
         }
         playerHPbar.GetComponent<Image>().fillAmount = playerCurrentHp / playerFullHp;
         enemyHPbar.GetComponent<Image>().fillAmount = enemyCurrentHp / enemyFullHp;
-        EnemyAI.Instance.PlayermainUnit = PUnitManager.instance.mainUnit;
-        Debug.Log(enemyCurrentHp);
-        Debug.Log(enemyCurrentHp / enemyFullHp);
+        
+  
 
     }
     private void checkBanResearchSkill()

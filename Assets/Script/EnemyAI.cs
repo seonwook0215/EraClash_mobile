@@ -35,7 +35,7 @@ public class EnemyAI : MonoBehaviour
 
     private void Awake()
     {
-        if(Instance != null)
+        if(Instance == null)
         {
             Instance = this;
         }
@@ -50,7 +50,7 @@ public class EnemyAI : MonoBehaviour
         Day = 0;
         Castlebuildingcnt = 1;
         Fortressbuildingcnt = 1;
-        PlayermainUnit = null;
+        PlayermainUnit = "None";
         CastleBuildPos = new Vector3(415, 0, -75); //1,2,3,4 -> z +10 | 5->x=393,z=-75 | 6,7,8 ->z +10 | 9->x=371,z=75 | 10~16 ->z +10 | 17-> x=415,y=18,z=60 | 18 ->z +10
         FortressBuildPos = new Vector3(321, 0, -25); // 1,2,3,4,5 ->z+10 | 6 ->x=295,z=-38 | 7~13 ->z+10
     }
@@ -283,12 +283,12 @@ public class EnemyAI : MonoBehaviour
     {
         //PlayermainUnit = PUnitManager.instance.mainUnit;
         Debug.Log(PlayermainUnit);
-        if (PlayermainUnit == "Sword")
+/*        if (PlayermainUnit == "Sword")
         {
             //shield
             GenerateBuilding(ShieldBuilding);
         }
-        else if(PlayermainUnit == "Spear")
+        else*/ if(PlayermainUnit == "Spear")
         {
             //sword
             GenerateBuilding(SwordBuilding);

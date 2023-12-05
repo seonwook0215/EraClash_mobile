@@ -81,6 +81,7 @@ public class BattleManager : MonoBehaviour
             case 1:
                 if (!EUnitManager.instance.fortress || player_unit == 0)
                 {
+                    
                     Debug.Log("끝났음2");
                     ReturnArmy();
                     makefieldArmyzero();
@@ -418,9 +419,12 @@ public class BattleManager : MonoBehaviour
         }
         else if (TurnManager.instance.Onattack) // player attack, enemy don't 
         {
+            Debug.Log("온어택은 켜져이써요");
             if (EUnitManager.instance.fortress)
             { //2차성루 안부서졌음
+                
                 cameranum = 1;
+                Debug.Log(cameranum);
                 PUnitManager.instance.units.Remove(GameObject.Find("Player Castle Unit").GetComponent<PUnit>());
                 if (PUnitManager.instance.fortress)
                 {
@@ -441,6 +445,7 @@ public class BattleManager : MonoBehaviour
             { //2차성루 부서짐
                 //Debug.Log("2nd destroyed , lancer unit : " + PUnitManager.instance.Lancer);
                 cameranum = 2;
+                Debug.Log(cameranum);
                 PUnitManager.instance.units.Remove(GameObject.Find("Player Castle Unit").GetComponent<PUnit>());
                 if (PUnitManager.instance.fortress)
                 {

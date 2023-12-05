@@ -169,7 +169,7 @@ public class TurnManager: MonoBehaviour
         }
         else
         {
-            dayEndWithNoCombat();
+            //dayEndWithNoCombat();
             TurnStart();
         }
     }
@@ -184,13 +184,16 @@ public class TurnManager: MonoBehaviour
         {
             if (EnemyAttack)
             {
-                StartWar = true;
+                
+
             }
-            AttackManager.instance.checkFullHPAmount();
-            attack_Canvas.SetActive(true);
-            base_Canvas.SetActive(false);
-            Onattack = true;
-            BattleManager.instance.StartWar();
+            else
+            {
+             
+            }
+            StartWar = true;
+            dayEndWithMyAttack();
+           
         }
 
     }
@@ -298,9 +301,12 @@ public class TurnManager: MonoBehaviour
         day_Canvas.transform.Find("AttackText").gameObject.SetActive(false);
         MainCamera.enabled = true;
         UICamera.enabled = false;
-        base_Canvas.SetActive(true);
+        base_Canvas.SetActive(false);
         day_Canvas.SetActive(false);
-
+        attack_Canvas.SetActive(true);
+        AttackManager.instance.checkFullHPAmount();
+        Onattack = true;
+        BattleManager.instance.StartWar();
     }
 
 
