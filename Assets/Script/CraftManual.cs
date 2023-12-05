@@ -41,10 +41,10 @@ public class CraftManual : MonoBehaviour
     [SerializeField] private GameObject bannedArcher;
     [SerializeField] private GameObject bannedLancer;
     [SerializeField] private GameObject bannedShield;
-    [SerializeField] private GameObject yesorno;
+    public GameObject yesorno;
     public GameObject canNotTouchTab;
     private bool IsDownButtonActive = true;
-
+    private bool isBuilding = false;
 
     [SerializeField]
     private Craft[] craft_building;
@@ -53,7 +53,7 @@ public class CraftManual : MonoBehaviour
     private GameObject go_Prefab; // 실제 생성될 프리팹을 담을 변수 
     //RayCast 필요 변수 선언
     private RaycastHit hitInfo;
-
+    
      [SerializeField]
      private LayerMask layerMask;
     //private int layerMask;
@@ -90,16 +90,40 @@ public class CraftManual : MonoBehaviour
     }
 
     public void SlotClick(int _slotNumber)
+
     {
+        // 화면의 정중앙을 계산
+
+
+        /*        Vector3 screenCenter = new Vector3(Camera.main.pixelWidth / 2, Camera.main.pixelHeight / 2);
+                selectedSlotNumber = _slotNumber;
+                Ray ray = Camera.main.ScreenPointToRay(screenCenter);
+                if (Physics.Raycast(ray, out RaycastHit hitInfo1, Mathf.Infinity))
+                {
+                    Vector3 centerLocation = hitInfo1.point;
+
+                    // Prefab을 화면의 정중앙에 생성
+                    go_Preview=Instantiate(craft_building[_slotNumber].go_PreviewPrefab, centerLocation, Quaternion.identity);
+                }*/
         Vector3 mousePositionScreen = Input.mousePosition;
         selectedSlotNumber = _slotNumber;
         // 마우스 좌표를 월드 좌표로 변환합니다.
         var mousePos = Input.mousePosition;
         if (firstCamera.enabled)
         {
-            mousePos.z = firstCamera.transform.position.y - 20;
-            Vector3 mousePositionWorld = firstCamera.ScreenToWorldPoint(mousePos);
-            go_Preview = Instantiate(craft_building[_slotNumber].go_PreviewPrefab, mousePositionWorld, Quaternion.identity);
+            Vector3 screenCenter = new Vector3(firstCamera.pixelWidth / 2, firstCamera.pixelHeight / 2);
+        selectedSlotNumber = _slotNumber;
+        Ray ray = firstCamera.ScreenPointToRay(screenCenter);
+        if (Physics.Raycast(ray, out RaycastHit hitInfo1, Mathf.Infinity))
+        {
+            Vector3 centerLocation = hitInfo1.point;
+
+            // Prefab을 화면의 정중앙에 생성
+            go_Preview=Instantiate(craft_building[_slotNumber].go_PreviewPrefab, centerLocation, Quaternion.identity);
+        }
+            /*  mousePos.z = firstCamera.transform.position.y - 20;
+              Vector3 mousePositionWorld = new Vector3(firstCamera.ScreenToWorldPoint(mousePos).x,10, firstCamera.ScreenToWorldPoint(mousePos).z);
+              go_Preview = Instantiate(craft_building[_slotNumber].go_PreviewPrefab, mousePositionWorld, Quaternion.identity);*/
         }
         else
         {
@@ -124,17 +148,70 @@ public class CraftManual : MonoBehaviour
         TurnManager.instance.ChangeGainGold();
         TurnManager.instance.ChangeBuildingText();
         //GetMouseCursorpos();
-      /*  if (movingCamera.enabled||TurnManager.instance.StartWar)
-        {
-            Cancel();
-        }
-        else
-        {
-            Window();
-        }*/
+        /*  if (movingCamera.enabled||TurnManager.instance.StartWar)
+          {
+              Cancel();
+          }
+          else
+          {
+              Window();
+          }*/
+ 
 
         if (isPreviewActivated)
-            PreviewPositionUpdate();
+        {
+            if (Input.GetButtonUp("Fire1"))
+            {
+                go_Preview.layer = LayerMask.NameToLayer("Building");
+                isBuilding = false;
+            }
+            if (Input.GetButton("Fire1"))
+            {
+                if (isBuilding)
+                {
+                    PreviewPositionUpdate();
+                }
+                else
+                {
+                    Vector3 mousePositionWorld;
+                    var mousePos = Input.mousePosition;
+                    if (firstCamera.enabled)
+                    {
+                        mousePos.z = firstCamera.transform.position.y; // 여기서는 y 좌표값을 사용하여 z 값을 정의
+                        mousePositionWorld = firstCamera.ScreenToWorldPoint(mousePos);
+                        
+                        // 보간 적용
+                        float xInterpolation = (mousePos.x / Screen.width) * 2 - 1; // x 보간
+
+                        float zInterpolation = 14 * xInterpolation; // 보간에 따른 z 보정값
+                        mousePositionWorld.y = 50f;
+                        mousePositionWorld.z -= zInterpolation;
+                        Debug.Log(mousePos.z+" "+mousePositionWorld.z + " "+xInterpolation );
+                    }
+                    else
+                    {
+                        mousePos.z = secondCamera.transform.position.y - 20;
+                        mousePositionWorld = secondCamera.ScreenToWorldPoint(mousePos);
+                    }
+                    Debug.Log(mousePositionWorld);
+                    if (Physics.Raycast(mousePositionWorld, Vector3.down, out hitInfo, Mathf.Infinity, layerMask))
+                    {
+                        Vector3 _location = hitInfo.point;
+                        //Debug.Log(hitInfo.collider.tag);
+                        if (hitInfo.collider.CompareTag("Building"))
+                        {
+                            go_Preview.layer = LayerMask.NameToLayer("Default");
+                            isBuilding = true;
+                            PreviewPositionUpdate();
+                        }
+                        //Debug.Log($"Raycast {hitInfo.collider.gameObject.name}");
+
+
+                    }
+                }
+            }
+        }
+            
        
     }
     public void touchYes()
@@ -196,30 +273,41 @@ public class CraftManual : MonoBehaviour
     }
     private void PreviewPositionUpdate()
     {
-        Vector3 mousePositionScreen = Input.mousePosition;
-        Vector3 mousePositionWorld;
-    
-        var mousePos = Input.mousePosition;
 
+        Vector3 mousePositionWorld;
+        var mousePos = Input.mousePosition;
         if (firstCamera.enabled)
         {
-            mousePos.z = firstCamera.transform.position.y - 20;
-            mousePositionWorld = firstCamera.ScreenToWorldPoint(mousePos);
             
-        }
-        else
-        {
-            mousePos.z = secondCamera.transform.position.y-20;
-            mousePositionWorld = secondCamera.ScreenToWorldPoint(mousePos);
+            mousePos.z = firstCamera.transform.position.y; // 여기서는 y 좌표값을 사용하여 z 값을 정의
+            mousePositionWorld = firstCamera.ScreenToWorldPoint(mousePos);
+
+            // 보간 적용
+            float xInterpolation = (mousePos.x / Screen.width) * 2 - 1; // x 보간
+
+            float zInterpolation = 14 * xInterpolation; // 보간에 따른 z 보정값
+            mousePositionWorld.y = 50f;
+            mousePositionWorld.z -= zInterpolation;
         }
 
+        /*            if (firstCamera.enabled)
+                    {
+                        mousePos.z = firstCamera.transform.position.y - 20;
+                        mousePositionWorld = firstCamera.ScreenToWorldPoint(mousePos);
+
+                    }*/
+        else
+        {
+            mousePos.z = secondCamera.transform.position.y - 20;
+            mousePositionWorld = secondCamera.ScreenToWorldPoint(mousePos);
+        }
         if (Physics.Raycast(mousePositionWorld, Vector3.down, out hitInfo, Mathf.Infinity, layerMask))
         {
             Vector3 _location = hitInfo.point;
-            //Debug.Log($"Raycast {hitInfo.collider.gameObject.name}");
             go_Preview.transform.position = _location;
+        }
 
-        }   
+
     }
     private void Build()
     {

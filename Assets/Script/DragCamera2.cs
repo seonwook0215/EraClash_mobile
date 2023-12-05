@@ -27,7 +27,7 @@ public class DragCamera2 : MonoBehaviour
             isCameraMoving = false;
         }
 
-        if (Input.GetMouseButton(0)&&first.enabled&&!CraftManual.instance.canNotTouchTab.activeSelf)
+        if (Input.GetMouseButton(0)&&first.enabled&&!CraftManual.instance.canNotTouchTab.activeSelf&& !CraftManual.instance.yesorno.activeSelf)
         {
             Vector3 position = first.ScreenToViewportPoint((Vector2)Input.mousePosition - clickPoint);
             position.z = position.y;

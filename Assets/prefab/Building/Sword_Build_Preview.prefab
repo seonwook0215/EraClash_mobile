@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4451962659552468134}
   m_Layer: 0
   m_Name: Sword_Build_Preview
-  m_TagString: Untagged
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -146,7 +146,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   layerGround: 7
-  layerGround2: 6
   green: {fileID: 2100000, guid: 1387cabcedddbe14bae315694c2555b7, type: 2}
   red: {fileID: 2100000, guid: ee27e253cb306d14abb0bae43e33e732, type: 2}
 --- !u!1 &1028514134921774867
