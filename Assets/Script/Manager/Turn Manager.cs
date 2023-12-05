@@ -239,23 +239,21 @@ public class TurnManager: MonoBehaviour
         day_Canvas.transform.Find("Sun").gameObject.SetActive(false);
         day_Canvas.transform.Find("Moon").gameObject.SetActive(true);
         day_Canvas.transform.Find("MoonBackground").gameObject.SetActive(true);
+        day_Canvas.transform.Find("Moon").gameObject.transform.GetChild(0).gameObject.GetComponent<Animation>().Play();
+
         SunShine.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
         MoonShine.Play();
         elapsedTime = 0f;
-        duration = 1f;
+        duration = 0.5f;
 
         while (elapsedTime < duration)
         {
-            day_Canvas.transform.Find("Moon").gameObject.transform.GetChild(1).gameObject.transform.Rotate(0f, 360f * Time.deltaTime, 0f);
+            day_Canvas.transform.Find("Moon").gameObject.transform.GetChild(1).gameObject.transform.Rotate(0f, 720f * Time.deltaTime, 0f);
             elapsedTime += Time.deltaTime;
             yield return null;
         }
-        yield return new WaitForSecondsRealtime(1f);
-        day_Canvas.transform.Find("Moon").gameObject.transform.GetChild(0).gameObject.GetComponent<Animation>().Play();
-        
-        yield return new WaitForSecondsRealtime(2f);
         elapsedTime = 0f;
-        duration = 1f;
+        duration = 0.5f;
 
         while (elapsedTime < duration)
         {
@@ -263,6 +261,34 @@ public class TurnManager: MonoBehaviour
             elapsedTime += Time.deltaTime;
             yield return null;
         }
+        elapsedTime = 0f;
+        duration = 1.5f;
+
+        while (elapsedTime < duration)
+        {
+            day_Canvas.transform.Find("Moon").gameObject.transform.GetChild(1).gameObject.transform.Rotate(0f, 180f * Time.deltaTime, 0f);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        elapsedTime = 0f;
+        duration = 0.5f;
+
+        while (elapsedTime < duration)
+        {
+            day_Canvas.transform.Find("Moon").gameObject.transform.GetChild(1).gameObject.transform.Rotate(0f, 360f * Time.deltaTime, 0f);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        elapsedTime = 0f;
+        duration = 0.5f;
+
+        while (elapsedTime < duration)
+        {
+            day_Canvas.transform.Find("Moon").gameObject.transform.GetChild(1).gameObject.transform.Rotate(0f, 720f * Time.deltaTime, 0f);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
         SunShine.Play();
         MoonShine.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
 
@@ -280,7 +306,7 @@ public class TurnManager: MonoBehaviour
             elapsedTime += Time.deltaTime;
             yield return null;
         }
-        yield return new WaitForSecondsRealtime(1.5f);
+        yield return new WaitForSecondsRealtime(1f);
 
         MainCamera.enabled = true;
         UICamera.enabled = false;
