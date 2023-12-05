@@ -40,7 +40,7 @@ public class PLancerSpawn : MonoBehaviour
             Vector3 pos = new Vector3(0, 0, 0);
             for (int i = 0; i < 10; i++)
             {
-                GameObject instantUnit = Instantiate(unit, originPosition + pos, unit.transform.rotation);
+                Instantiate(unit, originPosition + pos, unit.transform.rotation);
                 //pos.x+=2;
                 pos.z += 2;
             }
@@ -48,7 +48,7 @@ public class PLancerSpawn : MonoBehaviour
             pos = new Vector3(pos_x, 0, pos_z);
             for (int i = 0; i < num - 10; i++)
             {
-                GameObject instantUnit = Instantiate(unit, originPosition + pos, unit.transform.rotation);
+                Instantiate(unit, originPosition + pos, unit.transform.rotation);
                 //pos.x+=2;
                 pos.z += 2;
             }
@@ -59,7 +59,7 @@ public class PLancerSpawn : MonoBehaviour
             Vector3 pos = new Vector3(pos_z, 0, 0);
             for (int i = 0; i < num; i++)
             {
-                GameObject instantUnit = Instantiate(unit, originPosition + pos, unit.transform.rotation);
+                Instantiate(unit, originPosition + pos, unit.transform.rotation);
                 //pos.x+=2;
                 pos.z += 2;
             }

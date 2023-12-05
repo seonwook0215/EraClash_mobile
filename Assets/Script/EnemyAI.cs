@@ -121,7 +121,7 @@ public class EnemyAI : MonoBehaviour
         }
         else { return false; }
     }
-
+    
     private void Alact() {
         //처음 시작 200원 시작
         CounterUnitBuild();
@@ -130,43 +130,96 @@ public class EnemyAI : MonoBehaviour
         {
             //Day 1 자원
             case 0:
-                if (canBuild("Resouce")) GenerateBuilding(ResourceBuilding);    //TurnManager.instance.EnemyAttack = true;
+                if (canBuild("Resouce"))
+                {
+                    GenerateBuilding(ResourceBuilding);
+                    EResourceManager.instance.MP -= 50;
+                    break;
+                }
                 break;
             //Day 2 자원
             case 1:
-                if (canBuild("Resouce")) GenerateBuilding(ResourceBuilding);
+                if (canBuild("Resouce"))
+                {
+                    GenerateBuilding(ResourceBuilding);
+                    EResourceManager.instance.MP -= 50;
+                    break;
+                }
                 break;
             //Day 3 창   공격x
             case 2:
-                if (canBuild("Spear")) GenerateBuilding(LancerBuilding);
+                if (canBuild("Spear"))
+                {
+                    GenerateBuilding(LancerBuilding);
+                    EResourceManager.instance.MP -= 250;
+                    break;
+                }
                 break;
             //Day 4 자원
             case 3:
-                if (canBuild("Resouce")) GenerateBuilding(ResourceBuilding);
+                if (canBuild("Resouce"))
+                {
+                    GenerateBuilding(ResourceBuilding);
+                    EResourceManager.instance.MP -= 50;
+                    break;
+                }
                 break;
             //Day 5 검
             case 4:
-                if (canBuild("Sword")) GenerateBuilding(SwordBuilding);
+                if (canBuild("Sword"))
+                {
+                    GenerateBuilding(SwordBuilding);
+                    EResourceManager.instance.MP -= 150;
+                    break;
+                }
+                TurnManager.instance.EnemyAttack = true;
                 break;
             //Day 6 창   공격o
             case 5:
-                if (canBuild("Archer")) GenerateBuilding(ArcherBuilding);
+                if (canBuild("Archer"))
+                {
+                    GenerateBuilding(ArcherBuilding);
+                    EResourceManager.instance.MP -= 200;
+                    break;
+                }
                 break;
             //Day 7 궁
             case 6:
-                if (canBuild("Spear")) GenerateBuilding(LancerBuilding);
+                if (canBuild("Spear"))
+                {
+                    GenerateBuilding(LancerBuilding);
+                    EResourceManager.instance.MP -= 250;
+                    break;
+                }
+                TurnManager.instance.EnemyAttack = true;
                 break;
             //Day 8 검
             case 7:
-                if (canBuild("Sword")) GenerateBuilding(SwordBuilding);
+                if (canBuild("Sword"))
+                {
+                    GenerateBuilding(SwordBuilding);
+                    EResourceManager.instance.MP -= 150;
+                    break;
+                }
                 break;
             //Day 9 창   공격o
             case 8:
-                if (canBuild("Spear")) GenerateBuilding(LancerBuilding);
+                if (canBuild("Spear"))
+                {
+                    GenerateBuilding(LancerBuilding);
+                    EResourceManager.instance.MP -= 250;
+                    break;
+                }
                 break;
             //Day 10궁
             case 9:
-                if (canBuild("Shield")) GenerateBuilding(ShieldBuilding);
+                if (canBuild("Shield"))
+                {
+                    GenerateBuilding(ShieldBuilding);
+                    EResourceManager.instance.MP -= 250;
+                    break;
+                }
+                TurnManager.instance.EnemyAttack = true;
                 break;
 
             //Day 11검 ->계속 뽑기
@@ -174,6 +227,7 @@ public class EnemyAI : MonoBehaviour
                 if (canBuild("Sword"))
                 {
                     GenerateBuilding(SwordBuilding);
+                    EResourceManager.instance.MP -= 150;
                     BuildLoop();
                     break;
                 }
@@ -183,6 +237,7 @@ public class EnemyAI : MonoBehaviour
                 if (canBuild("Archer"))
                 {
                     GenerateBuilding(ArcherBuilding);
+                    EResourceManager.instance.MP -= 200;
                     BuildLoop();
                     break;
                 }
@@ -191,75 +246,88 @@ public class EnemyAI : MonoBehaviour
                 if (canBuild("Archer"))
                 {
                     GenerateBuilding(ArcherBuilding);
+                    EResourceManager.instance.MP -= 200;
                     BuildLoop();
                     break;
                 }
+                TurnManager.instance.EnemyAttack = true;
                 break;
             case 13:
                 if (canBuild("Shield"))
                 {
                     GenerateBuilding(ShieldBuilding);
+                    EResourceManager.instance.MP -= 250;
                     BuildLoop();
                     break;
                 }
-                    break;
+                break;
             case 14:
                 if (canBuild("Shield"))
                 {
                     GenerateBuilding(ShieldBuilding);
+                    EResourceManager.instance.MP -= 250;
                     BuildLoop();
                     break;
                 }
-                    break;
+                TurnManager.instance.EnemyAttack = true;
+                break;
             case 15:
                 if (canBuild("Archer"))
                 {
                     GenerateBuilding(ArcherBuilding);
+                    EResourceManager.instance.MP -= 200;
                     BuildLoop();
                     break;
                 }
-                    break;
+                break;
             case 16:
                 if (canBuild("Sword"))
                 {
                     GenerateBuilding(SwordBuilding);
+                    EResourceManager.instance.MP -= 150;
                     BuildLoop();
                     break;
                 }
-                    break;
+                TurnManager.instance.EnemyAttack = true;
+                break;
             case 17:
                 if (canBuild("Archer"))
                 {
                     GenerateBuilding(ArcherBuilding);
+                    EResourceManager.instance.MP -= 200;
                     BuildLoop();
                     break;
                 }
-                    break;
+                break;
             case 18:
                 if (canBuild("Spear"))
                 {
                     GenerateBuilding(LancerBuilding);
+                    EResourceManager.instance.MP -= 250;
                     BuildLoop();
                     break;
                 }
-                    break;
+                TurnManager.instance.EnemyAttack = true;
+                break;
             case 19:
                 if (canBuild("Sword"))
                 {
                     GenerateBuilding(SwordBuilding);
+                    EResourceManager.instance.MP -= 150;
                     BuildLoop();
                     break;
                 }
-                    break;
+                break;
             case 20:
                 if (canBuild("Sword"))
                 {
                     GenerateBuilding(SwordBuilding);
+                    EResourceManager.instance.MP -= 150;
                     BuildLoop();
                     break;
                 }
-                    break;
-            //마지막 전투 후 끝
+                TurnManager.instance.EnemyAttack = true;
+                break;
         }
 
     }
@@ -267,27 +335,25 @@ public class EnemyAI : MonoBehaviour
     //spear>archer>shield>sword>spear
     private void CounterUnitBuild()
     {
-        //PlayermainUnit = PUnitManager.instance.mainUnit;
-        Debug.Log(PlayermainUnit);
-/*        if (PlayermainUnit == "Sword")
+        if (PlayermainUnit == "Sword")
         {
             //shield
-            GenerateBuilding(ShieldBuilding);
+            GenerateBuilding(LancerBuilding);
         }
-        else*/ if(PlayermainUnit == "Spear")
+        else if(PlayermainUnit == "Spear")
         {
             //sword
-            GenerateBuilding(SwordBuilding);
+            GenerateBuilding(ArcherBuilding);
         }
         else if(PlayermainUnit == "Archer")
         {
             //spear
-            GenerateBuilding(LancerBuilding);
+            GenerateBuilding(ShieldBuilding);
         }
         else if (PlayermainUnit == "Shield")
         {
             //archer
-            GenerateBuilding(ArcherBuilding);
+            GenerateBuilding(SwordBuilding);
         }
         else
         {
@@ -302,22 +368,47 @@ public class EnemyAI : MonoBehaviour
             float rand=Random.Range(0,4);
             if (rand == 0)
             {
-                if (canBuild("Resouce")) GenerateBuilding(ResourceBuilding);
+                if (canBuild("Resouce"))
+                {
+                    GenerateBuilding(ResourceBuilding);
+                    EResourceManager.instance.MP -= 50;
+                }
                 else break;
             }
             else if(rand == 1)
             {
-                if (canBuild("Sword")) GenerateBuilding(SwordBuilding);
+                if (canBuild("Sword"))
+                {
+                    GenerateBuilding(SwordBuilding);
+                    EResourceManager.instance.MP -= 150;
+                }
                 else break;
             }
             else if (rand == 2)
             {
-                if (canBuild("Spear")) GenerateBuilding(LancerBuilding);
+                if (canBuild("Spear"))
+                {
+                    GenerateBuilding(LancerBuilding);
+                    EResourceManager.instance.MP -= 250;
+                }
+                else break;
+            }
+            else if(rand == 3)
+            {
+                if (canBuild("Archer"))
+                {
+                    GenerateBuilding(ArcherBuilding);
+                    EResourceManager.instance.MP -= 200;
+                }
                 else break;
             }
             else
             {
-                if (canBuild("Archer")) GenerateBuilding(ArcherBuilding);
+                if (canBuild("Shield"))
+                {
+                    GenerateBuilding(ShieldBuilding);
+                    EResourceManager.instance.MP -= 250;
+                }
                 else break;
             }
         }
