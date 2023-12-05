@@ -19,20 +19,6 @@ public class EnemyAI : MonoBehaviour
     public string PlayermainUnit;
     private bool inCastle;
 
-
-    Vector3 position1 = new Vector3(415, 20, 69);
-    Vector3 position2 = new Vector3(415, 20, 55);
-    Vector3 position3 = new Vector3(283, 3, 29);//그거
-    Vector3 position4 = new Vector3(412, 13, 5);
-    Vector3 position5 = new Vector3(282, 3, 15);//그거
-    Vector3 position6 = new Vector3(411, 10, -19);
-    Vector3 position7 = new Vector3(321, 3, -20);//그거
-    Vector3 position8 = new Vector3(291, 3, -34);//그거
-    Vector3 position9 = new Vector3(406, 4, -51);
-    Vector3 position10 = new Vector3(405, 4, -67);
-    Vector3 position11 = new Vector3(375, 4, -51);
-    Vector3 position12 = new Vector3(376, 4, -67);
-
     private void Awake()
     {
         if(Instance == null)
