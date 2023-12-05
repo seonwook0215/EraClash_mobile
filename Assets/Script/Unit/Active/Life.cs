@@ -42,7 +42,7 @@ public class Life : MonoBehaviour
         }
         else if (this.tag == "Sword")
         {
-            amount = 20f;
+            amount = 200f;
             _animator.SetBool("Alive", true);
         }
         else if (this.tag == "Spear")
