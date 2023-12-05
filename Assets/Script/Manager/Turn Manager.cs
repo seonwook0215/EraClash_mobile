@@ -43,7 +43,7 @@ public class TurnManager: MonoBehaviour
     private float Paladin;
     private float Lancer;
     private float Archer;
-    
+    public bool waitForCutScene = false;
     private float R_building;
     private float P_building;
     private float L_building;
@@ -296,11 +296,12 @@ public class TurnManager: MonoBehaviour
         day_Canvas.transform.Find("AttackText").gameObject.SetActive(true);
         AttackUIText.text = "Heading for an attack";
         yield return new WaitForSecondsRealtime(1f);
-
+        
         playerAttackSword.SetActive(false);
         day_Canvas.transform.Find("AttackText").gameObject.SetActive(false);
         MainCamera.enabled = true;
         UICamera.enabled = false;
+        waitForCutScene = true;
         base_Canvas.SetActive(false);
         day_Canvas.SetActive(false);
         attack_Canvas.SetActive(true);
@@ -423,6 +424,7 @@ public class TurnManager: MonoBehaviour
         }
         else
         {
+            waitForCutScene = false;
             attack_Canvas.SetActive(false);
             base_Canvas.SetActive(true);
             StartWar = false;

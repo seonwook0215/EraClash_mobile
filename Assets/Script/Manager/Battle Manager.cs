@@ -13,6 +13,7 @@ public class BattleManager : MonoBehaviour
 
     public bool inField;
     private float cnt;
+    private int cameranumcnt = 0;
     private void Awake()
     {
         inField = false;
@@ -39,7 +40,14 @@ public class BattleManager : MonoBehaviour
     {
         if (cameranum != -1)
         {
-            EndFight();
+            if (cameranumcnt < 10)
+            {
+                cameranumcnt++;
+            }
+            else
+            {
+                EndFight();
+            }
 
         }
     }
@@ -74,7 +82,7 @@ public class BattleManager : MonoBehaviour
                     audioSource.clip = war_end;
                     audioSource.loop = true;
                     audioSource.Play();
-                    
+                    cameranumcnt = 0;
                     TurnManager.instance.checkWinorLose();
                 }
                 break;
@@ -102,7 +110,7 @@ public class BattleManager : MonoBehaviour
                     audioSource.clip = war_end;
                     audioSource.loop = true;
                     audioSource.Play();
-                    
+                    cameranumcnt = 0;
                     TurnManager.instance.checkWinorLose();
                 }
                 break;
@@ -125,7 +133,7 @@ public class BattleManager : MonoBehaviour
                     audioSource.clip = war_end;
                     audioSource.loop = true;
                     audioSource.Play();
-                    
+                    cameranumcnt = 0;
                     TurnManager.instance.checkWinorLose();
                 }
                 break;
@@ -159,7 +167,7 @@ public class BattleManager : MonoBehaviour
                     audioSource.clip = war_end;
                     audioSource.loop = true;
                     audioSource.Play();
-                    
+                    cameranumcnt = 0;
                     TurnManager.instance.checkWinorLose();
                 }
                 break;
@@ -181,7 +189,7 @@ public class BattleManager : MonoBehaviour
                     audioSource.clip = war_end;
                     audioSource.loop = true;
                     audioSource.Play();
-                    
+                    cameranumcnt = 0;
                     TurnManager.instance.checkWinorLose();
                 }
                 break;

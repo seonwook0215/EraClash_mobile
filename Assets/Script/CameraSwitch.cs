@@ -103,7 +103,7 @@ public class CameraSwitch : MonoBehaviour
             StartCoroutine(FastTransitionCameras(toMain, toMainRotate));
             cnt = 0;
         }
-        if (TurnManager.instance.StartWar && cnt == 0)
+        if (TurnManager.instance.StartWar && cnt == 0&& TurnManager.instance.waitForCutScene)
 
         {
             UpdateCamera();
