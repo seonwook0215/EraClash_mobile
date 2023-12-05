@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEngine.Rendering.DebugUI;
 
@@ -26,6 +27,8 @@ public class PUnitManager : MonoBehaviour // 유닛 얼마나 있는지 관리
 
     public bool fortress;
     public bool castle;
+
+    public string mainUnit;
     public void Awake()
     {
         if (instance == null)
@@ -39,10 +42,7 @@ public class PUnitManager : MonoBehaviour // 유닛 얼마나 있는지 관리
     }
     private void Start()
     {
-        //Fortress = GameObject.Find("Player Fortress pos");
-        //Castle = GameObject.Find("Player Castle pos");
-        //Fortress_pos = Fortress.transform;
-        //Castle_pos = Castle.transform;
+        mainUnit = null;
         fortress = true;
         castle = true;
         Paladin = 0;
@@ -110,6 +110,30 @@ public class PUnitManager : MonoBehaviour // 유닛 얼마나 있는지 관리
         Lancer += (PBuildingManager.instance.L_building.Count + PBuildingManager.instance.Fortress_L_building.Count) * 2;
         Archer += (PBuildingManager.instance.A_building.Count + PBuildingManager.instance.Fortress_A_building.Count) * 2;
         Shield += (PBuildingManager.instance.S_building.Count + PBuildingManager.instance.Fortress_S_building.Count) * 2;
+        mainUnit = lotsofUnit();
     }
 
+    public string lotsofUnit()
+    {
+        if(Paladin > Archer && Paladin > Lancer && Paladin > Shield)
+        {
+            return "Sword";
+        }
+        else if (Archer > Paladin && Archer > Lancer && Archer > Shield)
+        {
+            return "Archer";
+        }
+        else if (Lancer > Archer && Lancer > Paladin && Lancer > Shield)
+        {
+            return "Spear";
+        }
+        else if (Shield > Archer && Shield > Lancer && Shield > Paladin)
+        {
+            return "Shield";
+        }
+        else
+        {
+            return null;
+        }
+    }
 }

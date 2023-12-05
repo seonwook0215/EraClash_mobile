@@ -143,7 +143,7 @@ public class AttackManager : MonoBehaviour
         }
         playerHPbar.GetComponent<Image>().fillAmount = playerCurrentHp / playerFullHp;
         enemyHPbar.GetComponent<Image>().fillAmount = enemyCurrentHp / enemyFullHp;
-
+        EnemyAI.Instance.PlayermainUnit = PUnitManager.instance.mainUnit;
         Debug.Log(enemyCurrentHp);
         Debug.Log(enemyCurrentHp / enemyFullHp);
         
