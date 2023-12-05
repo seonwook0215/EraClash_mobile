@@ -40,51 +40,113 @@ public class AttackManager : MonoBehaviour
     }
     public void checkFullHPAmount()
     {
-        playerFullHp = PUnitManager.instance.Paladin * 100f + PUnitManager.instance.Archer * 100f + PUnitManager.instance.Shield * 100f + PUnitManager.instance.Lancer * 100f;
-        enemyFullHp  = EUnitManager.instance.Paladin * 100f + EUnitManager.instance.Archer * 100f + EUnitManager.instance.Shield * 100f + EUnitManager.instance.Lancer * 100f;
+        Debug.Log("½ÇÇà");
+        checkBanResearchSkill();
+        playerFullHp = PUnitManager.instance.Paladin * 20f + PUnitManager.instance.Archer * 10f + PUnitManager.instance.Shield * 50f + PUnitManager.instance.Lancer * 30f;
+        enemyFullHp  = EUnitManager.instance.Paladin * 20f + EUnitManager.instance.Archer * 10f + EUnitManager.instance.Shield * 50f + EUnitManager.instance.Lancer * 30f;
+        
     }
    
     public void checkCurrentHPAmount()
     {
-        checkBanResearchSkill();
+        
         playerCurrentHp = 0;
         enemyCurrentHp = 0;
         for (int i = 0; i < PUnitManager.instance.P_units.Count; i++)
         {
-            playerCurrentHp += PUnitManager.instance.P_units[i].GetComponent<Life>().amount;
+            if (PUnitManager.instance.P_units[i].GetComponent<Life>().amount < 0f)
+            {
+
+            }
+            else
+            {
+                playerCurrentHp += PUnitManager.instance.P_units[i].GetComponent<Life>().amount;
+            }
         }
         for (int i = 0; i < PUnitManager.instance.A_units.Count; i++)
         {
-            playerCurrentHp += PUnitManager.instance.A_units[i].GetComponent<Life>().amount;
+            if (PUnitManager.instance.A_units[i].GetComponent<Life>().amount < 0f)
+            {
+
+            }
+            else
+            {
+                playerCurrentHp += PUnitManager.instance.A_units[i].GetComponent<Life>().amount;
+            }
         }
         for (int i = 0; i < PUnitManager.instance.L_units.Count; i++)
         {
-            playerCurrentHp += PUnitManager.instance.L_units[i].GetComponent<Life>().amount;
+            if (PUnitManager.instance.L_units[i].GetComponent<Life>().amount < 0f)
+            {
+
+            }
+            else
+            {
+                playerCurrentHp += PUnitManager.instance.L_units[i].GetComponent<Life>().amount;
+            }
         }
         for (int i = 0; i < PUnitManager.instance.S_units.Count; i++)
         {
-            playerCurrentHp += PUnitManager.instance.S_units[i].GetComponent<Life>().amount;
+            if (PUnitManager.instance.S_units[i].GetComponent<Life>().amount < 0f)
+            {
+
+            }
+            else
+            {
+                playerCurrentHp += PUnitManager.instance.S_units[i].GetComponent<Life>().amount;
+            }
         }
 
         for (int i = 0; i < EUnitManager.instance.P_units.Count; i++)
         {
-            enemyCurrentHp += EUnitManager.instance.P_units[i].GetComponent<Life>().amount;
+            if (EUnitManager.instance.P_units[i].GetComponent<Life>().amount < 0f)
+            {
+
+            }
+            else
+            {
+                enemyCurrentHp += EUnitManager.instance.P_units[i].GetComponent<Life>().amount;
+            }
         }
         for (int i = 0; i < EUnitManager.instance.A_units.Count; i++)
         {
-            enemyCurrentHp += EUnitManager.instance.A_units[i].GetComponent<Life>().amount;
+            if (EUnitManager.instance.A_units[i].GetComponent<Life>().amount < 0f)
+            {
+
+            }
+            else
+            {
+                enemyCurrentHp += EUnitManager.instance.A_units[i].GetComponent<Life>().amount;
+            }
         }
         for (int i = 0; i < EUnitManager.instance.L_units.Count; i++)
         {
-            enemyCurrentHp += EUnitManager.instance.L_units[i].GetComponent<Life>().amount;
+            if (EUnitManager.instance.L_units[i].GetComponent<Life>().amount < 0f)
+            {
+
+            }
+            else
+            {
+                enemyCurrentHp += EUnitManager.instance.L_units[i].GetComponent<Life>().amount;
+            }
         }
         for (int i = 0; i < EUnitManager.instance.S_units.Count; i++)
         {
-            enemyCurrentHp += EUnitManager.instance.S_units[i].GetComponent<Life>().amount;
+            if (EUnitManager.instance.S_units[i].GetComponent<Life>().amount < 0f)
+            {
+
+            }
+            else
+            {
+                enemyCurrentHp += EUnitManager.instance.S_units[i].GetComponent<Life>().amount;
+            }
         }
         playerHPbar.GetComponent<Image>().fillAmount = playerCurrentHp / playerFullHp;
         enemyHPbar.GetComponent<Image>().fillAmount = enemyCurrentHp / enemyFullHp;
-        Debug.Log(playerCurrentHp/playerFullHp);
+
+        Debug.Log(enemyCurrentHp);
+        Debug.Log(enemyCurrentHp / enemyFullHp);
+        
     }
     private void checkBanResearchSkill()
     {

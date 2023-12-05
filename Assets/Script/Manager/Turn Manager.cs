@@ -14,7 +14,11 @@ public class TurnManager: MonoBehaviour
 
     public float Day;
     public float Phase;
-
+    private float rotationSpeed = 540f;
+    public ParticleSystem SunShine;
+    public ParticleSystem MoonShine;
+    [SerializeField] private Camera MainCamera;
+    [SerializeField] private Camera UICamera;
     [SerializeField] private TextMeshProUGUI DayText;
     [SerializeField] private TextMeshProUGUI GoldText;
     [SerializeField] private TextMeshProUGUI GainGoldText;
@@ -29,6 +33,7 @@ public class TurnManager: MonoBehaviour
     [SerializeField] private GameObject base_Canvas;
     [SerializeField] private GameObject research_Canvas;
     [SerializeField] private GameObject attack_Canvas;
+    [SerializeField] private GameObject day_Canvas;
     public bool Onattack=false;
     public bool EnemyAttack = false;
     public bool StartWar = false;
@@ -161,6 +166,7 @@ public class TurnManager: MonoBehaviour
         }
         else
         {
+            dayEndWithNoCombat();
             TurnStart();
         }
     }
@@ -201,7 +207,88 @@ public class TurnManager: MonoBehaviour
         EUnitManager.instance.TurnChangeGainArmy();
     }
 
- 
+    private void dayEndWithNoCombat()
+    {
+        Debug.Log("!!");
+        day_Canvas.transform.Find("Moon").gameObject.transform.GetChild(1).gameObject.transform.Rotate(0f, 0f, 0f);
+        day_Canvas.transform.Find("Sun").gameObject.transform.GetChild(1).gameObject.transform.Rotate(0f, 0f, 0f);
+        MainCamera.enabled=false;
+        UICamera.enabled = true;
+        StartCoroutine(dayEndWithNoCombat_IEnumerator());
+
+    }
+    IEnumerator dayEndWithNoCombat_IEnumerator()
+    {
+        base_Canvas.SetActive(false);
+        day_Canvas.SetActive(true);
+        day_Canvas.transform.Find("Sun").gameObject.SetActive(true);
+        day_Canvas.transform.Find("Moon").gameObject.SetActive(false);
+        day_Canvas.transform.Find("Sun").gameObject.transform.GetChild(0).gameObject.GetComponent<Animation>().Play();
+        SunShine.Play();
+        yield return new WaitForSecondsRealtime(1f);
+        float elapsedTime = 0f;
+        float duration = 1f;
+
+        while (elapsedTime < duration)
+        {
+            day_Canvas.transform.Find("Sun").gameObject.transform.GetChild(1).gameObject.transform.Rotate(0f, 360f * Time.deltaTime, 0f);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        yield return new WaitForSecondsRealtime(0.05f);
+        day_Canvas.transform.Find("Sun").gameObject.SetActive(false);
+        day_Canvas.transform.Find("Moon").gameObject.SetActive(true);
+        day_Canvas.transform.Find("MoonBackground").gameObject.SetActive(true);
+        SunShine.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+        MoonShine.Play();
+        elapsedTime = 0f;
+        duration = 1f;
+
+        while (elapsedTime < duration)
+        {
+            day_Canvas.transform.Find("Moon").gameObject.transform.GetChild(1).gameObject.transform.Rotate(0f, 360f * Time.deltaTime, 0f);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        yield return new WaitForSecondsRealtime(1f);
+        day_Canvas.transform.Find("Moon").gameObject.transform.GetChild(0).gameObject.GetComponent<Animation>().Play();
+        
+        yield return new WaitForSecondsRealtime(2f);
+        elapsedTime = 0f;
+        duration = 1f;
+
+        while (elapsedTime < duration)
+        {
+            day_Canvas.transform.Find("Moon").gameObject.transform.GetChild(1).gameObject.transform.Rotate(0f, 360f * Time.deltaTime, 0f);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        SunShine.Play();
+        MoonShine.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+
+        yield return new WaitForSecondsRealtime(0.05f);
+        day_Canvas.transform.Find("Sun").gameObject.SetActive(true);
+        day_Canvas.transform.Find("Moon").gameObject.SetActive(false);
+        day_Canvas.transform.Find("MoonBackground").gameObject.SetActive(false);
+        day_Canvas.transform.Find("Sun").gameObject.transform.GetChild(0).gameObject.GetComponent<Animation>().Stop();
+        elapsedTime = 0f;
+        duration = 0.5f;
+
+        while (elapsedTime < duration)
+        {
+            day_Canvas.transform.Find("Sun").gameObject.transform.GetChild(1).gameObject.transform.Rotate(0f, 720f * Time.deltaTime, 0f);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        yield return new WaitForSecondsRealtime(1.5f);
+
+        MainCamera.enabled = true;
+        UICamera.enabled = false;
+        base_Canvas.SetActive(true);
+        day_Canvas.SetActive(false);
+    }
+
+    
     public void checkWinorLose()
     {
         if (!EUnitManager.instance.castle)
