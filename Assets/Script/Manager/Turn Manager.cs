@@ -151,7 +151,7 @@ public class TurnManager: MonoBehaviour
     }
     public void TouchSoldierButton()
     {
-
+        SoldierManager.instance.clickSoldierButton();
     }
     public void TouchEndDayButton()
     {

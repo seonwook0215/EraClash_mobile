@@ -143,9 +143,6 @@ public class AttackManager : MonoBehaviour
         }
         playerHPbar.GetComponent<Image>().fillAmount = playerCurrentHp / playerFullHp;
         enemyHPbar.GetComponent<Image>().fillAmount = enemyCurrentHp / enemyFullHp;
-
-        Debug.Log(enemyCurrentHp);
-        Debug.Log(enemyCurrentHp / enemyFullHp);
         
     }
     private void checkBanResearchSkill()
