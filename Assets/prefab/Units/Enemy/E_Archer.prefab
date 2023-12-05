@@ -555,9 +555,8 @@ MonoBehaviour:
   lastAttackTime: 0
   attackRate: 1
   damage: 5
-  objectlayer:
-    serializedVersion: 2
-    m_Bits: 64
+  attackaudioSource: {fileID: 8786220672654356898}
+  attack_clip: {fileID: 8300000, guid: 5327c5b1179ffab4397a2876a89291f0, type: 3}
 --- !u!114 &-5929300018602254242
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -571,6 +570,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   amount: 0
+  hurtaudioSource: {fileID: 4609670699551017266}
+  hurt_clip: {fileID: 8300000, guid: a5531052b454270499c718213c3357da, type: 3}
 --- !u!114 &7726954055541201997
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -583,10 +584,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 761af402aa7c7a3408dbec539e400c7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackaudioSource: {fileID: 0}
-  hurtaudioSource: {fileID: 0}
-  attack_clip: {fileID: 0}
-  hurt_clip: {fileID: 0}
 --- !u!114 &-4445556093671423092
 MonoBehaviour:
   m_ObjectHideFlags: 0

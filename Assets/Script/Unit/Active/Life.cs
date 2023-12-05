@@ -10,6 +10,9 @@ public class Life : MonoBehaviour
     public float amount;
     private Animator _animator;
     private NavMeshAgent agent;
+
+    public AudioSource hurtaudioSource;
+    public AudioClip hurt_clip;
     public float _amount
     {
         set
@@ -97,6 +100,8 @@ public class Life : MonoBehaviour
     {
         if(gameObject.layer==LayerMask.NameToLayer("Player") || gameObject.layer == LayerMask.NameToLayer("Enemy"))
         {
+            hurtaudioSource.clip = hurt_clip;
+            hurtaudioSource.Play();
             _animator.SetTrigger("IsHit");
         }
     }
