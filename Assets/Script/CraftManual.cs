@@ -112,7 +112,7 @@ public class CraftManual : MonoBehaviour
         {
             Vector3 screenCenter = new Vector3(secondCamera.pixelWidth / 2, secondCamera.pixelHeight / 2);
             selectedSlotNumber = _slotNumber;
-            Ray ray = firstCamera.ScreenPointToRay(screenCenter);
+            Ray ray = secondCamera.ScreenPointToRay(screenCenter);
             if (Physics.Raycast(ray, out RaycastHit hitInfo1, Mathf.Infinity))
             {
                 Vector3 centerLocation = hitInfo1.point;
