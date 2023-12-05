@@ -160,11 +160,8 @@ public class TurnManager: MonoBehaviour
     {
         if (EnemyAttack)
         {
-            AttackManager.instance.checkFullHPAmount();
-            StartWar = true;
-            attack_Canvas.SetActive(true);
-            base_Canvas.SetActive(false);
-            BattleManager.instance.StartWar();
+            dayEndWithEnemyAttack();
+
             
         }
         else
@@ -182,17 +179,15 @@ public class TurnManager: MonoBehaviour
         }
         else
         {
+            StartWar = true;
             if (EnemyAttack)
             {
-                
-
+                dayEndWithBothAttack();
             }
             else
             {
-             
+                dayEndWithMyAttack();
             }
-            StartWar = true;
-            dayEndWithMyAttack();
            
         }
 
@@ -226,11 +221,185 @@ public class TurnManager: MonoBehaviour
     private void dayEndWithMyAttack()
     {
         day_Canvas.transform.Find("Moon").gameObject.transform.GetChild(1).gameObject.transform.Rotate(0f, 0f, 0f);
-        day_Canvas.transform.Find("Sun").gameObject.transform.GetChild(1).gameObject.transform.Rotate(0f, 0f, 0f);
+        day_Canvas.transform.Find("Sun").gameObject.transform.GetChild(1).gameObject.transform.Rotate(0f, 0f, 0f);  
         MainCamera.enabled = false;
         UICamera.enabled = true;
         StartCoroutine(dayEndWithMyAttack_IEnumerator());
     }
+    private void dayEndWithEnemyAttack()
+    {
+        day_Canvas.transform.Find("Moon").gameObject.transform.GetChild(1).gameObject.transform.Rotate(0f, 0f, 0f);
+        day_Canvas.transform.Find("Sun").gameObject.transform.GetChild(1).gameObject.transform.Rotate(0f, 0f, 0f);
+        MainCamera.enabled = false;
+        UICamera.enabled = true;
+        StartCoroutine(dayEndWithEnemyAttack_IEnumerator());
+    }
+    private void dayEndWithBothAttack()
+    {
+        day_Canvas.transform.Find("Moon").gameObject.transform.GetChild(1).gameObject.transform.Rotate(0f, 0f, 0f);
+        day_Canvas.transform.Find("Sun").gameObject.transform.GetChild(1).gameObject.transform.Rotate(0f, 0f, 0f);
+        MainCamera.enabled = false;
+        UICamera.enabled = true;
+        StartCoroutine(dayEndWithBothAttack_IEnumerator());
+    }
+    IEnumerator dayEndWithBothAttack_IEnumerator()
+    {
+        base_Canvas.SetActive(false);
+        day_Canvas.SetActive(true);
+        day_Canvas.transform.Find("Sun").gameObject.SetActive(true);
+        day_Canvas.transform.Find("Moon").gameObject.SetActive(false);
+        day_Canvas.transform.Find("Sun").gameObject.transform.GetChild(0).gameObject.GetComponent<Animation>().Play();
+        SunShine.Play();
+        yield return new WaitForSecondsRealtime(1f);
+        float elapsedTime = 0f;
+        float duration = 1f;
+
+        while (elapsedTime < duration)
+        {
+            day_Canvas.transform.Find("Sun").gameObject.transform.GetChild(1).gameObject.transform.Rotate(0f, 360f * Time.deltaTime, 0f);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        yield return new WaitForSecondsRealtime(0.05f);
+        day_Canvas.transform.Find("Sun").gameObject.SetActive(false);
+        day_Canvas.transform.Find("Moon").gameObject.SetActive(true);
+        day_Canvas.transform.Find("MoonBackground").gameObject.SetActive(true);
+        day_Canvas.transform.Find("Moon").gameObject.transform.GetChild(0).gameObject.GetComponent<Animation>().Play();
+
+        SunShine.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+        MoonShine.Play();
+        elapsedTime = 0f;
+        duration = 0.5f;
+
+        while (elapsedTime < duration)
+        {
+            day_Canvas.transform.Find("Moon").gameObject.transform.GetChild(1).gameObject.transform.Rotate(0f, 720f * Time.deltaTime, 0f);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        elapsedTime = 0f;
+        duration = 0.5f;
+
+        while (elapsedTime < duration)
+        {
+            day_Canvas.transform.Find("Moon").gameObject.transform.GetChild(1).gameObject.transform.Rotate(0f, 360f * Time.deltaTime, 0f);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        elapsedTime = 0f;
+        duration = 1.5f;
+
+        while (elapsedTime < duration)
+        {
+            day_Canvas.transform.Find("Moon").gameObject.transform.GetChild(1).gameObject.transform.Rotate(0f, 360f * Time.deltaTime, 0f);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        yield return new WaitForSecondsRealtime(1f);
+
+        MoonShine.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+        day_Canvas.transform.Find("Moon").gameObject.SetActive(false);
+        day_Canvas.transform.Find("MoonBackground").gameObject.SetActive(false);
+
+        playerAttackSword.SetActive(true);
+        enemyAttackSword.SetActive(true);
+        day_Canvas.transform.Find("AttackText").gameObject.SetActive(true);
+        AttackUIText.text = "Mutual Engagement in Combat";
+        yield return new WaitForSecondsRealtime(1f);
+
+        playerAttackSword.SetActive(false);
+        enemyAttackSword.SetActive(false);
+        day_Canvas.transform.Find("AttackText").gameObject.SetActive(false);
+        MainCamera.enabled = true;
+        UICamera.enabled = false;
+        waitForCutScene = true;
+        base_Canvas.SetActive(false);
+        day_Canvas.SetActive(false);
+        attack_Canvas.SetActive(true);
+        AttackManager.instance.checkFullHPAmount();
+        Onattack = true;
+        BattleManager.instance.StartWar();
+    }
+    IEnumerator dayEndWithEnemyAttack_IEnumerator()
+    {
+        base_Canvas.SetActive(false);
+        day_Canvas.SetActive(true);
+        day_Canvas.transform.Find("Sun").gameObject.SetActive(true);
+        day_Canvas.transform.Find("Moon").gameObject.SetActive(false);
+        day_Canvas.transform.Find("Sun").gameObject.transform.GetChild(0).gameObject.GetComponent<Animation>().Play();
+        SunShine.Play();
+        yield return new WaitForSecondsRealtime(1f);
+        float elapsedTime = 0f;
+        float duration = 1f;
+
+        while (elapsedTime < duration)
+        {
+            day_Canvas.transform.Find("Sun").gameObject.transform.GetChild(1).gameObject.transform.Rotate(0f, 360f * Time.deltaTime, 0f);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        yield return new WaitForSecondsRealtime(0.05f);
+        day_Canvas.transform.Find("Sun").gameObject.SetActive(false);
+        day_Canvas.transform.Find("Moon").gameObject.SetActive(true);
+        day_Canvas.transform.Find("MoonBackground").gameObject.SetActive(true);
+        day_Canvas.transform.Find("Moon").gameObject.transform.GetChild(0).gameObject.GetComponent<Animation>().Play();
+
+        SunShine.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+        MoonShine.Play();
+        elapsedTime = 0f;
+        duration = 0.5f;
+
+        while (elapsedTime < duration)
+        {
+            day_Canvas.transform.Find("Moon").gameObject.transform.GetChild(1).gameObject.transform.Rotate(0f, 720f * Time.deltaTime, 0f);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        elapsedTime = 0f;
+        duration = 0.5f;
+
+        while (elapsedTime < duration)
+        {
+            day_Canvas.transform.Find("Moon").gameObject.transform.GetChild(1).gameObject.transform.Rotate(0f, 360f * Time.deltaTime, 0f);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        elapsedTime = 0f;
+        duration = 1.5f;
+
+        while (elapsedTime < duration)
+        {
+            day_Canvas.transform.Find("Moon").gameObject.transform.GetChild(1).gameObject.transform.Rotate(0f, 360f * Time.deltaTime, 0f);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        yield return new WaitForSecondsRealtime(1f);
+
+        MoonShine.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+        day_Canvas.transform.Find("Moon").gameObject.SetActive(false);
+        day_Canvas.transform.Find("MoonBackground").gameObject.SetActive(false);
+
+        enemyAttackSword.SetActive(true);
+        day_Canvas.transform.Find("AttackText").gameObject.SetActive(true);
+        AttackUIText.text = "Enemy's counterattack";
+        yield return new WaitForSecondsRealtime(1f);
+
+        enemyAttackSword.SetActive(false);
+        day_Canvas.transform.Find("AttackText").gameObject.SetActive(false);
+        MainCamera.enabled = true;
+        UICamera.enabled = false;
+        waitForCutScene = true;
+        base_Canvas.SetActive(false);
+        day_Canvas.SetActive(false);
+        attack_Canvas.SetActive(true);
+        AttackManager.instance.checkFullHPAmount();
+        StartWar = true;
+        BattleManager.instance.StartWar();
+
+    }
+
 
     IEnumerator dayEndWithMyAttack_IEnumerator()
     {
