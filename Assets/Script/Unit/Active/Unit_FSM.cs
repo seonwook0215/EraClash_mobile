@@ -333,24 +333,25 @@ public class Unit_FSM : MonoBehaviour
 
     private float DamageCircle()
     {
-        //spear>archer>shield>sword
+        //spear>archer>shield>sword>spear
         if((this.tag=="Spear" && sightSensor.detectedObject.tag == "Archer") || (this.tag == "Archer" && sightSensor.detectedObject.tag == "Shield") 
             || (this.tag == "Shield" && sightSensor.detectedObject.tag == "Sword") || (this.tag == "Sword" && sightSensor.detectedObject.tag == "Spear"))
         {
-            UnityEngine.Debug.Log("plus damage");
-            return damage * 1.5f;
+            UnityEngine.Debug.Log("minus damage");
+            return damage * 0.8f;
         }
         else if((this.tag=="Spear" && sightSensor.detectedObject.tag == "Sword") || (this.tag == "Sword" && sightSensor.detectedObject.tag == "Shield")
             || (this.tag == "Shield" && sightSensor.detectedObject.tag == "Archer") || (this.tag == "Archer" && sightSensor.detectedObject.tag == "Spear"))
         {
-            UnityEngine.Debug.Log("minus damage");
-            return damage * 0.8f;
+            UnityEngine.Debug.Log("plus damage");
+            return damage * 1.2f;
         }
         else
         {
             return damage;
         }
     }
+
     void FortressAttack()
     {
         var timeSinceLastAttack = Time.time - lastAttackTime;
