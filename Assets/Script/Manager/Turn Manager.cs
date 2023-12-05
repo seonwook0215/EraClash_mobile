@@ -581,6 +581,7 @@ public class TurnManager: MonoBehaviour
     
     public void checkWinorLose()
     {
+        AttackManager.instance.clickNormalForward();
         if (!EUnitManager.instance.castle)
         {
             SceneManager.LoadScene("Win");

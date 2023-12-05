@@ -14,6 +14,8 @@ public class AttackManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI enemyUnits;
     [SerializeField] private GameObject playerHPbar;
     [SerializeField] private GameObject enemyHPbar;
+    [SerializeField] private GameObject fastForwardObj;
+    [SerializeField] private GameObject normalForwardObj;
 
     private float playerFullHp = 0f;
     private float enemyFullHp = 0f;
@@ -43,8 +45,8 @@ public class AttackManager : MonoBehaviour
     {
         Debug.Log("½ÇÇà");
         checkBanResearchSkill();
-        playerFullHp = PUnitManager.instance.Paladin * 20f + PUnitManager.instance.Archer * 10f + PUnitManager.instance.Shield * 50f + PUnitManager.instance.Lancer * 30f;
-        enemyFullHp = EUnitManager.instance.Paladin * 20f + EUnitManager.instance.Archer * 10f + EUnitManager.instance.Shield * 50f + EUnitManager.instance.Lancer * 30f;
+        playerFullHp = PUnitManager.instance.Paladin * 30f + PUnitManager.instance.Archer * 20f + PUnitManager.instance.Shield * 50f + PUnitManager.instance.Lancer * 40f;
+        enemyFullHp = EUnitManager.instance.Paladin * 30f + EUnitManager.instance.Archer * 20f + EUnitManager.instance.Shield * 50f + EUnitManager.instance.Lancer * 40f;
         lotsofUnit();
         Debug.Log(manyPlayerUnit);
          
@@ -174,6 +176,20 @@ public class AttackManager : MonoBehaviour
         
   
 
+    }
+
+    public void clickFastForward()
+    {
+        Time.timeScale = 2f;
+        fastForwardObj.SetActive(false);
+        normalForwardObj.SetActive(true);
+    }
+
+    public void clickNormalForward()
+    {
+        Time.timeScale = 1f;
+        fastForwardObj.SetActive(true);
+        normalForwardObj.SetActive(false);
     }
     private void checkBanResearchSkill()
     {

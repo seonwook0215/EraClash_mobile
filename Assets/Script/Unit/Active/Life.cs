@@ -35,7 +35,7 @@ public class Life : MonoBehaviour
     {
         if (this.tag == "Archer")
         {
-            amount = 10f;
+            amount = 20f;
             _animator.SetBool("Alive", true);
         }
         else if (this.tag == "Shield")
@@ -45,12 +45,12 @@ public class Life : MonoBehaviour
         }
         else if (this.tag == "Sword")
         {
-            amount = 20f;
+            amount = 30f;
             _animator.SetBool("Alive", true);
         }
         else if (this.tag == "Spear")
         {
-            amount = 30f;
+            amount = 40f;
             _animator.SetBool("Alive", true);
         }
     }
