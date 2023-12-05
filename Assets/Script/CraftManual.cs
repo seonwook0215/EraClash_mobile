@@ -92,44 +92,33 @@ public class CraftManual : MonoBehaviour
     public void SlotClick(int _slotNumber)
 
     {
-        // 화면의 정중앙을 계산
 
-
-        /*        Vector3 screenCenter = new Vector3(Camera.main.pixelWidth / 2, Camera.main.pixelHeight / 2);
-                selectedSlotNumber = _slotNumber;
-                Ray ray = Camera.main.ScreenPointToRay(screenCenter);
-                if (Physics.Raycast(ray, out RaycastHit hitInfo1, Mathf.Infinity))
-                {
-                    Vector3 centerLocation = hitInfo1.point;
-
-                    // Prefab을 화면의 정중앙에 생성
-                    go_Preview=Instantiate(craft_building[_slotNumber].go_PreviewPrefab, centerLocation, Quaternion.identity);
-                }*/
-        Vector3 mousePositionScreen = Input.mousePosition;
         selectedSlotNumber = _slotNumber;
-        // 마우스 좌표를 월드 좌표로 변환합니다.
+        
         var mousePos = Input.mousePosition;
         if (firstCamera.enabled)
         {
             Vector3 screenCenter = new Vector3(firstCamera.pixelWidth / 2, firstCamera.pixelHeight / 2);
-        selectedSlotNumber = _slotNumber;
-        Ray ray = firstCamera.ScreenPointToRay(screenCenter);
-        if (Physics.Raycast(ray, out RaycastHit hitInfo1, Mathf.Infinity))
-        {
-            Vector3 centerLocation = hitInfo1.point;
+            selectedSlotNumber = _slotNumber;
+            Ray ray = firstCamera.ScreenPointToRay(screenCenter);
+            if (Physics.Raycast(ray, out RaycastHit hitInfo1, Mathf.Infinity))
+            {
+                Vector3 centerLocation = hitInfo1.point;
+                go_Preview = Instantiate(craft_building[_slotNumber].go_PreviewPrefab, centerLocation, Quaternion.identity);
+            }
 
-            // Prefab을 화면의 정중앙에 생성
-            go_Preview=Instantiate(craft_building[_slotNumber].go_PreviewPrefab, centerLocation, Quaternion.identity);
-        }
-            /*  mousePos.z = firstCamera.transform.position.y - 20;
-              Vector3 mousePositionWorld = new Vector3(firstCamera.ScreenToWorldPoint(mousePos).x,10, firstCamera.ScreenToWorldPoint(mousePos).z);
-              go_Preview = Instantiate(craft_building[_slotNumber].go_PreviewPrefab, mousePositionWorld, Quaternion.identity);*/
         }
         else
         {
-            mousePos.z = secondCamera.transform.position.y - 20;
-            Vector3 mousePositionWorld = secondCamera.ScreenToWorldPoint(mousePos);
-            go_Preview = Instantiate(craft_building[_slotNumber].go_PreviewPrefab, mousePositionWorld, Quaternion.identity);
+            Vector3 screenCenter = new Vector3(secondCamera.pixelWidth / 2, secondCamera.pixelHeight / 2);
+            selectedSlotNumber = _slotNumber;
+            Ray ray = firstCamera.ScreenPointToRay(screenCenter);
+            if (Physics.Raycast(ray, out RaycastHit hitInfo1, Mathf.Infinity))
+            {
+                Vector3 centerLocation = hitInfo1.point;
+                go_Preview = Instantiate(craft_building[_slotNumber].go_PreviewPrefab, centerLocation, Quaternion.identity);
+            }
+
         }
         yesorno.SetActive(true);
         go_Prefab = craft_building[_slotNumber].go_Prefab;
@@ -147,15 +136,6 @@ public class CraftManual : MonoBehaviour
         TurnManager.instance.ChangeGold();
         TurnManager.instance.ChangeGainGold();
         TurnManager.instance.ChangeBuildingText();
-        //GetMouseCursorpos();
-        /*  if (movingCamera.enabled||TurnManager.instance.StartWar)
-          {
-              Cancel();
-          }
-          else
-          {
-              Window();
-          }*/
  
 
         if (isPreviewActivated)
@@ -173,39 +153,29 @@ public class CraftManual : MonoBehaviour
                 }
                 else
                 {
-                    Vector3 mousePositionWorld;
                     var mousePos = Input.mousePosition;
+                    Ray ray;
                     if (firstCamera.enabled)
                     {
-                        mousePos.z = firstCamera.transform.position.y; // 여기서는 y 좌표값을 사용하여 z 값을 정의
-                        mousePositionWorld = firstCamera.ScreenToWorldPoint(mousePos);
+                        ray = firstCamera.ScreenPointToRay(Input.mousePosition);
                         
-                        // 보간 적용
-                        float xInterpolation = (mousePos.x / Screen.width) * 2 - 1; // x 보간
-
-                        float zInterpolation = 14 * xInterpolation; // 보간에 따른 z 보정값
-                        mousePositionWorld.y = 50f;
-                        mousePositionWorld.z -= zInterpolation;
-                        Debug.Log(mousePos.z+" "+mousePositionWorld.z + " "+xInterpolation );
                     }
+
                     else
                     {
-                        mousePos.z = secondCamera.transform.position.y - 20;
-                        mousePositionWorld = secondCamera.ScreenToWorldPoint(mousePos);
+                        ray = secondCamera.ScreenPointToRay(Input.mousePosition);
                     }
-                    Debug.Log(mousePositionWorld);
-                    if (Physics.Raycast(mousePositionWorld, Vector3.down, out hitInfo, Mathf.Infinity, layerMask))
+
+                    if (Physics.Raycast(ray, out hitInfo, Mathf.Infinity, layerMask))
                     {
                         Vector3 _location = hitInfo.point;
-                        //Debug.Log(hitInfo.collider.tag);
+
                         if (hitInfo.collider.CompareTag("Building"))
                         {
                             go_Preview.layer = LayerMask.NameToLayer("Default");
                             isBuilding = true;
                             PreviewPositionUpdate();
                         }
-                        //Debug.Log($"Raycast {hitInfo.collider.gameObject.name}");
-
 
                     }
                 }
@@ -273,40 +243,24 @@ public class CraftManual : MonoBehaviour
     }
     private void PreviewPositionUpdate()
     {
-
-        Vector3 mousePositionWorld;
-        var mousePos = Input.mousePosition;
+        Ray ray;
         if (firstCamera.enabled)
         {
-            
-            mousePos.z = firstCamera.transform.position.y; // 여기서는 y 좌표값을 사용하여 z 값을 정의
-            mousePositionWorld = firstCamera.ScreenToWorldPoint(mousePos);
+            ray = firstCamera.ScreenPointToRay(Input.mousePosition);
 
-            // 보간 적용
-            float xInterpolation = (mousePos.x / Screen.width) * 2 - 1; // x 보간
-
-            float zInterpolation = 14 * xInterpolation; // 보간에 따른 z 보정값
-            mousePositionWorld.y = 50f;
-            mousePositionWorld.z -= zInterpolation;
         }
-
-        /*            if (firstCamera.enabled)
-                    {
-                        mousePos.z = firstCamera.transform.position.y - 20;
-                        mousePositionWorld = firstCamera.ScreenToWorldPoint(mousePos);
-
-                    }*/
         else
         {
-            mousePos.z = secondCamera.transform.position.y - 20;
-            mousePositionWorld = secondCamera.ScreenToWorldPoint(mousePos);
+            ray = secondCamera.ScreenPointToRay(Input.mousePosition);
+
+
         }
-        if (Physics.Raycast(mousePositionWorld, Vector3.down, out hitInfo, Mathf.Infinity, layerMask))
+        if (Physics.Raycast(ray, out hitInfo, Mathf.Infinity, layerMask))
         {
             Vector3 _location = hitInfo.point;
+
             go_Preview.transform.position = _location;
         }
-
 
     }
     private void Build()
@@ -318,7 +272,7 @@ public class CraftManual : MonoBehaviour
 
                 PResourceManager.instance.MP = PResourceManager.instance.MP - craft_building[selectedSlotNumber].craftNeedMP[0];
 
-                Instantiate(go_Prefab, hitInfo.point, Quaternion.identity);
+                Instantiate(go_Prefab, go_Preview.transform.position, Quaternion.identity);
                 Destroy(go_Preview);
                 audioSource.PlayOneShot(build_success);
 
@@ -340,11 +294,15 @@ public class CraftManual : MonoBehaviour
             BuildingTab.SetActive(true);
             BuildingList.SetActive(true);
             ReturnButton.SetActive(true);
-            if(IsDownButtonActive)
+            if (IsDownButtonActive)
                 GetDownCamera.SetActive(true);
             else
                 GetUpCamera.SetActive(true);
-            
+
+        }
+        else
+        {
+            touchNo();
         }
     }
     public void Cancel()
