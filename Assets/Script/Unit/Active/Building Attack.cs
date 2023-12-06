@@ -8,7 +8,6 @@ public class BuildingAttack : MonoBehaviour
     private float lastAttackTime;
     private float attackRate;
     private float damage;
-    private bool firstAttack;
     private void Awake()
     {
         sightSensor = GetComponentInParent<Sight>();
@@ -24,15 +23,11 @@ public class BuildingAttack : MonoBehaviour
         {
             damage = 40;
         }
-        attackRate = 1.0f;
-        firstAttack = true;
+        attackRate = 1.5f;
     }
+
     private void Update()
     {
-        if (firstAttack)
-        {
-
-        }
         if(sightSensor.detectedObject != null)
         {
             Attack();
@@ -49,10 +44,4 @@ public class BuildingAttack : MonoBehaviour
         }
     }
 
-    IEnumerator waitFirstAttack()
-    {
-        yield return new WaitForSeconds(6.0f);
-        Debug.Log("First Attack");
-        firstAttack = false;
-    }
 }
