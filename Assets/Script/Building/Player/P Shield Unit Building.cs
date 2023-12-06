@@ -7,7 +7,7 @@ public class PShieldUnitBuilding : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (this.transform.position.x < 340) //2nd fortress
+        if (this.transform.position.x > -15) //2nd fortress
         {
             PBuildingManager.instance.Fortress_S_building.Add(this);
         }

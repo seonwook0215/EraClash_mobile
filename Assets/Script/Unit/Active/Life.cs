@@ -60,7 +60,19 @@ public class Life : MonoBehaviour
         //Debug.Log(amount);
         if (amount <= 0)
         {
-            if (gameObject.layer==LayerMask.NameToLayer("Player") || gameObject.layer == LayerMask.NameToLayer("Enemy"))
+            if (gameObject.layer==LayerMask.NameToLayer("Player")&&!AttackManager.instance.useArdrenaline)
+            {
+                StartCoroutine(Death());
+            }
+            else if(gameObject.layer == 10)
+            {
+                
+            }
+            else
+            {
+                Destroy(gameObject);
+            }            
+            if (gameObject.layer == LayerMask.NameToLayer("Enemy"))
             {
                 StartCoroutine(Death());
             }

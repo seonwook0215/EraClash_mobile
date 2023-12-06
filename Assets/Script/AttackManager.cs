@@ -21,6 +21,7 @@ public class AttackManager : MonoBehaviour
     private float enemyFullHp = 0f;
     private float playerCurrentHp = 0f;
     private float enemyCurrentHp = 0f;
+    public bool useArdrenaline = false;
     private string manyPlayerUnit;
     public static AttackManager instance;
 
@@ -43,6 +44,7 @@ public class AttackManager : MonoBehaviour
     }
     public void checkFullHPAmount()
     {
+        useArdrenaline = false;
         Debug.Log("실행");
         checkBanResearchSkill();
         playerFullHp = 0;
@@ -278,30 +280,114 @@ public class AttackManager : MonoBehaviour
     {
         for (int i = 0; i < PUnitManager.instance.P_units.Count; i++)
         {
-            PUnitManager.instance.P_units[i].GetComponent<Life>().amount += 20;
+            if (PUnitManager.instance.P_units[i].GetComponent<Life>().amount + 15f >= 30f)
+            {
+                PUnitManager.instance.P_units[i].GetComponent<Life>().amount = 30f;
+            }
+            else
+            {
+                PUnitManager.instance.P_units[i].GetComponent<Life>().amount += 15f;
+            }
         }
         for (int i = 0; i < PUnitManager.instance.A_units.Count; i++)
         {
-            PUnitManager.instance.A_units[i].GetComponent<Life>().amount += 20;
+            
+            if (PUnitManager.instance.A_units[i].GetComponent<Life>().amount + 10f >= 20f)
+            {
+                PUnitManager.instance.A_units[i].GetComponent<Life>().amount = 20f;
+            }
+            else
+            {
+                PUnitManager.instance.A_units[i].GetComponent<Life>().amount += 10f;
+            }
         }
         for (int i = 0; i < PUnitManager.instance.L_units.Count; i++)
         {
-            PUnitManager.instance.L_units[i].GetComponent<Life>().amount += 20;
+            
+            if (PUnitManager.instance.L_units[i].GetComponent<Life>().amount + 20f >= 40f)
+            {
+                PUnitManager.instance.L_units[i].GetComponent<Life>().amount = 40f;
+            }
+            else
+            {
+                PUnitManager.instance.L_units[i].GetComponent<Life>().amount += 20f;
+            }
         }
         for (int i = 0; i < PUnitManager.instance.S_units.Count; i++)
         {
-            PUnitManager.instance.S_units[i].GetComponent<Life>().amount += 20;
+            
+            if (PUnitManager.instance.S_units[i].GetComponent<Life>().amount + 25f >= 50f)
+            {
+                PUnitManager.instance.S_units[i].GetComponent<Life>().amount = 50f;
+            }
+            else
+            {
+                PUnitManager.instance.S_units[i].GetComponent<Life>().amount = 25f;
+            }
         }
 
         bannedHeal.SetActive(true);
     }
     public void clickRageButton()
     {
+        for (int i = 0; i < PUnitManager.instance.P_units.Count; i++)
+        {
+            PUnitManager.instance.P_units[i].GetComponent<Unit_FSM>().damage *= 1.2f;
+            PUnitManager.instance.P_units[i].GetComponent<Unit_FSM>().attackRate *= 0.8f;
+        }
+        for (int i = 0; i < PUnitManager.instance.A_units.Count; i++)
+        {
+            PUnitManager.instance.A_units[i].GetComponent<Unit_FSM>().damage *= 1.2f;
+            PUnitManager.instance.A_units[i].GetComponent<Unit_FSM>().attackRate *= 0.8f;
+        }
+        for (int i = 0; i < PUnitManager.instance.L_units.Count; i++)
+        {
+            PUnitManager.instance.L_units[i].GetComponent<Unit_FSM>().damage *= 1.2f;
+            PUnitManager.instance.L_units[i].GetComponent<Unit_FSM>().attackRate *= 0.8f;
+        }
+        for (int i = 0; i < PUnitManager.instance.S_units.Count; i++)
+        {
+            PUnitManager.instance.S_units[i].GetComponent<Unit_FSM>().damage *= 1.2f;
+            PUnitManager.instance.S_units[i].GetComponent<Unit_FSM>().attackRate *= 0.8f;
+        }
         bannedRage.SetActive(true);
+        Debug.Log("화가난다");
+        StartCoroutine(rageWait());
+    }
+    IEnumerator rageWait()
+    {
+        yield return new WaitForSecondsRealtime(10.0f);
+        for (int i = 0; i < PUnitManager.instance.P_units.Count; i++)
+        {
+            PUnitManager.instance.P_units[i].GetComponent<Unit_FSM>().damage *= 0.84f;
+            PUnitManager.instance.P_units[i].GetComponent<Unit_FSM>().attackRate *= 1.25f;
+        }
+        for (int i = 0; i < PUnitManager.instance.A_units.Count; i++)
+        {
+            PUnitManager.instance.A_units[i].GetComponent<Unit_FSM>().damage *= 0.84f;
+            PUnitManager.instance.A_units[i].GetComponent<Unit_FSM>().attackRate *= 1.25f;
+        }
+        for (int i = 0; i < PUnitManager.instance.L_units.Count; i++)
+        {
+            PUnitManager.instance.L_units[i].GetComponent<Unit_FSM>().damage *= 0.84f;
+            PUnitManager.instance.L_units[i].GetComponent<Unit_FSM>().attackRate *= 1.25f;
+        }
+        for (int i = 0; i < PUnitManager.instance.S_units.Count; i++)
+        {
+            PUnitManager.instance.S_units[i].GetComponent<Unit_FSM>().damage *= 0.84f;
+            PUnitManager.instance.S_units[i].GetComponent<Unit_FSM>().attackRate *= 1.25f;
+        }
+        Debug.Log("화가안난다");
     }
     public void clickArdrenalineButton()
     {
+        useArdrenaline = true;
         bannedArdrenaline.SetActive(true);
+    }
+    IEnumerator ardrenalineWait()
+    {
+        yield return new WaitForSecondsRealtime(6f);
+        useArdrenaline = false;
     }
     public void clickMercenaryButton()
     {

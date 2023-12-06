@@ -114,7 +114,7 @@ public class practiceManager : MonoBehaviour
             }
             else if (whatTextToShow > 6)
             {
-                Debug.Log(whatTextToShow2);
+                
                 if (whatTextToShow2 == 2)
                 {
                     haveGoldObj.SetActive(false);
