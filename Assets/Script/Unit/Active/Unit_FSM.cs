@@ -328,7 +328,7 @@ public class Unit_FSM : MonoBehaviour
 
     IEnumerator MovetoAttack()
     {
-        yield return new WaitForSecondsRealtime(5.0f);
+        yield return new WaitForSeconds(5.0f);
         _animator.SetBool("MovetoAttack", true);
         currentState = UnitState.ChaseEnemy;
     }

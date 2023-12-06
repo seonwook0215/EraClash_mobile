@@ -13,6 +13,7 @@ public class Life : MonoBehaviour
 
     public AudioSource hurtaudioSource;
     public AudioClip hurt_clip;
+
     public float _amount
     {
         set
@@ -89,7 +90,6 @@ public class Life : MonoBehaviour
 
     IEnumerator Death()
     {
-        gameObject.layer = 10;
         agent.velocity = Vector3.zero;
         agent.updatePosition = false;
         agent.updateRotation = false;
@@ -98,7 +98,16 @@ public class Life : MonoBehaviour
         _animator.SetBool("EnemyinRange", false);
         _animator.SetBool("MovetoAttack", false);
         _animator.SetBool("Alive", false);
-        yield return new WaitForSecondsRealtime(3.0f);
+        if (gameObject.layer == LayerMask.NameToLayer("Player"))
+        {
+            PUnitManager.instance.units.Remove(this.GetComponentInParent<PUnit>());
+        }
+        else if(gameObject.layer == LayerMask.NameToLayer("Enemy"))
+        {
+            EUnitManager.instance.units.Remove(this.GetComponentInParent<EUnit>());
+        }
+        gameObject.layer = 10;
+        yield return new WaitForSeconds(3.0f);
         Destroy(gameObject);
     }
 
