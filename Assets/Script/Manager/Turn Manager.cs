@@ -134,14 +134,7 @@ public class TurnManager: MonoBehaviour
         ResearchButton.SetActive(false);
         SoldierButton.SetActive(false);
         EndDayButton.SetActive(false);
-        if (AttackButton == null)
-        {
-
-        }
-        else
-        {
-            AttackButton.SetActive(false);
-        }
+        AttackButton.SetActive(false);
     }
     public void TouchReturnButton()
     {
@@ -152,15 +145,7 @@ public class TurnManager: MonoBehaviour
         ResearchButton.SetActive(true);
         SoldierButton.SetActive(true);
         EndDayButton.SetActive(true);
-        if (AttackButton == null)
-        {
-
-        }
-        else
-        {
-            AttackButton.SetActive(true);
-        }
-        
+        AttackButton.SetActive(true);
     }
     public void TouchResearchButton()
     {

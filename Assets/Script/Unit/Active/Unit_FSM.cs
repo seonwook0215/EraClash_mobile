@@ -344,8 +344,11 @@ public class Unit_FSM : MonoBehaviour
         var timeSinceLastAttack = Time.time - lastAttackTime;
         if(timeSinceLastAttack > attackRate)
         {
-            attackaudioSource.clip = attack_clip;
-            attackaudioSource.Play();
+            if(sightSensor.detectedObject.tag != "Castle" || sightSensor.detectedObject.tag != "Fortress")
+            {
+                attackaudioSource.clip = attack_clip;
+                attackaudioSource.Play();
+            }
             lastAttackTime = Time.time;
             _animator.SetTrigger("Attack");
             sightSensor.detectedObject.GetComponentInParent<Life>().HitDamage(DamageCircle());
