@@ -90,6 +90,7 @@ public class EnemyAI : MonoBehaviour
             }
             else if(Fortressbuildingcnt == 14)
             {
+                Fortressbuildingcnt = 1;
                 FortressBuildPos = new Vector3(321, 0, -25);
             }
             else
@@ -103,22 +104,27 @@ public class EnemyAI : MonoBehaviour
     {
         if(name == "Resouce" && EResourceManager.instance.MP >= 50)
         {
+            Debug.Log("canbuild");
             return true;
         }
         else if(name == "Spear" && EResourceManager.instance.MP >= 250)
         {
+            Debug.Log("canbuild");
             return true;
         }
         else if (name == "Sword" && EResourceManager.instance.MP >= 150)
         {
+            Debug.Log("canbuild");
             return true;
         }
         else if(name == "Archer" && EResourceManager.instance.MP >= 200)
         {
+            Debug.Log("canbuild");
             return true;
         }
         else if(name == "Shield" && EResourceManager.instance.MP >= 250) //방패병 건물 얼마?
         {
+            Debug.Log("canbuild");
             return true;
         }
         else { return false; }
@@ -152,7 +158,6 @@ public class EnemyAI : MonoBehaviour
                 break;
             //Day 3 창   공격x
             case 2:
-                TurnManager.instance.EnemyAttack = true;
                 if (canBuild("Resouce"))
                 {
                     Debug.Log("can build");
@@ -173,7 +178,7 @@ public class EnemyAI : MonoBehaviour
                 break;
             //Day 5 검
             case 4:
-                TurnManager.instance.EnemyAttack = true;
+                //TurnManager.instance.EnemyAttack = true;
                 if (canBuild("Sword"))
                 {
                     Debug.Log("can build");
@@ -221,13 +226,13 @@ public class EnemyAI : MonoBehaviour
                 break;
             //Day 10궁
             case 9:
-                TurnManager.instance.EnemyAttack = true;
-                if (canBuild("Shield"))
-                {
-                    GenerateBuilding(ShieldBuilding);
-                    EResourceManager.instance.MP -= 250;
-                    break;
-                }
+                //TurnManager.instance.EnemyAttack = true;
+                if (canBuild("Shield")) { }
+                //{
+                //    GenerateBuilding(ShieldBuilding);
+                //    EResourceManager.instance.MP -= 250;
+                //    break;
+                //}
                 break;
 
             //Day 11검 ->계속 뽑기
@@ -373,7 +378,8 @@ public class EnemyAI : MonoBehaviour
     {
         while (true)
         {
-            float rand=Random.Range(0,4);
+            int rand=Random.Range(0,4);
+            Debug.Log(rand);
             if (rand == 0)
             {
                 if (canBuild("Resouce"))

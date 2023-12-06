@@ -120,6 +120,21 @@ public class Unit_FSM : MonoBehaviour
             currentState = UnitState.ChaseEnemy;
             return;
         }
+        if(gameObject.layer == LayerMask.NameToLayer("Player") && !EUnitManager.instance.fortress)
+        {
+            _animator.SetBool("MovetoAttack", true);
+            _animator.SetBool("EnemyinRange", false);
+            currentState = UnitState.GoToCastle;
+            return;
+        }
+        else if(gameObject.layer == LayerMask.NameToLayer("Enemy") && !PUnitManager.instance.fortress)
+        {
+            _animator.SetBool("MovetoAttack", true);
+            _animator.SetBool("EnemyinRange", false);
+            currentState = UnitState.GoToCastle;
+            return;
+        }
+
         agent.SetDestination(Fortress_pos.position);
         float distanceToPlayer = Vector3.Distance(transform.position, Fortress_pos.position);
 
