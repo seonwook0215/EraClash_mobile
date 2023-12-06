@@ -94,7 +94,6 @@ public class Life : MonoBehaviour
     {
         _amount = amount - damage;
         amount -= damage;
-        //Debug.Log(damage+ " "+ _amount);
     }
     void hit()
     {

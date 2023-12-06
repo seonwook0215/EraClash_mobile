@@ -37,8 +37,8 @@ public class BuildingAttack : MonoBehaviour
         var timeSinceLastAttack = Time.time - lastAttackTime;
         if (timeSinceLastAttack > attackRate)
         {
-            //Debug.Log("Building Attack");
             lastAttackTime = Time.time;
+            Debug.Log(damage);
             sightSensor.detectedObject.GetComponentInParent<Life>().HitDamage(damage);
         }
     }

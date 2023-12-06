@@ -55,7 +55,6 @@ public class EnemyAI : MonoBehaviour
     {
         if(inCastle)
         {
-            Debug.Log("incastle");
             Instantiate(building, CastleBuildPos, Quaternion.identity);
             Castlebuildingcnt++;
             inCastle = false;
@@ -80,7 +79,6 @@ public class EnemyAI : MonoBehaviour
         }
         else
         {
-            Debug.Log("not incastle");
             Instantiate(building, FortressBuildPos, Quaternion.identity);
             inCastle = true;
             Fortressbuildingcnt++;
@@ -104,27 +102,22 @@ public class EnemyAI : MonoBehaviour
     {
         if(name == "Resouce" && EResourceManager.instance.MP >= 50)
         {
-            Debug.Log("canbuild");
             return true;
         }
         else if(name == "Spear" && EResourceManager.instance.MP >= 250)
         {
-            Debug.Log("canbuild");
             return true;
         }
         else if (name == "Sword" && EResourceManager.instance.MP >= 150)
         {
-            Debug.Log("canbuild");
             return true;
         }
         else if(name == "Archer" && EResourceManager.instance.MP >= 200)
         {
-            Debug.Log("canbuild");
             return true;
         }
         else if(name == "Shield" && EResourceManager.instance.MP >= 250) //방패병 건물 얼마?
         {
-            Debug.Log("canbuild");
             return true;
         }
         else { return false; }
@@ -140,7 +133,6 @@ public class EnemyAI : MonoBehaviour
             case 0:
                 if (canBuild("Resouce"))
                 {
-                    Debug.Log("can build");
                     GenerateBuilding(ResourceBuilding);
                     EResourceManager.instance.MP -= 50;
                     break;
@@ -150,7 +142,6 @@ public class EnemyAI : MonoBehaviour
             case 1:
                 if (canBuild("Spear"))
                 {
-                    Debug.Log("can build");
                     GenerateBuilding(LancerBuilding);
                     EResourceManager.instance.MP -= 250;
                     break;
@@ -160,7 +151,6 @@ public class EnemyAI : MonoBehaviour
             case 2:
                 if (canBuild("Resouce"))
                 {
-                    Debug.Log("can build");
                     GenerateBuilding(ResourceBuilding);
                     EResourceManager.instance.MP -= 50;
                     break;
@@ -170,7 +160,6 @@ public class EnemyAI : MonoBehaviour
             case 3:
                 if (canBuild("Resouce"))
                 {
-                    Debug.Log("can build");
                     GenerateBuilding(ResourceBuilding);
                     EResourceManager.instance.MP -= 50;
                     break;
@@ -180,7 +169,6 @@ public class EnemyAI : MonoBehaviour
             case 4:
                 if (canBuild("Sword"))
                 {
-                    Debug.Log("can build");
                     GenerateBuilding(SwordBuilding);
                     EResourceManager.instance.MP -= 150;
                     break;
@@ -378,7 +366,7 @@ public class EnemyAI : MonoBehaviour
         while (true)
         {
             int rand=Random.Range(0,4);
-            Debug.Log(rand);
+            Debug.Log("rand: "+rand);
             if (rand == 0)
             {
                 if (canBuild("Resouce"))
