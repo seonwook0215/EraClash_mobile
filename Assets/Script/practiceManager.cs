@@ -122,7 +122,7 @@ public class practiceManager : MonoBehaviour
                 }
                 else if (whatTextToShow2 == 3)
                 {
-                    attackObj.SetActive(false);
+                    Destroy(attackObj);
                 }
                 else if (whatTextToShow2 == 4)
                 {
