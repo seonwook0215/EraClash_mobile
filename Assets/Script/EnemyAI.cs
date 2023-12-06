@@ -133,7 +133,7 @@ public class EnemyAI : MonoBehaviour
     private void Alact() {
         //처음 시작 200원 시작
         CounterUnitBuild();
-        
+
         switch (Day)
         {
             //Day 1 자원
@@ -178,7 +178,6 @@ public class EnemyAI : MonoBehaviour
                 break;
             //Day 5 검
             case 4:
-                //TurnManager.instance.EnemyAttack = true;
                 if (canBuild("Sword"))
                 {
                     Debug.Log("can build");
@@ -226,13 +225,13 @@ public class EnemyAI : MonoBehaviour
                 break;
             //Day 10궁
             case 9:
-                //TurnManager.instance.EnemyAttack = true;
-                if (canBuild("Shield")) { }
-                //{
-                //    GenerateBuilding(ShieldBuilding);
-                //    EResourceManager.instance.MP -= 250;
-                //    break;
-                //}
+                TurnManager.instance.EnemyAttack = true;
+                if (canBuild("Shield"))
+                {
+                    GenerateBuilding(ShieldBuilding);
+                    EResourceManager.instance.MP -= 250;
+                    break;
+                }
                 break;
 
             //Day 11검 ->계속 뽑기
