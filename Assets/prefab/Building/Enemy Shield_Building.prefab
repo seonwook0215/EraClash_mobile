@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 919970558408372065}
-  - component: {fileID: 8686229946231886244}
+  - component: {fileID: 1043504832408114813}
   m_Layer: 0
-  m_Name: Shield_Building
+  m_Name: Enemy Shield_Building
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -36,7 +36,7 @@ Transform:
   - {fileID: 814831730757080451}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8686229946231886244
+--- !u!114 &1043504832408114813
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -45,7 +45,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 919970558408372064}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c673d148b62e1b74fbe87fcdb053bf4b, type: 3}
+  m_Script: {fileID: 11500000, guid: fd6eca5f744d69c4d9fa60af96ab4443, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &919970557334856200
