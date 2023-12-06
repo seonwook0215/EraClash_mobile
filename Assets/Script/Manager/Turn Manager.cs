@@ -181,7 +181,7 @@ public class TurnManager: MonoBehaviour
         }
         else
         {
-            //dayEndWithNoCombat();
+            dayEndWithNoCombat();
             TurnStart();
         }
     }
@@ -608,7 +608,7 @@ public class TurnManager: MonoBehaviour
             Debug.Log("패배");
             //패배
         }
-        else if (EnemyAI.Instance.Day > 25)
+        else if (EnemyAI.Instance.Day > 24)
         {
             SceneManager.LoadScene("Lose");
             Debug.Log("패배");
