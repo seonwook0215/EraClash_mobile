@@ -99,7 +99,7 @@ public class CraftManual : MonoBehaviour
         var mousePos = Input.mousePosition;
         if (firstCamera.enabled)
         {
-            Debug.Log(selectedSlotNumber);
+            
             Vector3 screenCenter = new Vector3(firstCamera.pixelWidth / 2, firstCamera.pixelHeight / 2);
             selectedSlotNumber = _slotNumber;
             Ray ray = firstCamera.ScreenPointToRay(screenCenter);

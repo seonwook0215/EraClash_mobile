@@ -45,11 +45,75 @@ public class AttackManager : MonoBehaviour
     {
         Debug.Log("½ÇÇà");
         checkBanResearchSkill();
-        playerFullHp = PUnitManager.instance.Paladin * 30f + PUnitManager.instance.Archer * 20f + PUnitManager.instance.Shield * 50f + PUnitManager.instance.Lancer * 40f;
-        enemyFullHp = EUnitManager.instance.Paladin * 30f + EUnitManager.instance.Archer * 20f + EUnitManager.instance.Shield * 50f + EUnitManager.instance.Lancer * 40f;
+        playerFullHp = 0;
+        enemyFullHp = 0;
+        if (PUnitManager.instance.Paladin >= 20)
+        {
+            playerFullHp += 20 * 30f;
+        }
+        else
+        {
+            playerFullHp += PUnitManager.instance.Paladin * 30f;
+        }
+        if (PUnitManager.instance.Archer >= 20)
+        {
+            playerFullHp += 20 * 20f;
+        }
+        else
+        {
+            playerFullHp += PUnitManager.instance.Archer * 20f;
+        }
+        if (PUnitManager.instance.Lancer >= 20)
+        {
+            playerFullHp += 20 * 40f;
+        }
+        else
+        {
+            playerFullHp += PUnitManager.instance.Lancer * 40f;
+        }
+        if (PUnitManager.instance.Shield >= 20)
+        {
+            playerFullHp += 20 * 50f;
+        }
+        else
+        {
+            playerFullHp += PUnitManager.instance.Shield * 30f;
+        }
+
+        if (EUnitManager.instance.Paladin >= 20)
+        {
+            enemyFullHp += 20 * 30f;
+        }
+        else
+        {
+            enemyFullHp += EUnitManager.instance.Paladin * 30f;
+        }
+        if (EUnitManager.instance.Archer >= 20)
+        {
+            enemyFullHp += 20 * 20f;
+        }
+        else
+        {
+            enemyFullHp += EUnitManager.instance.Archer * 20f;
+        }
+        if (EUnitManager.instance.Lancer >= 20)
+        {
+            enemyFullHp += 20 * 40f;
+        }
+        else
+        {
+            enemyFullHp += EUnitManager.instance.Lancer * 40f;
+        }
+        if (EUnitManager.instance.Shield >= 20)
+        {
+            enemyFullHp += 20 * 50f;
+        }
+        else
+        {
+            enemyFullHp += EUnitManager.instance.Shield * 30f;
+        }
         lotsofUnit();
-        Debug.Log(manyPlayerUnit);
-         
+
     }
     private void lotsofUnit()
     {

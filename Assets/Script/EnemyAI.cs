@@ -133,7 +133,7 @@ public class EnemyAI : MonoBehaviour
     private void Alact() {
         //처음 시작 200원 시작
         CounterUnitBuild();
-        Debug.Log("MP : "+EResourceManager.instance.MP +" "+ Day);
+        
         switch (Day)
         {
             //Day 1 자원
