@@ -79,22 +79,25 @@ public class EnemyAI : MonoBehaviour
         }
         else
         {
-            Instantiate(building, FortressBuildPos, Quaternion.identity);
+            if (EUnitManager.instance.fortress)
+            {
+                Instantiate(building, FortressBuildPos, Quaternion.identity);
+                Fortressbuildingcnt++;
+                if (Fortressbuildingcnt == 6)
+                {
+                    FortressBuildPos = new Vector3(295, 0, -38);
+                }
+                else if (Fortressbuildingcnt == 14)
+                {
+                    //Fortressbuildingcnt = 1;
+                    //FortressBuildPos = new Vector3(321, 0, -25);
+                }
+                else
+                {
+                    FortressBuildPos.z += 10;
+                }
+            }
             inCastle = true;
-            Fortressbuildingcnt++;
-            if(Fortressbuildingcnt == 6)
-            {
-                FortressBuildPos = new Vector3(295, 0, -38);
-            }
-            else if(Fortressbuildingcnt == 14)
-            {
-                //Fortressbuildingcnt = 1;
-                //FortressBuildPos = new Vector3(321, 0, -25);
-            }
-            else
-            {
-                FortressBuildPos.z += 10;
-            }
         }
     }
 
@@ -323,7 +326,7 @@ public class EnemyAI : MonoBehaviour
                 }
                 break;
             case 20:
-                TurnManager.instance.EnemyAttack = true;
+                
                 if (canBuild("Sword"))
                 {
                     GenerateBuilding(SwordBuilding);
@@ -343,7 +346,7 @@ public class EnemyAI : MonoBehaviour
                 }
                 break;
             case 22:
-                TurnManager.instance.EnemyAttack = true;
+                
                 if (canBuild("Archer"))
                 {
                     GenerateBuilding(ArcherBuilding);
@@ -353,7 +356,7 @@ public class EnemyAI : MonoBehaviour
                 }
                 break;
             case 23:
-                TurnManager.instance.EnemyAttack = true;
+                
                 if (canBuild("Archer"))
                 {
                     GenerateBuilding(ArcherBuilding);
@@ -373,7 +376,7 @@ public class EnemyAI : MonoBehaviour
                 }
                 break;
             case 25:
-                TurnManager.instance.EnemyAttack = true;
+                
                 if (canBuild("Shield"))
                 {
                     GenerateBuilding(ShieldBuilding);

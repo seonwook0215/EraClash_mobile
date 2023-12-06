@@ -39,7 +39,7 @@ public class practiceManager : MonoBehaviour
         PResourceManager.instance.MP = 100000000;
         StartCoroutine(NormalChat("HI, Welcome To Era Clash"));
         textSet1[0] = "If we've met before or you know how to play this game, please press the skip button at the top.";
-        textSet1[1] = "If not, let me introduce you Ela Clash.";
+        textSet1[1] = "If not, let me introduce you Era Clash.";
         textSet1[2] = "Era Clash is a game where you produce resources, construct buildings, or conduct research.";
         textSet1[3] = "The goal is to destroy the opponent's castle before they destroy yours.";
         textSet1[4] = "I'll show you the screen that you'll see in the actual game.";
