@@ -14,8 +14,8 @@ public class PUnit: MonoBehaviour
     private void Update()
     {
     }
-    private void OnDestroy()
-    {
-        PUnitManager.instance.units.Remove(this);
-    }
+    //private void OnDestroy()
+    //{
+    //    PUnitManager.instance.units.Remove(this);
+    //}
 }

@@ -73,8 +73,8 @@ public class EnemyAI : MonoBehaviour
             }
             else // >18
             {
-                Castlebuildingcnt = 1;
-                CastleBuildPos = new Vector3(415, 0, -75);
+                //Castlebuildingcnt = 1;
+                //CastleBuildPos = new Vector3(415, 0, -75);
             }
         }
         else
@@ -88,8 +88,8 @@ public class EnemyAI : MonoBehaviour
             }
             else if(Fortressbuildingcnt == 14)
             {
-                Fortressbuildingcnt = 1;
-                FortressBuildPos = new Vector3(321, 0, -25);
+                //Fortressbuildingcnt = 1;
+                //FortressBuildPos = new Vector3(321, 0, -25);
             }
             else
             {
@@ -100,6 +100,10 @@ public class EnemyAI : MonoBehaviour
 
     private bool canBuild(string name)
     {
+        if(Castlebuildingcnt>18 || Fortressbuildingcnt > 13)
+        {
+            return false;
+        }
         if(name == "Resouce" && EResourceManager.instance.MP >= 50)
         {
             return true;
@@ -328,6 +332,56 @@ public class EnemyAI : MonoBehaviour
                     break;
                 }
                 break;
+            case 21:
+                TurnManager.instance.EnemyAttack = true;
+                if (canBuild("Spear"))
+                {
+                    GenerateBuilding(LancerBuilding);
+                    EResourceManager.instance.MP -= 150;
+                    BuildLoop();
+                    break;
+                }
+                break;
+            case 22:
+                TurnManager.instance.EnemyAttack = true;
+                if (canBuild("Archer"))
+                {
+                    GenerateBuilding(ArcherBuilding);
+                    EResourceManager.instance.MP -= 150;
+                    BuildLoop();
+                    break;
+                }
+                break;
+            case 23:
+                TurnManager.instance.EnemyAttack = true;
+                if (canBuild("Archer"))
+                {
+                    GenerateBuilding(ArcherBuilding);
+                    EResourceManager.instance.MP -= 150;
+                    BuildLoop();
+                    break;
+                }
+                break;
+            case 24:
+                TurnManager.instance.EnemyAttack = true;
+                if (canBuild("Spear"))
+                {
+                    GenerateBuilding(SwordBuilding);
+                    EResourceManager.instance.MP -= 150;
+                    BuildLoop();
+                    break;
+                }
+                break;
+            case 25:
+                TurnManager.instance.EnemyAttack = true;
+                if (canBuild("Shield"))
+                {
+                    GenerateBuilding(ShieldBuilding);
+                    EResourceManager.instance.MP -= 150;
+                    BuildLoop();
+                    break;
+                }
+                break;
         }
 
     }
@@ -338,22 +392,26 @@ public class EnemyAI : MonoBehaviour
         if (PlayermainUnit == "Sword")
         {
             //shield
-            GenerateBuilding(LancerBuilding);
+            if (canBuild("Spear"))
+                GenerateBuilding(LancerBuilding);
         }
         else if(PlayermainUnit == "Spear")
         {
             //sword
-            GenerateBuilding(ArcherBuilding);
+            if (canBuild("Archer"))
+                GenerateBuilding(ArcherBuilding);
         }
         else if(PlayermainUnit == "Archer")
         {
             //spear
-            GenerateBuilding(ShieldBuilding);
+            if (canBuild("Shield"))
+                GenerateBuilding(ShieldBuilding);
         }
         else if (PlayermainUnit == "Shield")
         {
             //archer
-            GenerateBuilding(SwordBuilding);
+            if (canBuild("Sword"))
+                GenerateBuilding(SwordBuilding);
         }
         else
         {

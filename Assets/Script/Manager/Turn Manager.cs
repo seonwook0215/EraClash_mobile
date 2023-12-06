@@ -593,6 +593,11 @@ public class TurnManager: MonoBehaviour
             Debug.Log("패배");
             //패배
         }
+        else if (EnemyAI.Instance.Day > 25)
+        {
+            SceneManager.LoadScene("Lose");
+            Debug.Log("패배");
+        }
         else
         {
             waitForCutScene = false;
